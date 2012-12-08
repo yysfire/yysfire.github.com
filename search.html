@@ -60,9 +60,9 @@
           </div> <!--/.nav-collapse -->
 
           <div class="pull-right">
-            <form class="navbar-search">
+            <form class="navbar-search" action="/search.html">
               <!--<div class="input-append">-->
-                <input type="text" class="search-query input-medium" placeholder="搜索">
+                <input type="text" name="q" class="search-query input-medium" placeholder="搜索">
                 <button type="submit" class="icon nav-search"><i class="icon-search icon-white"></i></button>
               <!--</div>-->
             </form>
@@ -81,7 +81,7 @@
             <li class="active">你的位置</li>
           </ul>
 
-          <div id="cse">正在搜索...</div>
+          <div id="cse" style="width: 100%;">正在搜索...</div>
 
           <div id="copy"></div>
         </div> <!-- /.span9 -->
@@ -107,20 +107,36 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="myapp.js"></script>
 
-    <script src="http://www.google.com/jsapi " type="text/javascript"></script>
-    <script type="text/javascript">
-      google.load('search', '1', {language : 'zh-CN' , "nocss" : true });
-      google.setOnLoadCallback(function(){
-          var customSearchControl = new google.search.CustomSearchControl('004319318171601523005:iz9xfbkt8n4');
-          customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);
-          customSearchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);
-          customSearchControl.draw('cse');
-          var match = location.search.match(/q=([^&]*)(&|$)/);
-          if(match && match[1]){
-            var search = decodeURIComponent(match[1]);
-            customSearchControl.execute(search);
-          }
-      });
-    </script>
+<script src="http://www.google.com/jsapi" type="text/javascript"></script>
+<script type="text/javascript">
+  google.load('search', '1', {language : 'zh-CN', style : google.loader.themes.V2_DEFAULT});
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+      '004319318171601523005:iz9xfbkt8n4', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    customSearchControl.draw('cse');
+    var match = location.search.match(/q=([^&]*)(&|$)/);
+    if(match && match[1]){
+        var search = decodeURIComponent(match[1]);
+    customSearchControl.execute(search);
+    }
+  }, true);
+</script>
+
+    <!--<script src="http://www.google.com/jsapi " type="text/javascript"></script>-->
+    <!--<script type="text/javascript">-->
+      <!--google.load('search', '1', {language : 'zh-CN' , "nocss" : true });-->
+      <!--google.setOnLoadCallback(function(){-->
+          <!--var customSearchControl = new google.search.CustomSearchControl('004319318171601523005:iz9xfbkt8n4');-->
+          <!--customSearchControl.setResultSetSize(google.search.Search.SMALL_RESULTSET);-->
+          <!--customSearchControl.setLinkTarget(google.search.Search.LINK_TARGET_SELF);-->
+          <!--customSearchControl.draw('cse');-->
+          <!--var match = location.search.match(/q=([^&]*)(&|$)/);-->
+          <!--if(match && match[1]){-->
+            <!--var search = decodeURIComponent(match[1]);-->
+            <!--customSearchControl.execute(search);-->
+          <!--}-->
+      <!--});-->
+    <!--</script>-->
   </body>
 </html>

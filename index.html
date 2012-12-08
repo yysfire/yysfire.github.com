@@ -61,21 +61,12 @@
           </div> <!--/.nav-collapse -->
 
           <div class="pull-right">
-            <!-- 使用该代码即表示您同意接受 Google 自定义搜索服务条款。 -->
-            <!-- 有关服务条款，请访问 http://www.google.com/cse/docs/tos.html?hl=zh-CN -->
-            <form class="navbar-search" name="cse" id="searchbox" action="/search.html">
-              <!--<input type="hidden" name="cref" value="" />-->
-              <!--<input type="hidden" name="ie" value="utf-8" />-->
-              <!--<input type="hidden" name="hl" value="zh-CN" />-->
-              <input name="q" type="text" size="40" id="input-search" />
-              <input type="submit" value="搜索" />
+            <form class="navbar-search" action="/search.html">
+              <!--<div class="input-append">-->
+                <input type="text" name="q" class="search-query input-medium" placeholder="搜索">
+                <button type="submit" class="icon nav-search"><i class="icon-search icon-white"></i></button>
+              <!--</div>-->
             </form>
-            <!--<form class="navbar-search">-->
-              <!--[><div class="input-append"><]-->
-                <!--<input type="text" class="search-query input-medium" placeholder="搜索">-->
-                <!--<button type="submit" class="icon nav-search"><i class="icon-search icon-white"></i></button>-->
-              <!--[></div><]-->
-            <!--</form>-->
           </div>
 
         </div> <!-- /.container -->
@@ -367,7 +358,6 @@
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="google-code-prettify/prettify.js"></script>
     <script src="myapp.js"></script>
-    <script type="text/javascript" src="http://www.google.com/cse/tools/onthefly?form=searchbox_demo&lang=zh-CN"></script>
 
     <!-- Baidu Button BEGIN -->
     <script type="text/javascript" id="bdshare_js" data="type=slide&img=7&pos=right&uid=774188" ></script>

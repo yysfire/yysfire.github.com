@@ -89,6 +89,14 @@
 <li><a href="#toc_1.1">输出指定的数字序列</a>
 <li><a href="#toc_1.2">打印换行</a>
 <li><a href="#toc_1.3">脚本里如何获取脚本所在目录</a>
+<li><a href="#toc_1.4">进程管理相关命令</a>
+<li><a href="#toc_1.5">递归批量进行dos2unix转换</a>
+<li><a href="#toc_1.6">man 使用技巧两则</a>
+<ul>
+<li><a href="#toc_1.6.1">使用书签</a>
+<li><a href="#toc_1.6.2">测试命令</a>
+</ul>
+<li><a href="#toc_1.7">实用的Linux命令</a>
 </ul>
 </ul>
 </div>
@@ -98,7 +106,7 @@
 </p>
 <ul>
 <li>
-Last Modified: 2012-12-05 15:44:16
+Last Modified: 2012-12-11 07:05:24
 
 <li>
 First Created: 2012-12-01 11:20:41
@@ -137,12 +145,107 @@ First Created: 2012-12-01 11:20:41
     dirname $0
 </pre>
   
+<h2 id="toc_1.4">进程管理相关命令</h2>
+<blockquote>
+ps－查看当前正在运行的进程，示例：$ ps
+kill {PID}－通过 PID 来停止任意进程，示例：$ kill 1012
+killall {Process-name}－通过名称来停止任意进程，示例：$ killall httpd
+ps -ag－获取所有正在运行进程的信息，示例：$ ps -ag
+kill 0－停止所有的进程（你的 shell 除外），示例：$ kill 0
+linux-command &amp;－后台执行进程，示例：$ ls / -R | wc -l &amp;
+ps aux－显示进程的所有者，示例：$ ps aux
+ps ax | grep process-U-want-to see－查看某个特定的进程，示例：$ ps ax | grep httpd
+top－查看当前正运行的进程、内存及 CPU 占用率，示例： $ top
+</blockquote>
+
+<h2 id="toc_1.5">递归批量进行dos2unix转换</h2>
+
+<p>
+转换当前目录及子目录下的所有文件
+find -type f | xargs dos2unix
+find ./ -type f -exec dos2unix {} \;
+</p>
+
+<p>
+转换当前目录及子目录下的所有后缀为sh的文件
+find -name "*.sh" | xargs dos2unix
+find ./ -name '*.sh' -exec dos2unix {} \;
+</p>
+
+
+<h2 id="toc_1.6">man 使用技巧两则</h2>
+
+<h3 id="toc_1.6.1">使用书签</h3>
+<p>
+man 其实是调用 less 来显示手册页的。因此，在阅读内容比较长的页面时，可以使用书签来标记需要重复阅读的重要内容。
+</p>
+
+<p>
+标记的方法为：先按 m 键，然后在 mark: 后输入标记字母，如 a。需要说明的是，标记符是区分大小写的，也就是说 a 与 A 是两个不同的标记符。 当你需要返回先前设置的书签时，可以按 ' 键（单引号）。此时会显示 goto mark:，输入你设置的标记符即可。
+</p>
+
+<h3 id="toc_1.6.2">测试命令</h3>
+<p>
+在阅读 man 手册页时想要对命令的用法进行尝试的话，那么可以使用 !。这让你不必打开新的终端，也不用离开 man 手册的阅读页面。在按下 ! 之后，你就可以自由输入所要测试的命令了。完成后，按回车键将返回到 man 手册的阅读页面。
+</p>
+
+
+<h2 id="toc_1.7">实用的Linux命令</h2>
+<p>
+查看目录的磁盘占用情况 du -h --max-depth=1 | sort -n -r
+</p>
+<blockquote>
+pgrep：比如，你可以使用 pgrep -u root 来代替 ps -ef | egrep '^root ' | awk '{print $2}'，以便抓取属于 root 的 PID。
+pstree：我觉得这个命令很酷，它可以直接列出进程树，或者换句话说是按照树状结构来列出进程。
+bc：这个命令在我的系统中没有找到，可能需要安装。这是用来执行计算的一个命令，如使用它来开平方根。
+split：这是一个很有用的命令，它可以将一个大文件分割成几个小的部分。比如：split -b 2m largefile LF_ 会将 largefile 分割成带有 LF 文件名前缀且大小为 2 MB 的小文件。
+nl：能够显示行号的命令。在阅读脚本或代码时，这个命令应该非常有用。如：nl wireless.h | head。
+mkfifo：作者说这是他最喜欢的命令。该命令使得其他命令能够通过一个命名的管道进行通信。嗯，听起来有点空洞。举例说明，先创建一个管道并写入内容： mkfifo ive-been-piped ls -al split/* | head &gt; ive-been-piped
+</blockquote>
+<blockquote>
+然后就可以读取了：head ive-been-piped。
+ldd：其作用是输出指定文件依赖的动态链接库。比如，通过 ldd /usr/java/jre1.5.0_11/bin/java 可以了解哪些线程库链接到了 java 依赖（动态链接）了哪些库。（感谢 NetSnail 的指正。）
+col：可以将 man 手册页保存为无格式的文本文件。如： PAGER=cat man less | col -b &gt; less.txt
+xmlwf：能够检测 XML 文档是否良好。比如： curl -s '<a href="http://bashcurescancer.com'">http://bashcurescancer.com'</a> &gt; bcc.html xmlwf bcc.html perl -i -pe 's@&lt;br/&gt;@&lt;br&gt;@g' bcc.html xmlwf bcc.html bcc.html:104:2: mismatched tag
+lsof：列出打开的文件。如：通过 lsof | grep TCP 可以找到打开的端口。
+</blockquote>
+    
+
 <hr />
 <p>
 Tags: Linux
 </p>
 
           <div id="copy"></div>
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_t163"></a>
+	<a class="jiathis_button_hi"></a>
+	<a class="jiathis_button_fb"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_twitter"></a>
+	<a class="jiathis_button_linkedin"></a>
+	<a class="jiathis_button_reddit"></a>
+	<a href="http://www.jiathis.com/share?uid=1645446" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1340804108559251" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UJian Button BEGIN -->
+	<div class="ujian-hook"></div>
+	<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&"></script>
+<!-- UJian Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1645446" async=""></script>
+<!-- UY END -->
         </div> <!-- /.span9 -->
         <div class="span3">
           <iframe src="http://t.163.com/page/widget.html?yansi|615|1|2" allowTransparency="true" frameborder="0" scrolling="no" width="100%" height="615"></iframe>

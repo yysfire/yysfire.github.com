@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>使用ssh和ssh-agent实现“无密码”登录远程机器</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="幽谷奇峰">
+
+    <!-- Le styles -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../google-code-prettify/sons-of-obsidian.css" rel="stylesheet">
+    <link href="../mystyle.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../ico/apple-touch-icon-57-precomposed.png">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="../index.html">幽谷奇峰</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="../index.html">主页</a></li>
+              <li class="active"><a href="../linux/index.html">Linux</a></li>
+              <li><a href="../vim/index.html">Vim</a></li>
+              <li><a href="../web/index.html">前端</a></li>
+              <li><a href="../c_cpp/index.html">C和C++</a></li>
+              <li><a href="../python/index.html">Python</a></li>
+              <li><a href="../tools/index.html">工具</a></li>
+              <li class="divider-vertical"></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">联系我 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://twitter.com/yysfirecn">@推一推我</a></li>
+                  <li><a href="https://www.facebook.com/yysfire">君要你死</a></li>
+                  <li><a href="../about.html">给我写信</a></li>
+                </ul> <!--/.dropdown-menu -->
+              </li> <!--/.dropdown -->
+            </ul> <!--/.nav -->
+          </div> <!--/.nav-collapse -->
+
+          <div class="pull-right">
+            <form class="navbar-search" action="../search.html">
+              <!--<div class="input-append">-->
+                <input type="text" name="q" class="search-query input-medium" placeholder="搜索">
+                <button type="submit" class="icon nav-search"><i class="icon-search icon-white"></i></button>
+              <!--</div>-->
+            </form>
+          </div>
+
+        </div> <!-- /.container -->
+      </div> <!--/.navbar-inner-->
+    </div> <!--/.navbar-->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span9">
+          <ul class="breadcrumb">
+            <li>
+            <a href="../index.html">首页</a> <span class="divider">/</span>
+            </li>
+            <li>
+            <a href="../linux/index.html">Linux</a> <span class="divider">/</span>
+            </li>
+            <li class="active">你的位置</li>
+          </ul>
+          
+<div class="toc">
+<ul>
+<li><a href="#toc_1">使用ssh和ssh-agent实现“无密码”登录远程机器</a>
+<ul>
+<li><a href="#toc_1.1">本文目标</a>
+<li><a href="#toc_1.2">基本流程</a>
+<li><a href="#toc_1.3">具体实现方法</a>
+<ul>
+<li><a href="#toc_1.3.1">步骤1：检查本地是否已存在密钥对</a>
+<li><a href="#toc_1.3.2">步骤2：备份和删除本地已存在密钥对</a>
+<li><a href="#toc_1.3.3">步骤3：生成新的密钥对</a>
+<li><a href="#toc_1.3.4">步骤4：添加公共密钥到远程机器（GitHub）</a>
+<li><a href="#toc_1.3.5">步骤5：测试密钥工作是否正常</a>
+<li><a href="#toc_1.3.6">步骤6：运行ssh-agent</a>
+<li><a href="#toc_1.3.7">步骤7：将私有密钥添加到ssh-agent的缓存中</a>
+<li><a href="#toc_1.3.8">步骤8：测试ssh-agent</a>
+<li><a href="#toc_1.3.9">步骤9：更改repo的协议</a>
+</ul>
+<li><a href="#toc_1.4">参考资料</a>
+</ul>
+</ul>
+</div>
+<h1 id="toc_1">使用ssh和ssh-agent实现“无密码”登录远程机器</h1>
+<p>
+我们经常有从本地连接登录到远程机器的必要，例如，使用版本控制工具进行push操作时。每次push时都要求输入用户名和密码，这不仅不方便，也不安全。使用SSH密钥就可以轻松的解决这个问题。
+</p>
+
+<h2 id="toc_1.1">本文目标</h2>
+<p>
+通过使用ssh和ssh-agent两种工具，加密安全地连接到远程机器，而又不用手工输入密码。
+</p>
+
+<h2 id="toc_1.2">基本流程</h2>
+<ol>
+<li>
+在本地机器上创建密钥对
+
+<li>
+将公共密钥放到要连接的远程机器上
+
+<li>
+使用ssh-agent来缓存解密的私有密钥，实现后续的“无密码”连接
+
+</ol>
+
+<h2 id="toc_1.3">具体实现方法</h2>
+<p>
+以从基于Ubuntu系统的本地机器连接到GitHub.com为例进行说明。如果本地操作系统为Windows，请使用Cygwin或者msysgit。
+</p>
+
+<h3 id="toc_1.3.1">步骤1：检查本地是否已存在密钥对</h3>
+<p>
+打开终端，运行：
+</p>
+<pre class="brush:bash">
+$ cd ~/.ssh
+</pre>
+<p>
+如果提示"No such file or directory"，就请直接跳到步骤3，否则继续步骤2.
+</p>
+
+<h3 id="toc_1.3.2">步骤2：备份和删除本地已存在密钥对</h3>
+<pre class="brush:bash">
+$ ls
+$ mkdir key_backup
+$ cp id_rsa* key_backup
+$ rm id_rsa*
+</pre>
+
+<h3 id="toc_1.3.3">步骤3：生成新的密钥对</h3>
+
+<pre class="brush:bash">
+$ ssh-keygen -t rsa -f ~/.ssh/github_rsa -C "github"
+</pre>
+
+<p>
+<code>-t rsa</code>表示密钥类型是rsa，<code>-C</code>选项用于添加comment，可以设置成自己的Email地址。
+</p>
+
+<p>
+会提示你输入和确认密码。
+</p>
+
+<p>
+然后，私有密钥会保存在<code>/home/you/.ssh/github_rsa</code>，公共密钥会保存在<code>/home/you/.ssh/github_rsa.pub</code>.
+</p>
+
+<p>
+想修改密钥的解密密码，请使用以下命令：
+</p>
+<pre class="brush:bash">
+$ ssh-keygen -p
+</pre>
+
+<p>
+在 SSH 用户配置文件 ~/.ssh/config 中指定证书名称，如果没有 config 文件的话就新建一个 (Linux 平台的话需使用该命令 <code>chmod 644 ~/.ssh/config</code> 来改变 config 文件权限)，并输入以下内容：
+</p>
+
+<pre class="brush:bash">
+Host github.com
+    HostName github.com
+    IdentityFile ~/.ssh/github_rsa
+</pre>
+
+<h3 id="toc_1.3.4">步骤4：添加公共密钥到远程机器（GitHub）</h3>
+<p>
+运行以下命令，复制公共密钥到剪切板。
+</p>
+
+<pre class="brush:bash">
+$ sudo apt-get install xclip
+$ xclip -sel clip &lt; ~/.ssh/github_rsa.pub
+</pre>
+<p>
+<strong>说明：复制密钥时，不能增加额外的空格和新行，因此这里借助了工具xclip</strong>
+</p>
+
+<p>
+然后，按照以下步骤添加公共密钥到GitHub：
+</p>
+
+<ol>
+<li>
+打开github.com网站，登入自己的帐号
+
+<li>
+进入“Account Settings”
+
+<li>
+点击左边的“Add SSH key”
+
+<li>
+将刚才复制的公共密钥内容粘贴到“Key”文本框
+
+<li>
+点击“Add key”
+
+<li>
+输入GitHub帐号密码，确认操作
+
+</ol>
+
+<p>
+如果你所要连接的远程机器支持shell登入，就可以运行以下命令来添加公共密钥：
+</p>
+
+<pre class="brush:bash">
+$ cat ~/.ssh/id_rsa.pub | ssh you@other-host 'cat - &gt;&gt; ~/.ssh/authorized_keys'
+</pre>
+
+<p>
+Note：
+</p>
+<ol>
+<li>
+如果远程机器运行的是一个较旧版的ssh，你可能要使用<code>~/.ssh/authorized_keys2</code>文件。
+
+<li>
+如果远程机器运行的是Windows系统，你可能要用<code>"type"</code>代替<code>"cat"</code>，<code>"$HOME"</code>代替<code>"~"</code>。
+
+</ol>
+
+<h3 id="toc_1.3.5">步骤5：测试密钥工作是否正常</h3>
+
+<pre class="brush:bash">
+$ ssh -T git@github.com
+</pre>
+
+<p>
+会提示你输入密钥密码，就是在步骤3里设置的密码。第一次你会看到以下警告：
+</p>
+
+<pre>
+The authenticity of host 'github.com (207.97.227.239)' can't be established.
+RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.
+Are you sure you want to continue connecting (yes/no)?
+</pre>
+
+<p>
+输入“yes”，回车。如果看到以下消息，且“username”是正确的，就说明密钥已设置成功。
+</p>
+
+<pre>
+Hi username! You've successfully authenticated, but GitHub does not
+provide shell access.
+</pre>
+
+<h3 id="toc_1.3.6">步骤6：运行ssh-agent</h3>
+<p>
+大多数linux发行版，在登入系统时便会自动启动一个ssh-agent进程。如果你的系统没有这个功能，请在<code>~/.xsession</code>文件中加入：
+</p>
+
+<pre class="brush:bash">
+ssh-agent gnome-session
+</pre>
+<p>
+Note：请使用你自己的窗口管理器取代<code>gnome-session</code>。
+</p>
+
+<p>
+查看ssh-agent是否在运行：
+</p>
+
+<pre class="brush:bash">
+$ ps -e | grep ssh-agent
+</pre>
+
+<p>
+但是，如果你使用的是Cygwin或者msysgit环境，请将以下代码添加进你的<code>~/.profile</code>或者<code>~/.bashrc</code>或者<code>~/.bash_profile</code>中。
+</p>
+
+<pre class="brush:bash">
+SSH_ENV="$HOME/.ssh/environment"
+
+# start the ssh-agent
+function start_agent {
+    echo "Initializing new SSH agent..."
+    # spawn ssh-agent
+    ssh-agent | sed 's/^echo/#echo/' &gt; "$SSH_ENV"
+    echo succeeded
+    chmod 600 "$SSH_ENV"
+    . "$SSH_ENV" &gt; /dev/null
+    ssh-add
+}
+
+# test for identities
+function test_identities {
+    # test whether standard identities have been added to the agent already
+    ssh-add -l | grep "The agent has no identities" &gt; /dev/null
+    if [ $? -eq 0 ]; then
+        ssh-add
+        # $SSH_AUTH_SOCK broken so we start a new proper agent
+        if [ $? -eq 2 ];then
+            start_agent
+        fi
+    fi
+}
+
+# check for running ssh-agent with proper $SSH_AGENT_PID
+if [ -n "$SSH_AGENT_PID" ]; then
+    ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent &gt; /dev/null
+    if [ $? -eq 0 ]; then
+        test_identities
+    fi
+# if $SSH_AGENT_PID is not properly set, we might be able to load one from
+# $SSH_ENV
+else
+    if [ -f "$SSH_ENV" ]; then
+        . "$SSH_ENV" &gt; /dev/null
+    fi
+    ps -ef | grep "$SSH_AGENT_PID" | grep ssh-agent &gt; /dev/null
+    if [ $? -eq 0 ]; then
+        test_identities
+    else
+        start_agent
+    fi
+fi
+</pre>
+
+<p>
+这样，你每次启动Cygwin或者msysgit的shell时，都会自动运行ssh-agent，并添加私有密钥，提示你输入私有密钥的解密密码，然后你可以跳过步骤7了。
+</p>
+
+<h3 id="toc_1.3.7">步骤7：将私有密钥添加到ssh-agent的缓存中</h3>
+<p>
+运行以下命令：
+</p>
+
+<pre class="brush:bash">
+$ ssh-add ~/.ssh/github_rsa
+</pre>
+
+<p>
+会提示你输入私有密钥的解密密码（步骤3中设置的密码）
+</p>
+
+<p>
+查看ssh-agent正在管理的密钥：
+</p>
+
+<pre class="brush:bash">
+$ ssh-add -l
+</pre>
+
+<h3 id="toc_1.3.8">步骤8：测试ssh-agent</h3>
+<p>
+再次连接GitHub：
+</p>
+
+<pre class="brush:bash">
+$ ssh -T git@github.com
+</pre>
+
+<p>
+不会再让你输入密码了。你再进行多少次git push操作，都不会要你输入密码了。爽吧：）
+</p>
+
+<h3 id="toc_1.3.9">步骤9：更改repo的协议</h3>
+<p>
+要使用ssh-agent，就要求repo使用的协议是ssh，而不是https。查看repo所使用的协议：
+</p>
+<pre>
+$head -n 10 .git/config
+[core]
+    repositoryformatversion = 0
+    filemode = true
+    bare = false
+    logallrefupdates = true
+[remote "origin"]
+    url = https://github.com/yys294/vimfiles.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+[credential]
+    helper = cache
+</pre>
+
+<p>
+将url的值改为ssh协议的模式即可
+</p>
+<pre>
+[remote "origin"]
+    url = git@github.com:yys294/vimfiles.git
+    fetch = +refs/heads/*:refs/remotes/origin/*
+</pre>
+
+<h2 id="toc_1.4">参考资料</h2>
+<ol>
+<li>
+<a href="https://help.github.com/articles/generating-ssh-keys">Generating SSH Keys</a>
+
+<li>
+<a href="http://mah.everybody.org/docs/ssh">Using ssh-agent with ssh</a>
+
+<li>
+<a href="https://help.github.com/articles/working-with-ssh-key-passphrases#platform-windows">Working with SSH key passphrases</a>
+
+<li>
+<a href="https://confluence.atlassian.com/pages/viewpage.action?pageId=270827678">Set up SSH for Git and Mercurial on Mac OSX/Linux</a>
+
+</ol>
+
+          <div id="copy"></div>
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_t163"></a>
+	<a class="jiathis_button_hi"></a>
+	<a class="jiathis_button_fb"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_twitter"></a>
+	<a class="jiathis_button_linkedin"></a>
+	<a class="jiathis_button_reddit"></a>
+	<a href="http://www.jiathis.com/share?uid=1645446" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1340804108559251" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UJian Button BEGIN -->
+	<div class="ujian-hook"></div>
+	<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&"></script>
+<!-- UJian Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1645446" async=""></script>
+<!-- UY END -->
+        </div> <!-- /.span9 -->
+        <div class="span3">
+<a class="twitter-timeline"  href="https://twitter.com/yysfirecn" data-widget-id="277690445834895360">@yysfirecn 的推文</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<!-- UYAN HOT ARTICLE BEGIN -->
+<div id="uyan_hotate_unit"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1645446"></script> <!-- 如果已经过加载此行JS，即可不用重复加载 -->
+<!-- UYAN HOT ARTICLE END -->
+<!-- UYAN HOT COMMENT BEGIN -->
+<div id="uyan_hotcmt_unit"></div>
+<!-- UYAN HOT COMMENT END -->
+<!-- UYAN NEW ARTICLE BEGIN -->
+<div id="uyan_newate_unit"></div>
+<!-- UYAN NEW ARTICLE END -->
+<!-- UYAN NEW COMMENT BEGIN -->
+<div id="uyan_newcmt_unit"></div>
+<!-- UYAN NEW COMMENT END -->
+        </div> <!-- /.span3 -->
+      </div> <!-- /.row-fluid -->
+
+      <footer class="footer">
+      <p class="pull-right"><a href="#">回到顶部</a></p>
+      <div id=license>
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/"><img alt="知识共享许可协议" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/cn/88x31.png" /></a>
+        <p>除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn">@幽谷奇峰</a>创作，<br />采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。
+        </p>
+      </div> 
+      <!--/#license-->
+      <p>Generated by <a href="http://code.google.com/p/vimwiki/">Vimwiki</a>. Powered by <a href="https://github.com">GitHub Pages</a>.</p>
+      </footer> <!-- /footer -->
+    </div> <!-- /.container-fluid -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../google-code-prettify/prettify.js"></script>
+    <script src="../myapp.js"></script>
+
+  </body>
+</html>

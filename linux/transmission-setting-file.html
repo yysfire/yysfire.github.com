@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>Transmission配置文件各参数设置说明</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="幽谷奇峰">
+
+    <!-- Le styles -->
+    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+      }
+    </style>
+    <link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../google-code-prettify/sons-of-obsidian.css" rel="stylesheet">
+    <link href="../mystyle.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="../ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../ico/apple-touch-icon-57-precomposed.png">
+  </head>
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="../index.html">幽谷奇峰</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="../index.html">主页</a></li>
+              <li class="active"><a href="../linux/index.html">Linux</a></li>
+              <li><a href="../vim/index.html">Vim</a></li>
+              <li><a href="../web/index.html">前端</a></li>
+              <li><a href="../c_cpp/index.html">C和C++</a></li>
+              <li><a href="../python/index.html">Python</a></li>
+              <li><a href="../tools/index.html">工具</a></li>
+              <li class="divider-vertical"></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">联系我 <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="https://twitter.com/yysfirecn">@推一推我</a></li>
+                  <li><a href="https://www.facebook.com/yysfire">君要你死</a></li>
+                  <li><a href="../about.html">给我写信</a></li>
+                </ul> <!--/.dropdown-menu -->
+              </li> <!--/.dropdown -->
+            </ul> <!--/.nav -->
+          </div> <!--/.nav-collapse -->
+
+          <div class="pull-right">
+            <form class="navbar-search" action="../search.html">
+              <!--<div class="input-append">-->
+                <input type="text" name="q" class="search-query input-medium" placeholder="搜索">
+                <button type="submit" class="icon nav-search"><i class="icon-search icon-white"></i></button>
+              <!--</div>-->
+            </form>
+          </div>
+
+        </div> <!-- /.container -->
+      </div> <!--/.navbar-inner-->
+    </div> <!--/.navbar-->
+    <div class="container-fluid">
+      <div class="row-fluid">
+        <div class="span9">
+          <ul class="breadcrumb">
+            <li>
+            <a href="../index.html">首页</a> <span class="divider">/</span>
+            </li>
+            <li>
+            <a href="../linux/index.html">Linux</a> <span class="divider">/</span>
+            </li>
+            <li class="active">你的位置</li>
+          </ul>
+          
+<div class="toc">
+<ul>
+<li><a href="#toc_1">Transmission配置文件各参数设置说明</a>
+<ul>
+<li><a href="#toc_1.1">参考资料</a>
+</ul>
+</ul>
+</div>
+<h1 id="toc_1">Transmission配置文件各参数设置说明</h1>
+
+<p>
+系统环境：Ubuntu 12.04 amd64 + Transmission-GTK 2.51 (13280)
+</p>
+
+<p>
+配置文件路径：~/.config/transmission/settings.json
+</p>
+
+<pre class="brush:bash">
+"alt-speed-up": 500, #计划时段上传限速值
+"alt-speed-down": 500, #计划时段下载限速值
+"alt-speed-enabled": false,
+"alt-speed-time-begin": 540,
+"alt-speed-time-day": 127,
+"alt-speed-time-enabled": true, #启用计划工作，为false时，以上计划配置则不生效
+"alt-speed-time-end": 420, #计划结束时间，为零点到开始时间的分钟数，比如7:00就是7*60=420。另外，该时间是用的GMT时间，即北京时间-8小时。比如你计划北京时间7点30分开始，这个数字应该是（7-8+24）*60+30=1410
+"bind-address-ipv4": "0.0.0.0",
+"bind-address-ipv6": "::",
+"blocklist-enabled": true,
+"blocklist-updates-enabled": false,
+"blocklist-url": "http://www.example.com/blocklist",
+"cache-size-mb": 4, #缓存大小，以MB为单位，建议设大一些，避免频繁读写硬盘而伤硬盘，建议设为内存大小的1/6～1/4
+"compact-view": false,
+"dht-enabled": false, #关闭DHT（不通过tracker寻找节点）功能，不少PT站的要求，但BT下载设置为true会使得下载更好
+"download-dir": "/home/yys/Downloads", #下载的内容存放的目录
+"download-queue-enabled": true,
+"download-queue-size": 5,
+"encryption": 1, #0=不加密，1=优先加密，2=必须加密
+"idle-seeding-limit": 30,
+"idle-seeding-limit-enabled": false,
+"incomplete-dir": "/home/yys/Downloads",
+"incomplete-dir-enabled": false,
+"inhibit-desktop-hibernation": true,
+"lpd-enabled": false, #禁用LDP（本地节点发现，用于在本地网络寻找节点）,不少PT站的要求
+"main-window-height": 500,
+"main-window-is-maximized": 0,
+"main-window-width": 615,
+"main-window-x": 337,
+"main-window-y": 211,
+"message-level": 2,
+"open-dialog-dir": "/home/yys/\u684c\u9762",
+"peer-congestion-algorithm": "",
+"peer-limit-global": 240, #全局连接数
+"peer-limit-per-torrent": 60, #每个种子最多的连接数
+"peer-port": 51413, #预设的port口
+"peer-port-random-high": 65535,
+"peer-port-random-low": 49152,
+"peer-port-random-on-start": false, #不建议改为true
+"peer-socket-tos": "default",
+"pex-enabled": false, #禁用PEX（节点交换，用于同已与您相连接的节点交换节点名单）,不少PT站的要求
+"port-forwarding-enabled": true,
+"preallocation": 1, #预分配文件磁盘空间，0=关闭，1=快速，2=完全。建议取1开启该功能，防止下载大半了才发现磁盘不够。取2时，可以减少磁盘碎片，但速度较慢。
+"prefetch-enabled": 1,
+"queue-stalled-enabled": true,
+"queue-stalled-minutes": 30,
+"ratio-limit": 2,
+"ratio-limit-enabled": false,
+"rename-partial-files": true, #在未完成的文件名后添加后缀.part,false=禁用
+"rpc-authentication-required": true,
+"rpc-bind-address": "0.0.0.0",
+"rpc-enabled": true,
+"rpc-password": "{c8c083168db9fff40b5136b6d0f3f4a864110a78\/oH51JaE", #web-ui的密码，可直接修改，重新运行或者reload服务的时候会自动被加密
+"rpc-port": 9091, #默认web-ui的port口，可自行更改
+"rpc-url": "/transmission/",
+"rpc-username": "transmission", #默认登入名称
+"rpc-whitelist": "127.0.0.1",
+"rpc-whitelist-enabled": true, #如果你要让其他网段连入，请设false
+"scrape-paused-torrents-enabled": true,
+"script-torrent-done-enabled": false,
+"script-torrent-done-filename": "/home/yys",
+"seed-queue-enabled": false,
+"seed-queue-size": 10,
+"show-backup-trackers": true,
+"show-extra-peer-details": false,
+"show-filterbar": true,
+"show-notification-area-icon": false,
+"show-options-window": true,
+"show-statusbar": true,
+"show-toolbar": true,
+"show-tracker-scrapes": true,
+"sort-mode": "sort-by-age",
+"sort-reversed": false,
+"speed-limit-down": 300, #平时的下载限速
+"speed-limit-down-enabled": true, #启用平时下载限速
+"speed-limit-up": 30, #平时上传限速
+"speed-limit-up-enabled": true, #启用平时上传限速
+"start-added-torrents": false,
+"statusbar-stats": "total-ratio",
+"torrent-added-notification-enabled": true,
+"torrent-complete-notification-enabled": true,
+"torrent-complete-sound-enabled": true,
+"trash-can-enabled": true,
+"trash-original-torrent-files": false,
+"umask": 18,
+"upload-slots-per-torrent": 14
+"utp-enabled": true, #启用μTP协议
+"watch-dir": "/home/yys/\u4e0b\u8f7d",
+"watch-dir-enabled": false
+</pre>
+
+<h2 id="toc_1.1">参考资料</h2>
+<ol>
+<li>
+<a href="https://trac.transmissionbt.com/wiki/EditConfigFiles">Editing Configuration Files</a>
+
+</ol>
+
+          <div id="copy"></div>
+<!-- JiaThis Button BEGIN -->
+<div class="jiathis_style_32x32">
+	<a class="jiathis_button_qzone"></a>
+	<a class="jiathis_button_tsina"></a>
+	<a class="jiathis_button_tqq"></a>
+	<a class="jiathis_button_renren"></a>
+	<a class="jiathis_button_t163"></a>
+	<a class="jiathis_button_hi"></a>
+	<a class="jiathis_button_fb"></a>
+	<a class="jiathis_button_googleplus"></a>
+	<a class="jiathis_button_twitter"></a>
+	<a class="jiathis_button_linkedin"></a>
+	<a class="jiathis_button_reddit"></a>
+	<a href="http://www.jiathis.com/share?uid=1645446" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript">
+var jiathis_config = {data_track_clickback:'true'};
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1340804108559251" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UJian Button BEGIN -->
+	<div class="ujian-hook"></div>
+	<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&"></script>
+<!-- UJian Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1645446" async=""></script>
+<!-- UY END -->
+        </div> <!-- /.span9 -->
+        <div class="span3">
+<a class="twitter-timeline"  href="https://twitter.com/yysfirecn" data-widget-id="277690445834895360">@yysfirecn 的推文</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+<!-- UYAN HOT ARTICLE BEGIN -->
+<div id="uyan_hotate_unit"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=1645446"></script> <!-- 如果已经过加载此行JS，即可不用重复加载 -->
+<!-- UYAN HOT ARTICLE END -->
+<!-- UYAN HOT COMMENT BEGIN -->
+<div id="uyan_hotcmt_unit"></div>
+<!-- UYAN HOT COMMENT END -->
+<!-- UYAN NEW ARTICLE BEGIN -->
+<div id="uyan_newate_unit"></div>
+<!-- UYAN NEW ARTICLE END -->
+<!-- UYAN NEW COMMENT BEGIN -->
+<div id="uyan_newcmt_unit"></div>
+<!-- UYAN NEW COMMENT END -->
+        </div> <!-- /.span3 -->
+      </div> <!-- /.row-fluid -->
+
+      <footer class="footer">
+      <p class="pull-right"><a href="#">回到顶部</a></p>
+      <div id=license>
+        <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/"><img alt="知识共享许可协议" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/cn/88x31.png" /></a>
+        <p>除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn">@幽谷奇峰</a>创作，<br />采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。
+        </p>
+      </div> 
+      <!--/#license-->
+      <p>Generated by <a href="http://code.google.com/p/vimwiki/">Vimwiki</a>. Powered by <a href="https://github.com">GitHub Pages</a>.</p>
+      </footer> <!-- /footer -->
+    </div> <!-- /.container-fluid -->
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+    <script src="../bootstrap/js/bootstrap.min.js"></script>
+    <script src="../google-code-prettify/prettify.js"></script>
+    <script src="../myapp.js"></script>
+
+  </body>
+</html>

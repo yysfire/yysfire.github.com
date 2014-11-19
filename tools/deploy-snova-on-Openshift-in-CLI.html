@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Yysfire" />
+        <meta name="copyright" content="Yysfire" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="OpenShift, PaaS, Snova, JAP, CLI, tools, " />
+
+<meta property="og:title" content="命令行环境下为OpenShift PaaS平台部署Snova "/>
+<meta property="og:url" content="http://yysfire.github.com/tools/deploy-snova-on-Openshift-in-CLI.html" />
+<meta property="og:description" content="客户端部署工具为rhc，它依赖Ruby，同时会用到Git，因此要先安装Ruby和Git。这两个工具的安装依据不同的操作系统而不同，这里就不赘述。 安装好Ruby后，运行： 1gem install rhc gem安装rhc可能被防火墙中断，可能需要设置代理（经验证，无法使用Goagent），例如： 1gem install rhc --http-proxy http://127 ..." />
+<meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
+<meta property="og:article:author" content="Yysfire" />
+<meta property="og:article:published_time" content="2014-08-28T22:23:00" />
+<meta property="" content="2014-08-29T01:31:00" />
+<meta name="twitter:title" content="命令行环境下为OpenShift PaaS平台部署Snova ">
+<meta name="twitter:description" content="客户端部署工具为rhc，它依赖Ruby，同时会用到Git，因此要先安装Ruby和Git。这两个工具的安装依据不同的操作系统而不同，这里就不赘述。 安装好Ruby后，运行： 1gem install rhc gem安装rhc可能被防火墙中断，可能需要设置代理（经验证，无法使用Goagent），例如： 1gem install rhc --http-proxy http://127 ...">
+
+        <title>命令行环境下为OpenShift PaaS平台部署Snova  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="http://yysfire.github.com/theme/css/style.min.css?7aeecf36">
+        <link rel="shortcut icon" href="http://yysfire.github.com/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://yysfire.github.com/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://yysfire.github.com">Home</a></li>
+                            <li ><a href="http://yysfire.github.com/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.com/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.com/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://yysfire.github.com/tools/deploy-snova-on-Openshift-in-CLI.html"> 命令行环境下为OpenShift PaaS平台部署Snova  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <p>客户端部署工具为rhc，它依赖Ruby，同时会用到Git，因此要先安装Ruby和Git。这两个工具的安装依据不同的操作系统而不同，这里就不赘述。</p>
+<p>安装好Ruby后，运行：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">gem</span> <span class="n">install</span> <span class="n">rhc</span>
+</pre></div>
+</td></tr></table>
+
+<p>gem安装rhc可能被防火墙中断，可能需要设置代理（经验证，无法使用Goagent），例如：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">gem</span> <span class="n">install</span> <span class="n">rhc</span> <span class="o">--</span><span class="n">http</span><span class="o">-</span><span class="n">proxy</span> <span class="n">http</span><span class="o">:</span><span class="c1">//127.0.0.1:8080</span>
+</pre></div>
+</td></tr></table>
+
+<p>可运行：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">rhc</span> <span class="o">--</span><span class="n">version</span>
+</pre></div>
+</td></tr></table>
+
+<p>来验证安装是否成功。</p>
+<p>若要更新rhc到最新版本，可运行：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">gem</span> <span class="n">update</span> <span class="n">rhc</span>
+</pre></div>
+</td></tr></table>
+
+<p>如果还没有OpenShift帐号，可以利用安装的这段时间注册一个，注册链接：https://www.openshift.com/app/account/new</p>
+<p>在创建和部署应用程序之前，要先对rhc进行一下配置，通过运行命令<code>rhc setup</code>来启动配置向导：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="err">$</span> <span class="nx">rhc</span> <span class="nx">setup</span>
+<span class="nx">DL</span> <span class="nx">is</span> <span class="nx">deprecated</span><span class="p">,</span> <span class="nx">please</span> <span class="nx">use</span> <span class="nx">Fiddle</span>
+<span class="nx">OpenShift</span> <span class="nx">Client</span> <span class="nx">Tools</span> <span class="p">(</span><span class="nx">RHC</span><span class="p">)</span> <span class="nx">Setup</span> <span class="nx">Wizard</span>
+
+<span class="nx">This</span> <span class="nx">wizard</span> <span class="nx">will</span> <span class="nx">help</span> <span class="nx">you</span> <span class="nx">upload</span> <span class="nx">your</span> <span class="nx">SSH</span> <span class="nb">keys</span><span class="p">,</span> <span class="nb">set</span> <span class="nx">your</span> <span class="nx">application</span> <span class="nx">namespace</span><span class="p">,</span> <span class="ow">and</span> <span class="nx">check</span> <span class="nx">that</span> <span class="nx">other</span> <span class="nx">programs</span> <span class="nx">like</span> <span class="nx">Git</span>
+<span class="nx">are</span> <span class="nx">properly</span> <span class="nx">installed.</span>
+
+<span class="k">If</span> <span class="nx">you</span> <span class="nx">have</span> <span class="nx">your</span> <span class="nx">own</span> <span class="nx">OpenShift</span> <span class="nx">server</span><span class="p">,</span> <span class="nx">you</span> <span class="nx">can</span> <span class="nx">specify</span> <span class="nx">it</span> <span class="nx">now.</span> <span class="nx">Just</span> <span class="nx">hit</span> <span class="nx">enter</span> <span class="k">to</span> <span class="nx">use</span> <span class="nx">the</span> <span class="nx">server</span> <span class="nb">for</span> <span class="nx">OpenShift</span> <span class="nx">Online</span><span class="p">:</span>
+<span class="nx">openshift.redhat.com.</span>
+<span class="nx">Enter</span> <span class="nx">the</span> <span class="nx">server</span> <span class="nb">hostname</span><span class="p">:</span> <span class="o">|</span><span class="nx">openshift.redhat.com</span><span class="o">|</span> <span class="o">&lt;</span><span class="nx">Enter键</span><span class="o">&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="_1">登陆信息</h2>
+<p>按下回车键后，会提示你输入OpenShift帐号信息：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">You</span> <span class="n">can</span> <span class="n">add</span> <span class="n">more</span> <span class="n">servers</span> <span class="n">later</span> <span class="n">using</span> <span class="err">&#39;</span><span class="n">rhc</span> <span class="n">server</span><span class="err">&#39;</span><span class="p">.</span>
+
+<span class="n">Login</span> <span class="n">to</span> <span class="n">openshift</span><span class="p">.</span><span class="n">redhat</span><span class="p">.</span><span class="n">com</span><span class="o">:</span> <span class="n">user</span><span class="err">@</span><span class="n">mail</span><span class="p">.</span><span class="n">com</span>
+<span class="nl">Password:</span> <span class="o">****************</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="token">认证Token</h2>
+<p>配置向导接下来会提示你生成一个认证token，回答yes：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">OpenShift</span> <span class="nx">can</span> <span class="nb">create</span> <span class="ow">and</span> <span class="nx">store</span> <span class="nx">a</span> <span class="nb">token</span> <span class="k">on</span> <span class="nx">disk</span> <span class="nx">which</span> <span class="nx">allows</span> <span class="k">to</span> <span class="nx">you</span> <span class="k">to</span> <span class="nx">access</span> <span class="nx">the</span> <span class="nx">server</span> <span class="nx">without</span> <span class="nx">using</span> <span class="nx">your</span> <span class="nx">password.</span> <span class="nx">The</span>
+
+<span class="nb">key</span> <span class="nx">is</span> <span class="n">stored</span> <span class="k">in</span> <span class="nx">your</span> <span class="nb">home</span> <span class="nx">directory</span> <span class="ow">and</span> <span class="nx">should</span> <span class="nx">be</span> <span class="nx">kept</span> <span class="nx">secret.</span>  <span class="nx">You</span> <span class="nx">can</span> <span class="nb">delete</span> <span class="nx">the</span> <span class="nb">key</span> <span class="nx">at</span> <span class="nb">any</span> <span class="nb">time</span> <span class="k">by</span> <span class="nb">running</span> <span class="s1">&#39;rhc</span>
+<span class="s1">logout&#39;</span><span class="nx">.</span>
+<span class="nx">Generate</span> <span class="nx">a</span> <span class="nb">token</span> <span class="nx">now</span><span class="o">?</span> <span class="p">(</span><span class="nx">yes</span><span class="o">|</span><span class="nx">no</span><span class="p">)</span> <span class="o">&lt;</span><span class="nx">yes</span><span class="o">&gt;</span>
+<span class="nx">Generating</span> <span class="nx">an</span> <span class="nx">authorization</span> <span class="nb">token</span> <span class="nb">for</span> <span class="nx">this</span> <span class="nx">client</span> <span class="nx">...</span> <span class="nx">lasts</span> <span class="nx">about</span> <span class="mi">1</span> <span class="nb">month</span>
+
+<span class="nx">Saving</span> <span class="nx">configuration</span> <span class="k">to</span> <span class="nb">D</span><span class="p">:</span><span class="o">\</span><span class="nx">DevPack</span><span class="o">\</span><span class="nx">msys64</span><span class="o">\</span><span class="nb">home</span><span class="o">\</span><span class="nx">Administrator</span><span class="o">\</span><span class="bp">.</span><span class="nx">openshift</span><span class="o">\</span><span class="nx">express.conf</span> <span class="nx">...</span> <span class="nb">done</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="ssh-keys">SSH keys</h2>
+<p>接下来，配置向导会生成一个SSH密钥对，以便将本地客户端认证到远端服务器。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">No</span> <span class="nx">SSH</span> <span class="nb">keys</span> <span class="nx">were</span> <span class="nx">found.</span> <span class="nx">We</span> <span class="nx">will</span> <span class="nx">generate</span> <span class="nx">a</span> <span class="kt">pair</span> <span class="nx">of</span> <span class="nb">keys</span> <span class="nb">for</span> <span class="nx">you.</span>
+
+    <span class="nx">Created</span><span class="p">:</span> <span class="nb">D</span><span class="p">:/</span><span class="nx">DevPack</span><span class="p">/</span><span class="nx">msys64</span><span class="p">/</span><span class="nb">home</span><span class="p">/</span><span class="nx">Administrator</span><span class="p">/</span><span class="nx">.ssh</span><span class="p">/</span><span class="nx">id_rsa.pub</span>
+
+<span class="nx">Your</span> <span class="k">public</span> <span class="nf">SSH</span> <span class="nb">key</span> <span class="nx">must</span> <span class="nx">be</span> <span class="nx">uploaded</span> <span class="k">to</span> <span class="nx">the</span> <span class="nx">OpenShift</span> <span class="nx">server</span> <span class="k">to</span> <span class="nx">access</span> <span class="nx">code.</span>  <span class="nx">Upload</span> <span class="nx">now</span><span class="o">?</span> <span class="p">(</span><span class="nx">yes</span><span class="o">|</span><span class="nx">no</span><span class="p">)</span> <span class="o">&lt;</span><span class="nx">yes</span><span class="o">&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="git">提示安装Git</h2>
+<p>接着，配置向导会提示你安装Git：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">In</span> <span class="n">order</span> <span class="n">to</span> <span class="n">fully</span> <span class="n">interact</span> <span class="n">with</span> <span class="n">OpenShift</span> <span class="n">you</span> <span class="n">will</span> <span class="n">need</span> <span class="n">to</span> <span class="n">install</span> <span class="n">and</span> <span class="n">configure</span> <span class="n">a</span> <span class="n">git</span> <span class="n">client</span> <span class="k">if</span> <span class="n">you</span> <span class="n">have</span> <span class="n">not</span> <span class="n">already</span>
+<span class="n">done</span> <span class="n">so</span><span class="p">.</span>
+
+<span class="n">Documentation</span> <span class="k">for</span> <span class="n">installing</span> <span class="n">other</span> <span class="n">tools</span> <span class="n">you</span> <span class="n">will</span> <span class="n">need</span> <span class="k">for</span> <span class="n">OpenShift</span> <span class="n">can</span> <span class="n">be</span> <span class="n">found</span> <span class="n">at</span>
+<span class="nl">https:</span><span class="c1">//www.openshift.com/developers/install-the-client-tools</span>
+
+<span class="n">We</span> <span class="n">recommend</span> <span class="n">these</span> <span class="n">free</span> <span class="n">applications</span><span class="o">:</span>
+
+  <span class="o">*</span> <span class="n">Git</span> <span class="k">for</span> <span class="n">Windows</span> <span class="o">-</span> <span class="n">a</span> <span class="n">basic</span> <span class="n">git</span> <span class="n">command</span> <span class="n">line</span> <span class="n">and</span> <span class="n">GUI</span> <span class="n">client</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/msysgit/msysgit/wiki/InstallMSysGit</span>
+  <span class="o">*</span> <span class="n">TortoiseGit</span> <span class="o">-</span> <span class="n">git</span> <span class="n">client</span> <span class="n">that</span> <span class="n">integrates</span> <span class="n">into</span> <span class="n">the</span> <span class="n">file</span> <span class="n">explorer</span> <span class="n">http</span><span class="o">:</span><span class="c1">//code.google.com/p/tortoisegit/</span>
+</pre></div>
+</td></tr></table>
+
+<h2 id="domainnamespace">Domain(namespace)</h2>
+<p>配置向导接着会检查你的OpenShift云端环境是否存在domain(namespace)，这是创建应用程序必须的。以下示例是还没有domain的情况，若已经存在domain，这里会显示出来。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="nx">Checking</span> <span class="nb">for</span> <span class="nx">a</span> <span class="nx">domain</span> <span class="nx">...</span> <span class="kc">none</span>
+
+<span class="nx">Applications</span> <span class="nx">are</span> <span class="nx">grouped</span> <span class="k">into</span> <span class="n">domains</span> <span class="o">-</span> <span class="nb">each</span> <span class="nx">domain</span> <span class="nx">has</span> <span class="nx">a</span> <span class="nx">unique</span> <span class="nb">name</span> <span class="p">(</span><span class="nx">called</span> <span class="nx">a</span> <span class="nx">namespace</span><span class="p">)</span> <span class="nx">that</span> <span class="nx">becomes</span> <span class="nx">part</span> <span class="nx">of</span> <span class="nx">your</span>
+<span class="k">public</span> <span class="nf">application</span> <span class="nx">URL.</span> <span class="nx">You</span> <span class="nx">may</span> <span class="nb">create</span> <span class="nx">your</span> <span class="nb">first</span> <span class="nx">domain</span> <span class="nx">here</span> <span class="ow">or</span> <span class="nx">leave</span> <span class="nx">it</span> <span class="nx">blank</span> <span class="ow">and</span> <span class="nx">use</span> <span class="s1">&#39;rhc create-domain&#39;</span> <span class="nx">later.</span> <span class="nx">You</span>
+<span class="nx">will</span> <span class="ow">not</span> <span class="nx">be</span> <span class="nx">able</span> <span class="k">to</span> <span class="nb">create</span> <span class="nx">an</span> <span class="nx">application</span> <span class="nx">without</span> <span class="nx">completing</span> <span class="nx">this</span> <span class="nx">step.</span>
+
+<span class="nx">Please</span> <span class="nx">enter</span> <span class="nx">a</span> <span class="nx">namespace</span> <span class="p">(</span><span class="nx">letters</span> <span class="ow">and</span> <span class="nx">numbers</span> <span class="nx">only</span><span class="p">)</span> <span class="o">|&lt;</span><span class="kc">none</span><span class="o">&gt;|</span><span class="p">:</span>
+</pre></div>
+</td></tr></table>
+
+<p>在这里输入你的domain(namespace)，只能包含字母和数字。</p>
+<h2 id="applications">Applications</h2>
+<p>最后，配置向导会检查服务器上是否存在应用程序。以下示例是没有应用程序的情况：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">Checking</span> <span class="k">for</span> <span class="n">applications</span> <span class="p">...</span> <span class="n">none</span>
+
+<span class="n">Run</span> <span class="err">&#39;</span><span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span><span class="err">&#39;</span> <span class="n">to</span> <span class="n">create</span> <span class="n">your</span> <span class="n">first</span> <span class="n">application</span><span class="p">.</span>
+
+  <span class="n">Do</span><span class="o">-</span><span class="n">It</span><span class="o">-</span><span class="n">Yourself</span> <span class="mf">0.1</span>                      <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">diy</span><span class="o">-</span><span class="mf">0.1</span>
+  <span class="n">JBoss</span> <span class="n">Application</span> <span class="n">Server</span> <span class="mi">7</span>              <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">jbossas</span><span class="o">-</span><span class="mi">7</span>
+  <span class="n">JBoss</span> <span class="n">Data</span> <span class="n">Virtualization</span> <span class="mi">6</span>             <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">jboss</span><span class="o">-</span><span class="n">dv</span><span class="o">-</span><span class="mf">6.0.0</span>
+  <span class="n">JBoss</span> <span class="n">Enterprise</span> <span class="n">Application</span> <span class="n">Platform</span> <span class="mi">6</span> <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">jbosseap</span><span class="o">-</span><span class="mi">6</span>
+  <span class="n">Jenkins</span> <span class="n">Server</span>                          <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">jenkins</span><span class="o">-</span><span class="mi">1</span>
+  <span class="n">Node</span><span class="p">.</span><span class="n">js</span> <span class="mf">0.10</span>                            <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">nodejs</span><span class="o">-</span><span class="mf">0.10</span>
+  <span class="n">PHP</span> <span class="mf">5.3</span>                                 <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">php</span><span class="o">-</span><span class="mf">5.3</span>
+  <span class="n">PHP</span> <span class="mf">5.4</span>                                 <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">php</span><span class="o">-</span><span class="mf">5.4</span>
+  <span class="n">PHP</span> <span class="mf">5.4</span> <span class="n">with</span> <span class="n">Zend</span> <span class="n">Server</span> <span class="mf">6.1</span>            <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">zend</span><span class="o">-</span><span class="mf">6.1</span>
+  <span class="n">Perl</span> <span class="mf">5.10</span>                               <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">perl</span><span class="o">-</span><span class="mf">5.10</span>
+  <span class="n">Python</span> <span class="mf">2.6</span>                              <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">python</span><span class="o">-</span><span class="mf">2.6</span>
+  <span class="n">Python</span> <span class="mf">2.7</span>                              <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">python</span><span class="o">-</span><span class="mf">2.7</span>
+  <span class="n">Python</span> <span class="mf">3.3</span>                              <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">python</span><span class="o">-</span><span class="mf">3.3</span>
+  <span class="n">Ruby</span> <span class="mf">1.8</span>                                <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">ruby</span><span class="o">-</span><span class="mf">1.8</span>
+  <span class="n">Ruby</span> <span class="mf">1.9</span>                                <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">ruby</span><span class="o">-</span><span class="mf">1.9</span>
+  <span class="n">Ruby</span> <span class="mf">2.0</span>                                <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">ruby</span><span class="o">-</span><span class="mf">2.0</span>
+  <span class="n">Tomcat</span> <span class="mi">6</span> <span class="p">(</span><span class="n">JBoss</span> <span class="n">EWS</span> <span class="mf">1.0</span><span class="p">)</span>                <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">jbossews</span><span class="o">-</span><span class="mf">1.0</span>
+  <span class="n">Tomcat</span> <span class="mi">7</span> <span class="p">(</span><span class="n">JBoss</span> <span class="n">EWS</span> <span class="mf">2.0</span><span class="p">)</span>                <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">jbossews</span><span class="o">-</span><span class="mf">2.0</span>
+  <span class="n">Vert</span><span class="p">.</span><span class="n">x</span> <span class="mf">2.1</span>                              <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="n">jboss</span><span class="o">-</span><span class="n">vertx</span><span class="o">-</span><span class="mf">2.1</span>
+
+  <span class="n">You</span> <span class="n">are</span> <span class="n">using</span> <span class="mi">0</span> <span class="n">of</span> <span class="mi">3</span> <span class="n">total</span> <span class="n">gears</span>
+  <span class="n">The</span> <span class="n">following</span> <span class="n">gear</span> <span class="n">sizes</span> <span class="n">are</span> <span class="n">available</span> <span class="n">to</span> <span class="n">you</span><span class="o">:</span> <span class="n">small</span>
+
+<span class="n">Your</span> <span class="n">client</span> <span class="n">tools</span> <span class="n">are</span> <span class="n">now</span> <span class="n">configured</span><span class="p">.</span>
+</pre></div>
+</td></tr></table>
+
+<p><code>rhc create-app</code>的用法如下：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50</pre></div></td><td class="code"><div class="highlight"><pre><span class="err">$</span> <span class="nx">rhc</span> <span class="nb">create</span><span class="na">-app</span> <span class="o">--</span><span class="nx">help</span>
+<span class="nb">Usage</span><span class="p">:</span> <span class="nx">rhc</span> <span class="nx">app</span><span class="na">-create</span> <span class="o">&lt;</span><span class="nb">name</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="nx">cartridge</span><span class="o">&gt;</span> <span class="err">[</span><span class="nx">...</span> <span class="o">&lt;</span><span class="nx">cartridge</span><span class="o">&gt;</span><span class="cp">]</span> <span class="cp">[</span><span class="nx">...</span> <span class="kd">VARIABLE</span><span class="o">=</span><span class="nb">VALUE</span><span class="cp">]</span> <span class="cp">[</span><span class="na">-n</span> <span class="nx">namespace</span><span class="cp">]</span>
+
+Create an application. Every OpenShift application must have one web cartridge which serves web requests, and can have a
+number of other cartridges which provide capabilities like databases, scheduled jobs, or continuous integration.
+
+You can see a list of all valid cartridge types by running &#39;rhc cartridge list&#39;. OpenShift also supports downloading
+cartridges - pass a URL in place of the cartridge name and we&#39;ll download and install that cartridge into your app.
+Keep in mind that these cartridges receive no security updates.  Note that not all OpenShift servers allow downloaded
+cartridges.
+
+When your application is created, a URL combining the name of your app and the name of your domain will be registered in
+DNS. A copy of the code for your application will be checked out locally into a folder with the same name as your
+application.  Note that different types of applications may require different folder structures - check the README
+provided with the cartridge if you have questions.
+
+OpenShift runs the components of your application on small virtual servers called &quot;gears&quot;.  Each account or plan is
+limited to a number of gears which you can use across multiple applications.  Some accounts or plans provide access to
+gears with more memory or more CPU.  Run &#39;rhc account&#39; to see the number and sizes of gears available to you.  When
+creating an application the --gear-size parameter may be specified to change the gears used.
+
+
+Options
+  -n, --namespace NAME      Namespace for the application
+  -g, --gear-size SIZE      Gear size controls how much memory and CPU your cartridges can use.
+  -s, --<span class="cp">[</span><span class="nx">no</span><span class="o">-</span><span class="cp">]</span>scaling        Enable scaling for the web cartridge.
+  -r, --repo DIR            Path to the Git repository (defaults to ./$app_name)
+  -e, --env VARIABLE=VALUE  Environment variable(s) to be set on this app, or path to a file containing environment
+                            variables
+  --from-app NAME           Create based on another application. All content and configurations will be copied from the
+                            original app.
+  --from-code URL           URL to a Git repository that will become the initial contents of the application
+  --region REGION           The region where the application gears will be located
+  --<span class="cp">[</span><span class="nx">no</span><span class="o">-</span><span class="cp">]</span>git                Skip creating the local Git repository.
+  --<span class="cp">[</span><span class="nx">no</span><span class="o">-</span><span class="cp">]</span>dns                Skip waiting for the application DNS name to resolve. Must be used in combination with
+                            --no-git
+  --enable-jenkins <span class="cp">[</span><span class="nb">NAME</span><span class="cp">]</span>   Enable Jenkins builds for this application (will create a Jenkins application if not already
+
+                            available). The default name will be &#39;jenkins&#39; if not specified.
+  -a, --app NAME            Name for your application
+  -t, --type CARTRIDGE      The web framework this application should use
+
+Global Options
+  -l, --rhlogin LOGIN       OpenShift login
+  -p, --password PASSWORD   OpenShift password
+  --token TOKEN             An authorization token for accessing your account.
+  --server HOSTNAME         An OpenShift server hostname (default: openshift.redhat.com)
+  --timeout SECONDS         The timeout for operations
+
+  See &#39;rhc help options&#39; for a full list of global options.
+</pre></div>
+</td></tr></table>
+
+<p>应用程序最后的域名格式为：<code>&lt;app name&gt;-&lt;namespace&gt;.rhcloud.com</code></p>
+<p>首先到<a href="https://code.google.com/p/snova/downloads/list">这里</a>下载Snova服务器端（nodejs版）源码（笔者下的是snova-c4-nodejs-server-0.22.0.zip）和本地客户端程序。</p>
+<h2 id="_2">服务器端</h2>
+<p>运行以下命令（用你的应用程序名替代<your app name>），创建一个应用程序：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="err">$</span> <span class="n">rhc</span> <span class="n">create</span><span class="o">-</span><span class="n">app</span> <span class="o">&lt;</span><span class="n">your</span> <span class="n">app</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">t</span> <span class="n">nodejs</span><span class="o">-</span><span class="mf">0.10</span>
+</pre></div>
+</td></tr></table>
+
+<p>该命令成功运行完后，给出了该应用程序的URL，SSH to 和 Git remote 的信息，并在当前路径下生成一个名为<your app name>的目录，解压snova-c4-nodejs-server-0.22.0.zip并覆盖到这个目录，然后进入该目录，依次运行：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="err">$</span> <span class="n">git</span> <span class="n">add</span> <span class="p">.</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&quot;First deployment &quot;</span>
+<span class="err">$</span> <span class="n">git</span> <span class="n">push</span>
+</pre></div>
+</td></tr></table>
+
+<p>若最后看到有如下信息：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">remote</span><span class="o">:</span> <span class="n">Git</span> <span class="n">Post</span><span class="o">-</span><span class="n">Receive</span> <span class="n">Result</span><span class="o">:</span> <span class="n">success</span>
+<span class="n">remote</span><span class="o">:</span> <span class="n">Activation</span> <span class="n">status</span><span class="o">:</span> <span class="n">success</span>
+<span class="n">remote</span><span class="o">:</span> <span class="n">Deployment</span> <span class="n">completed</span> <span class="k">with</span> <span class="n">status</span><span class="o">:</span> <span class="n">success</span>
+</pre></div>
+</td></tr></table>
+
+<p>则表示部署已经成功。</p>
+<h2 id="_3">修改客户端设置</h2>
+<p>修改gsnova.conf中C4部分，填入之前创建的域名（必须用https），重启gsnova生效</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">[C4]</span>
+<span class="c1">#Enable改为1，C4才能生效，默认为0关闭</span>
+<span class="na">Enable</span><span class="o">=</span><span class="s">1</span>
+<span class="c1">#修改domain为前面创建的应用程序的域名, 可加多个域名</span>
+<span class="na">WorkerNode[0]</span><span class="o">=</span><span class="s">https://&lt;appname1&gt;-&lt;namespace&gt;.rhcloud.com</span>
+<span class="na">WorkerNode[1]</span><span class="o">=</span><span class="s">https://&lt;appname2&gt;-&lt;namespace&gt;.rhcloud.com</span>
+</pre></div>
+</td></tr></table>
+
+<p>修改gsnova.conf中SPAC下默认的Proxy实现为C4</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">[SPAC]</span>
+<span class="na">Enable</span><span class="o">=</span><span class="s">1</span>
+<span class="c1">#默认Proxy实现，初始为GAE</span>
+<span class="na">Default</span><span class="o">=</span><span class="s">C4</span>
+</pre></div>
+</td></tr></table>
+
+<p>启动GSnova，默认在127.0.0.1:48102上接受无spac支持的代理请求，在127.0.0.1:48100上接受有spac支持的代理请求。</p>
+            
+            
+            <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="http://yysfire.github.com/tools/msysgit-Chinese-characters-garbled.html" title="Previous: Windows下msysgit中文支持问题的探讨">Windows下msysgit中文支持问题的探讨</a></li>
+                <li class="next-article"><a href="http://yysfire.github.com/tools/make_and_download_portable-evernote_for_windows.html" title="Next: Windows平台便携版Evernote的制作与下载 - （更新到v5.7.1.5586）">Windows平台便携版Evernote的制作与下载 <small>（更新到v5.7.1.5586）</small></a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2014-08-28T22:23:00">八月 28, 2014</time>
+
+<h4>Last Updated</h4>
+<time datetime="2014-08-29T01:31:00">八月 29, 2014</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://yysfire.github.com/categories.html#tools-ref">tools</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://yysfire.github.com/tags.html#cli-ref">CLI
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#jap-ref">JAP
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#openshift-ref">OpenShift
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#paas-ref">PaaS
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#snova-ref">Snova
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-facebook sidebar-social-links"></i></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>

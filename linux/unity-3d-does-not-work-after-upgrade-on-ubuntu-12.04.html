@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Yysfire" />
+        <meta name="copyright" content="Yysfire" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="Ubuntu, Unity, NVIDIA, Linux, linux, " />
+
+<meta property="og:title" content="Ubuntu12.04更新后Unity 3D无法工作 "/>
+<meta property="og:url" content="http://yysfire.github.com/linux/unity-3d-does-not-work-after-upgrade-on-ubuntu-12.04.html" />
+<meta property="og:description" content="Ubuntu12.04更新后Unity 3D无法工作，运行以下命令 1$ /usr/lib/nux/unity_support_test -p 得到如下结果： 1 2 3 4 5 6X Error of failed request: BadWindow (invalid Window ..." />
+<meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
+<meta property="og:article:author" content="Yysfire" />
+<meta property="og:article:published_time" content="2012-10-07T15:23:06" />
+<meta property="" content="2012-10-07T16:50:01" />
+<meta name="twitter:title" content="Ubuntu12.04更新后Unity 3D无法工作 ">
+<meta name="twitter:description" content="Ubuntu12.04更新后Unity 3D无法工作，运行以下命令 1$ /usr/lib/nux/unity_support_test -p 得到如下结果： 1 2 3 4 5 6X Error of failed request: BadWindow (invalid Window ...">
+
+        <title>Ubuntu12.04更新后Unity 3D无法工作  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="http://yysfire.github.com/theme/css/style.min.css?7aeecf36">
+        <link rel="shortcut icon" href="http://yysfire.github.com/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://yysfire.github.com/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://yysfire.github.com">Home</a></li>
+                            <li ><a href="http://yysfire.github.com/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.com/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.com/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://yysfire.github.com/linux/unity-3d-does-not-work-after-upgrade-on-ubuntu-12.04.html"> Ubuntu12.04更新后Unity 3D无法工作  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc">
+<ul>
+<li><a href="#_1">参考资料</a></li>
+</ul>
+</div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            
+            
+<p>Ubuntu12.04更新后Unity 3D无法工作，运行以下命令</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>/usr/lib/nux/unity_support_test -p
+</pre></div>
+</td></tr></table>
+<p>得到如下结果：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6</pre></div></td><td class="code"><div class="highlight"><pre>X Error of failed request:  BadWindow <span class="o">(</span>invalid Window parameter<span class="o">)</span>
+Major opcode of failed request:  138 <span class="o">(</span>NV-GLX<span class="o">)</span>
+Minor opcode of failed request:  4 <span class="o">()</span>
+Resource id in failed request:  0x26f
+Serial number of failed request:  41
+Current serial number in output stream:  41
+</pre></div>
+</td></tr></table>
+<p>这是因为更新过xserver-xorg-core这个软件包所致。此包包含以下文件：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>/usr/lib/xorg/modules/extensions/libglx.so
+</pre></div>
+</td></tr></table>
+<p>如果使用的是自己从NVIDIA官网上下载的驱动，那么此文件必须是一个软链接，指向以下文件：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>/usr/lib/xorg/modules/extensions/libglx.so.XXX.YY
+</pre></div>
+</td></tr></table>
+<p>这里，XXX和YY给出的是驱动版本。因此，每当xserver-xorg-core这个软件包更新后，就把这个软链接文件给覆盖掉了，导致GLX相关的应用程序无法使用Nvidia驱动。</p>
+<p>解决方法当然是重新创建这个软链接：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo mv /usr/lib/xorg/modules/extensions/libglx.so /usr/lib/xorg/modules/extensions/libglx.so_backup
+<span class="nv">$ </span>sudo ln -s /usr/lib/xorg/modules/extensions/libglx.so.XXX.YY /usr/lib/xorg/modules/extensions/libglx.so
+</pre></div>
+</td></tr></table>
+<p>然后，重启图形界面服务就可以看到Unity 3D正常工作了。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo service lightdm restart
+</pre></div>
+</td></tr></table>
+<p>以后，每次更新过xserver-xorg-core这个软件包，就要记得进行以上操作。</p>
+<p>还有另外一种情况，也会导致Unity 3D无法工作，那就是更新过libgl1-mesa-glx，unity测试结果如下：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>/usr/lib/nux/unity_support_test -p
+OpenGL vendor string:   NVIDIA Corporation
+OpenGL renderer string: GeForce 7300 GT/PCIe/SSE2
+OpenGL version string:  1.4 <span class="o">(</span>2.1.2 NVIDIA 295.59<span class="o">)</span>
+
+Not software rendered:    yes
+Not blacklisted:          yes
+GLX fbconfig:             yes
+GLX texture from pixmap:  yes
+GL npot or rect textures: yes
+GL vertex program:        yes
+GL fragment program:      yes
+GL vertex buffer object:  no
+GL framebuffer object:    yes
+GL version is 1.4+:       yes
+
+Unity 3D supported:       no
+</pre></div>
+</td></tr></table>
+<p>运行命令</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>ldd /usr/bin/glxinfo
+</pre></div>
+</td></tr></table>
+<p>你会看到</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre>linux-vdso.so.1 <span class="o">=</span>&gt;  <span class="o">(</span>0x00007ffffe7d9000<span class="o">)</span>
+libGL.so.1 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 <span class="o">(</span>0x00007f7ff5442000<span class="o">)</span>
+libX11.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libX11.so.6 <span class="o">(</span>0x00007f7ff510e000<span class="o">)</span>
+libc.so.6 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libc.so.6 <span class="o">(</span>0x00007f7ff4d50000<span class="o">)</span>
+libglapi.so.0 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libglapi.so.0 <span class="o">(</span>0x00007f7ff4b2b000<span class="o">)</span>
+libXext.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXext.so.6 <span class="o">(</span>0x00007f7ff491a000<span class="o">)</span>
+libXdamage.so.1 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXdamage.so.1 <span class="o">(</span>0x00007f7ff4716000<span class="o">)</span>
+libXfixes.so.3 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXfixes.so.3 <span class="o">(</span>0x00007f7ff4510000<span class="o">)</span>
+libX11-xcb.so.1 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libX11-xcb.so.1 <span class="o">(</span>0x00007f7ff430e000<span class="o">)</span>
+libxcb-glx.so.0 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libxcb-glx.so.0 <span class="o">(</span>0x00007f7ff40f6000<span class="o">)</span>
+libxcb.so.1 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libxcb.so.1 <span class="o">(</span>0x00007f7ff3ed8000<span class="o">)</span>
+libXxf86vm.so.1 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXxf86vm.so.1 <span class="o">(</span>0x00007f7ff3cd3000<span class="o">)</span>
+libdrm.so.2 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libdrm.so.2 <span class="o">(</span>0x00007f7ff3ac7000<span class="o">)</span>
+libpthread.so.0 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libpthread.so.0 <span class="o">(</span>0x00007f7ff38aa000<span class="o">)</span>
+libdl.so.2 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libdl.so.2 <span class="o">(</span>0x00007f7ff36a6000<span class="o">)</span>
+/lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00007f7ff56c3000<span class="o">)</span>
+libXau.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXau.so.6 <span class="o">(</span>0x00007f7ff34a2000<span class="o">)</span>
+libXdmcp.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 <span class="o">(</span>0x00007f7ff329c000<span class="o">)</span>
+librt.so.1 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/librt.so.1 <span class="o">(</span>0x00007f7ff3093000<span class="o">)</span>
+</pre></div>
+</td></tr></table>
+<p>其中，<code>libGL.so.1 =&gt; /usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 (0x00007f7ff5442000)</code>表示GL模块使用的是开源的mesa驱动，而非Nvidia驱动。</p>
+<p>用<code>ls -l</code>命令查看此文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>ls -l /usr/lib/x86_64-linux-gnu/mesa/libGL.so.1
+lrwxrwxrwx 1 root root 12  9月 11 07:40 /usr/lib/x86_64-linux-gnu/mesa/libGL.so.1 -&gt; libGL.so.1.2
+</pre></div>
+</td></tr></table>
+<p>得知，它是指向<code>/usr/lib/x86_64-linux-gnu/mesa/libGL.so.1.2</code>的软链接文件。只要删掉这两个文件，再运行ldconfig就可以啦。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo rm /usr/lib/libGL.so.1 /usr/lib/libGL.so.1.2
+<span class="nv">$ </span>sudo ldconfig
+<span class="nv">$ </span>ldd /usr/bin/glxinfo
+    linux-vdso.so.1 <span class="o">=</span>&gt;  <span class="o">(</span>0x00007fff240f8000<span class="o">)</span>
+    libGL.so.1 <span class="o">=</span>&gt; /usr/lib/libGL.so.1 <span class="o">(</span>0x00007f9bb976a000<span class="o">)</span>
+    libX11.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libX11.so.6 <span class="o">(</span>0x00007f9bb9436000<span class="o">)</span>
+    libc.so.6 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libc.so.6 <span class="o">(</span>0x00007f9bb9078000<span class="o">)</span>
+    libnvidia-tls.so.295.59 <span class="o">=</span>&gt; /usr/lib/tls/libnvidia-tls.so.295.59 <span class="o">(</span>0x00007f9bb8e75000<span class="o">)</span>
+    libnvidia-glcore.so.295.59 <span class="o">=</span>&gt; /usr/lib/libnvidia-glcore.so.295.59 <span class="o">(</span>0x00007f9bb6b3b000<span class="o">)</span>
+    libXext.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXext.so.6 <span class="o">(</span>0x00007f9bb6929000<span class="o">)</span>
+    libdl.so.2 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libdl.so.2 <span class="o">(</span>0x00007f9bb6725000<span class="o">)</span>
+    libxcb.so.1 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libxcb.so.1 <span class="o">(</span>0x00007f9bb6507000<span class="o">)</span>
+    /lib64/ld-linux-x86-64.so.2 <span class="o">(</span>0x00007f9bb9aa3000<span class="o">)</span>
+    libm.so.6 <span class="o">=</span>&gt; /lib/x86_64-linux-gnu/libm.so.6 <span class="o">(</span>0x00007f9bb620c000<span class="o">)</span>
+    libXau.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXau.so.6 <span class="o">(</span>0x00007f9bb6009000<span class="o">)</span>
+    libXdmcp.so.6 <span class="o">=</span>&gt; /usr/lib/x86_64-linux-gnu/libXdmcp.so.6 <span class="o">(</span>0x00007f9bb5e03000<span class="o">)</span>
+</pre></div>
+</td></tr></table>
+<p>重启图形界面服务，Unity 3D就可以正常工作了。</p>
+<h2 id="_1">参考资料</h2>
+<ol>
+<li><a href="http://forums.debian.net/viewtopic.php?f=16&amp;t=56833">What to do when GLX stops working with Nvidia</a></li>
+<li><a href="http://ubuntuforums.org/showthread.php?t=1722306&amp;page=2">Nvidia, Unity, glxinfo couldn't find RGB GLX visual</a></li>
+</ol>
+            
+            
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="http://yysfire.github.com/linux/build-and-install-official-NVIDIA-driver-manually-on-ubuntu-12.04.html" title="Ubuntu12.04 x64系统手动编译安装NVIDIA官方驱动">Ubuntu12.04 x64系统手动编译安装NVIDIA官方驱动</a></li>
+<li><a href="http://yysfire.github.com/linux/change-startup-screen-and-resolution-of-ubuntu-12.04.html" title="Ubuntu12.04系统下修改启动画面和控制台的分辨率">Ubuntu12.04系统下修改启动画面和控制台的分辨率</a></li>
+<li><a href="http://yysfire.github.com/linux/building-deb-package-from-source-and-modify-deb-package.html" title="从源代码制作deb包的两种方法以及修改已有deb包">从源代码制作deb包的两种方法以及修改已有deb包</a></li>
+<li><a href="http://yysfire.github.com/linux/show-grub-menu-when-ubuntu-12.04-startup.html" title="让Ubuntu12.04在启动系统时显示grub菜单">让Ubuntu12.04在启动系统时显示grub菜单</a></li>
+<li><a href="http://yysfire.github.com/linux/building-ffmpeg-mplayer-on-ubuntu-12.04-x64.html" title="Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录">Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="http://yysfire.github.com/linux/show-grub-menu-when-ubuntu-12.04-startup.html" title="Previous: 让Ubuntu12.04在启动系统时显示grub菜单">让Ubuntu12.04在启动系统时显示grub菜单</a></li>
+                <li class="next-article"><a href="http://yysfire.github.com/linux/networkmanager-occupy-cpu-substantially.html" title="Next: 解决NetworkManager大幅占用CPU的问题">解决NetworkManager大幅占用CPU的问题</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2012-10-07T15:23:06">十月 7, 2012</time>
+
+<h4>Last Updated</h4>
+<time datetime="2012-10-07T16:50:01">十月 7, 2012</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://yysfire.github.com/categories.html#linux-ref">linux</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://yysfire.github.com/tags.html#linux-ref">Linux
+                    <span>18</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#nvidia-ref">NVIDIA
+                    <span>2</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#ubuntu-ref">Ubuntu
+                    <span>9</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#unity-ref">Unity
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-facebook sidebar-social-links"></i></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>

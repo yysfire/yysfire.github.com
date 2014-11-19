@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Yysfire" />
+        <meta name="copyright" content="Yysfire" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="glob, Python, python, " />
+
+<meta property="og:title" content="Python2标准库之glob--Unix风格的路径匹配 "/>
+<meta property="og:url" content="http://yysfire.github.com/python/python2-standard-library-glob.html" />
+<meta property="og:description" content="glob 模块的功能，就是允许接受一个 Unix 式的文件名格式表达式，即可以使用 * 或 ? 等通配符。该模块会查找出所有符合指定模式的文件（与正则表达式类似）。下表列出了该模块支持的匹配规则： 规则 含义 * 匹配所有 ? 匹配任何单个字符 [seq] 匹配任何包含在 seq 中的字符 [!seq] 匹配任何不在 seq 中的字符 glob.glob ..." />
+<meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
+<meta property="og:article:author" content="Yysfire" />
+<meta property="og:article:published_time" content="2012-12-06T23:48:12" />
+<meta property="" content="2014-06-29T18:15:17" />
+<meta name="twitter:title" content="Python2标准库之glob--Unix风格的路径匹配 ">
+<meta name="twitter:description" content="glob 模块的功能，就是允许接受一个 Unix 式的文件名格式表达式，即可以使用 * 或 ? 等通配符。该模块会查找出所有符合指定模式的文件（与正则表达式类似）。下表列出了该模块支持的匹配规则： 规则 含义 * 匹配所有 ? 匹配任何单个字符 [seq] 匹配任何包含在 seq 中的字符 [!seq] 匹配任何不在 seq 中的字符 glob.glob ...">
+
+        <title>Python2标准库之glob--Unix风格的路径匹配  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="http://yysfire.github.com/theme/css/style.min.css?7aeecf36">
+        <link rel="shortcut icon" href="http://yysfire.github.com/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://yysfire.github.com/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://yysfire.github.com">Home</a></li>
+                            <li ><a href="http://yysfire.github.com/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.com/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.com/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://yysfire.github.com/python/python2-standard-library-glob.html"> Python2标准库之glob--Unix风格的路径匹配  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc">
+<ul></ul>
+</div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            
+            
+<p>glob 模块的功能，就是允许接受一个 Unix 式的文件名格式表达式，即可以使用 <code>*</code> 或 <code>?</code> 等通配符。该模块会查找出所有符合指定模式的文件（与正则表达式类似）。下表列出了该模块支持的匹配规则：</p>
+<table>
+<thead>
+<tr>
+<th>规则</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>匹配所有</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配任何单个字符</td>
+</tr>
+<tr>
+<td>[seq]</td>
+<td>匹配任何包含在 seq 中的字符</td>
+</tr>
+<tr>
+<td>[!seq]</td>
+<td>匹配任何不在 seq 中的字符</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>
+<p>glob.glob(pathname)
+返回所有匹配的路径（包括无效的符号链接）的字符串列表，无匹配时为空。</p>
+</li>
+<li>
+<p>glob.iglob(pathname)
+返回一个迭代器。与 glob.glob() 的区别在于：后者是一次性获取所有匹配的路径，然后保存在一个列表里。而前者一次只获取一个匹配路径，然后通过迭代器就可以得到所有的匹配路径。</p>
+</li>
+</ul>
+<p>示例1：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">import</span> <span class="n">glob</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="err">'</span><span class="p">.</span><span class="o">/</span><span class="p">[</span><span class="mi">0</span><span class="o">-</span><span class="mi">9</span><span class="p">].</span><span class="o">*</span><span class="err">'</span><span class="p">)</span>
+<span class="p">[</span><span class="err">'</span><span class="p">.</span><span class="o">/</span><span class="mf">1.</span><span class="n">gif</span><span class="err">'</span><span class="p">,</span> <span class="err">'</span><span class="p">.</span><span class="o">/</span><span class="mf">2.</span><span class="n">txt</span><span class="err">'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="err">'</span><span class="o">*</span><span class="p">.</span><span class="n">gif</span><span class="err">'</span><span class="p">)</span>
+<span class="p">[</span><span class="err">'</span><span class="mf">1.</span><span class="n">gif</span><span class="err">'</span><span class="p">,</span> <span class="err">'</span><span class="n">card</span><span class="p">.</span><span class="n">gif</span><span class="err">'</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="err">'</span><span class="o">?</span><span class="p">.</span><span class="n">gif</span><span class="err">'</span><span class="p">)</span>
+<span class="p">[</span><span class="err">'</span><span class="mf">1.</span><span class="n">gif</span><span class="err">'</span><span class="p">]</span>
+</pre></div>
+</td></tr></table>
+<p>示例2：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">import</span> <span class="n">glob</span>
+
+<span class="cp">#获取指定目录下的所有图片</span>
+<span class="n">print</span> <span class="n">glob</span><span class="p">.</span><span class="n">glob</span><span class="p">(</span><span class="n">r</span><span class="s">"E:\Picture\*\*.jpg"</span><span class="p">)</span>
+
+<span class="cp">#获取父目录中的.py文件</span>
+<span class="n">f</span> <span class="o">=</span> <span class="n">glob</span><span class="p">.</span><span class="n">iglob</span><span class="p">(</span><span class="n">r</span><span class="err">'</span><span class="p">..</span><span class="o">/*</span><span class="p">.</span><span class="n">py</span><span class="err">'</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">py</span> <span class="n">in</span> <span class="n">f</span><span class="o">:</span>
+    <span class="n">print</span> <span class="n">py</span>
+</pre></div>
+</td></tr></table>
+            
+            
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="http://yysfire.github.com/python/python2-standard-library-os.path.html" title="Python2标准库之os.path--公用路径操作模块">Python2标准库之os.path--公用路径操作模块</a></li>
+<li><a href="http://yysfire.github.com/python/python2-standard-library-fnmatch.html" title="Python2标准库之fnmatch--Unix风格的文件名模式匹配">Python2标准库之fnmatch--Unix风格的文件名模式匹配</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="http://yysfire.github.com/python/python2-standard-library-os.path.html" title="Previous: Python2标准库之os.path--公用路径操作模块">Python2标准库之os.path--公用路径操作模块</a></li>
+                <li class="next-article"><a href="http://yysfire.github.com/python/python2-standard-library-fnmatch.html" title="Next: Python2标准库之fnmatch--Unix风格的文件名模式匹配">Python2标准库之fnmatch--Unix风格的文件名模式匹配</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2012-12-06T23:48:12">十二月 6, 2012</time>
+
+<h4>Last Updated</h4>
+<time datetime="2014-06-29T18:15:17">六月 29, 2014</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://yysfire.github.com/categories.html#python-ref">python</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://yysfire.github.com/tags.html#glob-ref">glob
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#python-ref">Python
+                    <span>3</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-facebook sidebar-social-links"></i></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.com/" rel="alternate"></link><link href="http://yysfire.github.com/feeds/python.atom.xml" rel="self"></link><id>http://yysfire.github.com/</id><updated>2014-06-29T18:16:01+08:00</updated><entry><title>Python2标准库之fnmatch--Unix风格的文件名模式匹配</title><link href="http://yysfire.github.com/python/python2-standard-library-fnmatch.html" rel="alternate"></link><updated>2014-06-29T18:14:29+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-12-07:python/python2-standard-library-fnmatch.html</id><summary type="html">
+&lt;p&gt;在 &lt;a href="python2-standard-library-glob"&gt;Python2标准库之glob--Unix风格的路径匹配&lt;/a&gt; 一文中提到的 glob 模块在进行模式匹配时，调用的就是本文要介绍的 fnmatch 模块。&lt;/p&gt;
+&lt;p&gt;本模块提供了对 Unix Shell 风格的通配符的支持。和正则表达式类似，但并不一样。它支持的四种通配符模式，在 glob 一文中已有介绍，这里不再赘述。&lt;/p&gt;
+&lt;h2 id="fnmatchfnmatchfilename-pattern"&gt;fnmatch.fnmatch(filename, pattern)&lt;/h2&gt;
+&lt;p&gt;测试 filename 字符串是否匹配 pattern 字符串，匹配则返回 True，否则返回 False. 如果操作系统对文件名是不区分大小写的，那么在进行比较匹配时两个参数都会被归一为大写或者小写。&lt;/p&gt;
+&lt;p&gt;下面的例子将会打印出当前目录中扩展名为 &lt;code&gt;.txt&lt;/code&gt; 的所有文件名：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;fnmatch&lt;/span&gt;
+&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;listdir&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sc"&gt;'.'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;fnmatch&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fnmatch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h2 id="fnmatchfnmatchcasefilename-pattern"&gt;fnmatch.fnmatchcase(filename, pattern)&lt;/h2&gt;
+&lt;p&gt;测试 filename 字符串是否匹配 pattern 字符串，匹配则返回 True，否则返回 False. 此匹配是大小写敏感的。&lt;/p&gt;
+&lt;h2 id="fnmatchfilternames-pattern"&gt;fnmatch.filter(names, pattern)&lt;/h2&gt;
+&lt;p&gt;返回列表 names 中匹配模式 pattern 的子集。和 &lt;code&gt;[n for n in names if fnmatch(n, pattern)]&lt;/code&gt; 的效果一样，但效率更高。&lt;/p&gt;
+&lt;h2 id="fnmatchtranslatepattern"&gt;fnmatch.translate(pattern)&lt;/h2&gt;
+&lt;p&gt;将 Shell 风格的模式 pattern 转换成正则表达式。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;fnmatch&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;regex&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;fnmatch&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;translate&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;regex&lt;/span&gt;
+&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="err"&gt;\\&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;$'&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;reobj&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;re&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;compile&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;regex&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;reobj&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="n"&gt;foobar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="n"&gt;_sre&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SRE_Match&lt;/span&gt; &lt;span class="n"&gt;object&lt;/span&gt; &lt;span class="n"&gt;at&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;...&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h2 id="_1"&gt;综合运用示例&lt;/h2&gt;
+&lt;p&gt;此模块一般和遍历目录树的 &lt;code&gt;os.walk()&lt;/code&gt; 或 &lt;code&gt;os.listdir()&lt;/code&gt; 配合使用。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;fnmatch&lt;/span&gt;
+
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;root&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;dirs&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;files&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;walk&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;DIRECTORY&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;files&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;fnmatch&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;fnmatch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;file&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;PATTERN&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;file&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</summary><category term="Python"></category><category term="fnmatch"></category></entry><entry><title>Python2标准库之glob--Unix风格的路径匹配</title><link href="http://yysfire.github.com/python/python2-standard-library-glob.html" rel="alternate"></link><updated>2014-06-29T18:15:17+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-12-06:python/python2-standard-library-glob.html</id><summary type="html">
+&lt;p&gt;glob 模块的功能，就是允许接受一个 Unix 式的文件名格式表达式，即可以使用 &lt;code&gt;*&lt;/code&gt; 或 &lt;code&gt;?&lt;/code&gt; 等通配符。该模块会查找出所有符合指定模式的文件（与正则表达式类似）。下表列出了该模块支持的匹配规则：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;规则&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;*&lt;/td&gt;
+&lt;td&gt;匹配所有&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;?&lt;/td&gt;
+&lt;td&gt;匹配任何单个字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[seq]&lt;/td&gt;
+&lt;td&gt;匹配任何包含在 seq 中的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;[!seq]&lt;/td&gt;
+&lt;td&gt;匹配任何不在 seq 中的字符&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;glob.glob(pathname)
+返回所有匹配的路径（包括无效的符号链接）的字符串列表，无匹配时为空。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;glob.iglob(pathname)
+返回一个迭代器。与 glob.glob() 的区别在于：后者是一次性获取所有匹配的路径，然后保存在一个列表里。而前者一次只获取一个匹配路径，然后通过迭代器就可以得到所有的匹配路径。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例1：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;glob&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;9&lt;/span&gt;&lt;span class="p"&gt;].&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;1.&lt;/span&gt;&lt;span class="n"&gt;gif&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="mf"&gt;2.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gif&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="mf"&gt;1.&lt;/span&gt;&lt;span class="n"&gt;gif&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="n"&gt;card&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gif&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;?&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gif&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="mf"&gt;1.&lt;/span&gt;&lt;span class="n"&gt;gif&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;示例2：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8
+9&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;glob&lt;/span&gt;
+
+&lt;span class="cp"&gt;#获取指定目录下的所有图片&lt;/span&gt;
+&lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="s"&gt;"E:\Picture\*\*.jpg"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="cp"&gt;#获取父目录中的.py文件&lt;/span&gt;
+&lt;span class="n"&gt;f&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;glob&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;iglob&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="o"&gt;/*&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;py&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;py&lt;/span&gt; &lt;span class="n"&gt;in&lt;/span&gt; &lt;span class="n"&gt;f&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;print&lt;/span&gt; &lt;span class="n"&gt;py&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</summary><category term="glob"></category><category term="Python"></category></entry><entry><title>Python2标准库之os.path--公用路径操作模块</title><link href="http://yysfire.github.com/python/python2-standard-library-os.path.html" rel="alternate"></link><updated>2014-06-29T18:16:01+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-12-06:python/python2-standard-library-os.path.html</id><summary type="html">
+&lt;p&gt;os.path 模块主要用来处理路径字符串，以提取出自己需要的信息。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;from&lt;/span&gt; &lt;span class="n"&gt;os&lt;/span&gt; &lt;span class="n"&gt;import&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h2 id="_1"&gt;分割与连接路径&lt;/h2&gt;
+&lt;h3 id="ospathsplitpath"&gt;os.path.split(path)&lt;/h3&gt;
+&lt;p&gt;将路径分割成一对元组(head,tail)，tail 是路径中最后一个斜杠后面的部分，而 head 是前面所有的部分。tail 部分不会包含斜杠；如果路径是以斜杠结尾，那么 tail 将为空串。如果路径中不包含斜杠，那么 head 为空。路径尾部的斜杠，除非代表的是根目录，否则 head 会将其去掉。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;split&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pathstr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="ospathbasenamepath"&gt;os.path.basename(path)&lt;/h3&gt;
+&lt;p&gt;提取路径中的文件名，相当于 &lt;code&gt;split(path)&lt;/code&gt; 返回值的 &lt;code&gt;tail&lt;/code&gt;。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;pathstr&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;basename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pathstr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;basename&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;''&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="ospathdirnamepath"&gt;os.path.dirname(path)&lt;/h3&gt;
+&lt;p&gt;提取路径中的目录名，相当于 &lt;code&gt;split(path)&lt;/code&gt; 返回值的 &lt;code&gt;head&lt;/code&gt;。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dirname&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pathstr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="ospathsplitdrivepath"&gt;os.path.splitdrive(path)&lt;/h3&gt;
+&lt;p&gt;将路径分割成元组&lt;code&gt;(drive,tail)&lt;/code&gt;，drive 是盘符部分，在不用盘符的系统上，drive 始终为空串。&lt;code&gt;drive + tail&lt;/code&gt;始终和&lt;code&gt;path&lt;/code&gt;一样。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;splitdrive&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pathstr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;''&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="ospathsplitextpath"&gt;os.path.splitext(path)&lt;/h3&gt;
+&lt;p&gt;将路径分割成&lt;code&gt;(root,ext)&lt;/code&gt;，&lt;code&gt;root + ext == path&lt;/code&gt;，ext 部分以点号开头且至多包含一个点号。如果路径部分就是一个以点号开头的文件名，那么 ext 为空串。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;splitext&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pathstr&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;splitext&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bashrc&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;bashrc&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="err"&gt;''&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="ospathjoinpath1-path2"&gt;os.path.join(path1[, path2[, ...]])&lt;/h3&gt;
+&lt;p&gt;将一个或多个路径组分智能地连接起来。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="sc"&gt;','&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="sc"&gt;','&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="sc"&gt;','&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="sc"&gt;','&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;join&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="sc"&gt;','&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="ospathcommonprefixlist"&gt;os.path.commonprefix(list)&lt;/h3&gt;
+&lt;p&gt;返回列表 list 中所有路径的最长相同首部，因为是逐个字符进行比较，所以可能得到的不是一个有效的路径。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;commonprefix&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;aabb&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;log&lt;/span&gt;&lt;span class="sc"&gt;','&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;abc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;txt&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="ospathrelpathpath-start"&gt;os.path.relpath(path[, start])&lt;/h3&gt;
+&lt;p&gt;返回&lt;code&gt;path&lt;/code&gt;对于当前工作目录或者&lt;code&gt;start&lt;/code&gt;指定路径的相对路径。&lt;code&gt;start&lt;/code&gt;的默认值就是&lt;code&gt;os.curdir&lt;/code&gt;。仅适用于 Windows 和 Unix(Linux)。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;relpath&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;pathstr&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;home&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;user&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;doc&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;..&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;archive&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;src&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;tar&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;gz&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h2 id="_2"&gt;对路径进行扩展和标准化处理&lt;/h2&gt;
+&lt;h3 id="ospathexpanduserpath"&gt;os.path.expanduser(path)&lt;/h3&gt;
+&lt;p&gt;将路径中的 &lt;code&gt;~&lt;/code&gt; 或者 &lt;code&gt;~user&lt;/code&gt; 扩展成用户的主目录。如果扩展失败，或是 &lt;code&gt;path&lt;/code&gt; 不是以波浪线开头，那么 &lt;code&gt;path&lt;/code&gt; 会被原样返回。&lt;/p&gt;
+&lt;h3 id="ospathexpandvarspath"&gt;os.path.expandvars(path)&lt;/h3&gt;
+&lt;p&gt;将路径中的环境变量（&lt;code&gt;$name&lt;/code&gt; 或 &lt;code&gt;${name}&lt;/code&gt;）扩展成该变量自身的值。无效和异常的变量名不会被处理。在 Windows 系统下，还支持 &lt;code&gt;%name%&lt;/code&gt; 的形式。&lt;/p&gt;
+&lt;h3 id="ospathnormcasepath"&gt;os.path.normcase(path)&lt;/h3&gt;
+&lt;p&gt;对路径进行大小写标准化处理。在对大小写不敏感的文件系统上，将路径全部转换成小写。在 Unix(Linux) 和 Mac OS X 系统上，不作修改。在 Windows 系统下，将路径中的斜杠（&lt;code&gt;/&lt;/code&gt;）全部转换成反斜杠（&lt;code&gt;\&lt;/code&gt;）。&lt;/p&gt;
+&lt;h3 id="ospathnormpathpath"&gt;os.path.normpath(path)&lt;/h3&gt;
+&lt;p&gt;对路径进行标准化处理。去掉路径中冗余的分隔符和表示相对路径的点号，例如，将&lt;code&gt;A//B, A/B/, A/./B&lt;/code&gt; 和 &lt;code&gt;A/foo/../B&lt;/code&gt; 全部变成 &lt;code&gt;A/B&lt;/code&gt;。在 Windows 系统下，将路径中的斜杠（&lt;code&gt;/&lt;/code&gt;）全部转换成反斜杠（&lt;code&gt;\&lt;/code&gt;）。&lt;/p&gt;
+&lt;h3 id="ospathabspathpath"&gt;os.path.abspath(path)&lt;/h3&gt;
+&lt;p&gt;返回将 &lt;code&gt;path&lt;/code&gt; 标准化后的绝对路径，相当于 &lt;code&gt;normpath(join(os.getcwd(), path))&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="_3"&gt;查询及检测路径&lt;/h2&gt;
+&lt;p&gt;os.path 还可以用于检测路径是否有效，以及查询文件的相关信息（metadata）。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：在使用以下函数前，需要先将路径中的波浪线和环境变量扩展开。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id="ospathgetatimepath"&gt;os.path.getatime(path)&lt;/h3&gt;
+&lt;p&gt;获取文件的最后访问时间。如果文件不存在或不可访问，抛出 &lt;code&gt;os.error&lt;/code&gt; 异常。&lt;/p&gt;
+&lt;h3 id="ospathgetmtimepath"&gt;os.path.getmtime(path)&lt;/h3&gt;
+&lt;p&gt;获取文件的最后修改时间。如果文件不存在或不可访问，抛出 &lt;code&gt;os.error&lt;/code&gt; 异常。&lt;/p&gt;
+&lt;h3 id="ospathgetctimepath"&gt;os.path.getctime(path)&lt;/h3&gt;
+&lt;p&gt;获取文件的创建时间（需要系统自身支持，否则和最后修改时间一样，例如 Unix/Linux 系统）。如果文件不存在或不可访问，抛出 &lt;code&gt;os.error&lt;/code&gt; 异常。&lt;/p&gt;
+&lt;h3 id="ospathgetsizepath"&gt;os.path.getsize(path)&lt;/h3&gt;
+&lt;p&gt;获取文件的大小，以字节为单位。如果文件不存在或不可访问，抛出 &lt;code&gt;os.error&lt;/code&gt; 异常。&lt;/p&gt;
+&lt;h3 id="ospathrealpathpath"&gt;os.path.realpath(path)&lt;/h3&gt;
+&lt;p&gt;返回 &lt;code&gt;path&lt;/code&gt; 实际指向的目标路径，即消除所有的符号链接（前提是系统支持）。&lt;/p&gt;
+&lt;h3 id="ospathisabspath"&gt;os.path.isabs(path)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;path&lt;/code&gt; 是绝对路径时返回 &lt;code&gt;True&lt;/code&gt;。这意味着，在 Unix/Linux 下，以 &lt;code&gt;/&lt;/code&gt; 开头；在 Windows 下，以 &lt;code&gt;\&lt;/code&gt; 开头（需斩掉盘符）&lt;/p&gt;
+&lt;h3 id="ospathisfilepath"&gt;os.path.isfile(path)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;path&lt;/code&gt; 指向的是一个文件时返回 &lt;code&gt;True&lt;/code&gt;。此函数跟踪符号链接。&lt;/p&gt;
+&lt;h3 id="ospathisdirpath"&gt;os.path.isdir(path)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;path&lt;/code&gt; 指向的是一个目录时返回 &lt;code&gt;True&lt;/code&gt;。此函数跟踪符号链接。&lt;/p&gt;
+&lt;h3 id="ospathislinkpath"&gt;os.path.islink(path)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;path&lt;/code&gt; 指向的是一个符号链接时返回 &lt;code&gt;True&lt;/code&gt;。如果不支持符号链接，那么返回 &lt;code&gt;False&lt;/code&gt;&lt;/p&gt;
+&lt;h3 id="ospathexistspath"&gt;os.path.exists(path)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;path&lt;/code&gt; 指向一个实际存在的路径时返回 &lt;code&gt;True&lt;/code&gt;。对于坏掉的符号链接，它返回 &lt;code&gt;False&lt;/code&gt;。&lt;/p&gt;
+&lt;h3 id="ospathlexistspath"&gt;os.path.lexists(path)&lt;/h3&gt;
+&lt;p&gt;&lt;code&gt;path&lt;/code&gt; 指向一个实际存在的路径时返回 &lt;code&gt;True&lt;/code&gt;。对于坏掉的符号链接，它返回 &lt;code&gt;True&lt;/code&gt;。&lt;/p&gt;</summary><category term="os.path"></category><category term="Python"></category></entry></feed>

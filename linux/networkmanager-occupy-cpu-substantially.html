@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Yysfire" />
+        <meta name="copyright" content="Yysfire" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="NetworkManager, Ubuntu, IPv6, interfaces, linux, " />
+
+<meta property="og:title" content="解决NetworkManager大幅占用CPU的问题 "/>
+<meta property="og:url" content="http://yysfire.github.com/linux/networkmanager-occupy-cpu-substantially.html" />
+<meta property="og:description" content="系统环境：台式机，Ubuntu 12.04 64位桌面版，网卡eth0闲置，平时使用网卡eth1. 网络环境：通过DHCP动态获取ipv4地址，自动获取ipv6地址。 每次打开Transmission通过ipv6下载PT时，进程network-manager的CPU占用率都会飙到百分之九十多。 我的解决方法就是：放弃采用NetworkManager来管理网络设置，而使用传统的/etc/network/interfaces文件来管理网络设置。实际上，服务器版的Linux系统都是采用这种方式的，NetworkManager只有桌面版的Ubuntu系统才有。 第一步：禁用NetworkManager ..." />
+<meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
+<meta property="og:article:author" content="Yysfire" />
+<meta property="og:article:published_time" content="2012-10-07T16:50:37" />
+<meta property="" content="2012-10-07T19:47:16" />
+<meta name="twitter:title" content="解决NetworkManager大幅占用CPU的问题 ">
+<meta name="twitter:description" content="系统环境：台式机，Ubuntu 12.04 64位桌面版，网卡eth0闲置，平时使用网卡eth1. 网络环境：通过DHCP动态获取ipv4地址，自动获取ipv6地址。 每次打开Transmission通过ipv6下载PT时，进程network-manager的CPU占用率都会飙到百分之九十多。 我的解决方法就是：放弃采用NetworkManager来管理网络设置，而使用传统的/etc/network/interfaces文件来管理网络设置。实际上，服务器版的Linux系统都是采用这种方式的，NetworkManager只有桌面版的Ubuntu系统才有。 第一步：禁用NetworkManager ...">
+
+        <title>解决NetworkManager大幅占用CPU的问题  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="http://yysfire.github.com/theme/css/style.min.css?7aeecf36">
+        <link rel="shortcut icon" href="http://yysfire.github.com/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.com/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://yysfire.github.com/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://yysfire.github.com">Home</a></li>
+                            <li ><a href="http://yysfire.github.com/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.com/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.com/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://yysfire.github.com/linux/networkmanager-occupy-cpu-substantially.html"> 解决NetworkManager大幅占用CPU的问题  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <h4>Contents</h4>
+        <div class="toc">
+<ul>
+<li><a href="#networkmanager">第一步：禁用NetworkManager</a></li>
+<li><a href="#etcnetworkinterfaces">第二步：修改/etc/network/interfaces</a></li>
+<li><a href="#privacy-extension">Privacy Extension</a></li>
+<li><a href="#ipv6">禁用ipv6</a></li>
+<li><a href="#_1">参考资料</a></li>
+</ul>
+</div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            
+            
+<p>系统环境：台式机，Ubuntu 12.04 64位桌面版，网卡eth0闲置，平时使用网卡eth1.</p>
+<p>网络环境：通过DHCP动态获取ipv4地址，自动获取ipv6地址。</p>
+<p>每次打开Transmission通过ipv6下载PT时，进程network-manager的CPU占用率都会飙到百分之九十多。</p>
+<p>我的解决方法就是：放弃采用NetworkManager来管理网络设置，而使用传统的<code>/etc/network/interfaces</code>文件来管理网络设置。实际上，服务器版的Linux系统都是采用这种方式的，NetworkManager只有桌面版的Ubuntu系统才有。</p>
+<h2 id="networkmanager">第一步：禁用NetworkManager</h2>
+<p>编辑<code>/etc/NetworkManager/NetworkManager.conf</code></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo vim /etc/NetworkManager/NetworkManager.conf
+</pre></div>
+</td></tr></table>
+<p>将<code>managed=true</code>改为<code>managed=false</code>，然后重启NetworkManager服务</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo service network-manager restart
+</pre></div>
+</td></tr></table>
+<p>如果我们将<code>managed</code>设为<code>true</code>时，NetworkManager会接管所有网路设备的设定，而忽略<code>/etc/network/interfaces</code>的内容。</p>
+<h2 id="etcnetworkinterfaces">第二步：修改<code>/etc/network/interfaces</code></h2>
+<p>此文件原始状态只有以下行：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="c"># /etc/network/interfaces</span>
+auto lo
+iface lo inet loopback
+</pre></div>
+</td></tr></table>
+<p>关于lo的这两行设定是必要的，请勿删除。删掉的话，系统将不具备 127.0.0.1 (localhost) 的网路介面。</p>
+<p>挂起网卡eth0：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>allow-hotplug eth0
+</pre></div>
+</td></tr></table>
+<p>动态获取ipv4地址：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>auto eth1
+iface eth1 inet dhcp
+</pre></div>
+</td></tr></table>
+<p>自动获取ipv6地址的方式：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre>iface eth1 inet6 auto
+</pre></div>
+</td></tr></table>
+<p>采用静态ipv6地址的方式：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="highlight"><pre>iface eth1 inet6 static
+    address your_ipv6_address
+    netmask 64
+    up route -A inet6 add default gw your_ipv6_gateway dev <span class="nv">$IFACE</span>
+</pre></div>
+</td></tr></table>
+<p>每次修改过interfaces文件，都要运行以下命令重载设置才能生效。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo service networking restart
+</pre></div>
+</td></tr></table>
+<p>此后，NetworkManager不会再占用CPU资源了。</p>
+<h2 id="privacy-extension">Privacy Extension</h2>
+<p>Ubuntu默认对ipv6启用了privacy extension.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo vim /etc/sysctl.d/10-ipv6-privacy.conf
+</pre></div>
+</td></tr></table>
+<p>在这个文件中，你会看到下面两行：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre>net.ipv6.conf.all.use_tempaddr <span class="o">=</span> 2
+net.ipv6.conf.default.use_tempaddr <span class="o">=</span> 2
+</pre></div>
+</td></tr></table>
+<p>看看你的ipv6地址，你会发现一些有趣的东西。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>ip addr show
+1: lo:  mtu 16436 qdisc noqueue state UNKNOWN
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0:  mtu 1500 qdisc pfifo_fast state UP ql en 1000
+    link/ether 00:05:06:07:08:09 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.100/24 brd 198.168.1.255 scope global eth0
+    inet6 2789:1234:cdef:9876:395e:c9fd:78b4:d863/64 scope global temporary dynamic
+       valid_lft 604349sec preferred_lft 85349sec
+    inet6 2789:1234:cdef:9876:205:06ff:fe07:0809/64 scope global dynamic
+       valid_lft 2591921sec preferred_lft 604721sec
+    inet6 fe80::205:06ff:fe07:0809/64 scope link
+       valid_lft forever preferred_lft forever
+</pre></div>
+</td></tr></table>
+<p>对于网卡eth0,你会发现有两个scope global的ipv6地址："scope global temporary dynamic" 和 "scope global dynamic".</p>
+<p>这两个地址都是有生命期的，在"preferred_lft"这么多秒之后，它们就会被新的地址所取代。</p>
+<p>如果，我们在文件<code>/etc/sysctl.d/10-ipv6-privacy.conf</code>中取值2，那么那个"temporary"地址就会被用于对外连接。如果取1，就不会；如果取0，就完全禁用privacy extension.</p>
+<p>每次修改完此文件，需运行以下命令使设置生效：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo service procps restart
+</pre></div>
+</td></tr></table>
+<p>此命令如果不起作用，可试试</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo sysctl -p
+</pre></div>
+</td></tr></table>
+<h2 id="ipv6">禁用ipv6</h2>
+<p>编辑以下文件</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo vim /etc/sysctl.conf
+</pre></div>
+</td></tr></table>
+<p>添加以下三行</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre>net.ipv6.conf.all.disable_ipv6 <span class="o">=</span> 1
+net.ipv6.conf.default.disable_ipv6 <span class="o">=</span> 1
+net.ipv6.conf.lo.disable_ipv6 <span class="o">=</span> 1
+</pre></div>
+</td></tr></table>
+<p>重启procps服务</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="nv">$ </span>sudo service procps restart
+<span class="nv">$ </span>sudo sysctl -p
+</pre></div>
+</td></tr></table>
+<p>如果，还不起作用，可能就要重启系统了。</p>
+<h2 id="_1">参考资料</h2>
+<ol>
+<li><a href="http://codeghar.wordpress.com/2012/08/03/ipv6-in-ubuntu-12-04/">IPv6 in Ubuntu 12.04</a></li>
+</ol>
+            
+            
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="http://yysfire.github.com/linux/build-and-install-official-NVIDIA-driver-manually-on-ubuntu-12.04.html" title="Ubuntu12.04 x64系统手动编译安装NVIDIA官方驱动">Ubuntu12.04 x64系统手动编译安装NVIDIA官方驱动</a></li>
+<li><a href="http://yysfire.github.com/linux/change-startup-screen-and-resolution-of-ubuntu-12.04.html" title="Ubuntu12.04系统下修改启动画面和控制台的分辨率">Ubuntu12.04系统下修改启动画面和控制台的分辨率</a></li>
+<li><a href="http://yysfire.github.com/linux/building-deb-package-from-source-and-modify-deb-package.html" title="从源代码制作deb包的两种方法以及修改已有deb包">从源代码制作deb包的两种方法以及修改已有deb包</a></li>
+<li><a href="http://yysfire.github.com/linux/building-ffmpeg-mplayer-on-ubuntu-12.04-x64.html" title="Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录">Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录</a></li>
+<li><a href="http://yysfire.github.com/linux/change-ubuntu-12.10-login-ui-background.html" title="修改Ubuntu 12.10登录界面的背景">修改Ubuntu 12.10登录界面的背景</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="http://yysfire.github.com/linux/unity-3d-does-not-work-after-upgrade-on-ubuntu-12.04.html" title="Previous: Ubuntu12.04更新后Unity 3D无法工作">Ubuntu12.04更新后Unity 3D无法工作</a></li>
+                <li class="next-article"><a href="http://yysfire.github.com/linux/shell-proxy.html" title="Next: Linux命令行实现代理连接上网">Linux命令行实现代理连接上网</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2012-10-07T16:50:37">十月 7, 2012</time>
+
+<h4>Last Updated</h4>
+<time datetime="2012-10-07T19:47:16">十月 7, 2012</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://yysfire.github.com/categories.html#linux-ref">linux</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://yysfire.github.com/tags.html#interfaces-ref">interfaces
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#ipv6-ref">IPv6
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#networkmanager-ref">NetworkManager
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.com/tags.html#ubuntu-ref">Ubuntu
+                    <span>9</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-facebook sidebar-social-links"></i></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>

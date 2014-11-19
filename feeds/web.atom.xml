@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.com/" rel="alternate"></link><link href="http://yysfire.github.com/feeds/web.atom.xml" rel="self"></link><id>http://yysfire.github.com/</id><updated>2012-12-09T03:49:10+08:00</updated><entry><title>如何给GitHub Pages添加Google自定义搜索</title><link href="http://yysfire.github.com/web/how-to-add-google-custom-search-to-github-pages.html" rel="alternate"></link><updated>2012-12-09T03:49:10+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-12-08:web/how-to-add-google-custom-search-to-github-pages.html</id><summary type="html">
+&lt;p&gt;当我们把网站托管给 GitHub Pages 后，站内搜索功能是少不了的。比较好的解决方案就是使用 Google 的自定义搜索。这样做的好处显而易见：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;充分利用 Google 搜索的各种强大功能，例如词语分割、智能匹配、拼写纠正等。&lt;/li&gt;
+&lt;li&gt;除了搜索本站之外，还可以在搜索页面中整合其它站点的搜索结果，例如你的其它站点博客、微博等。&lt;/li&gt;
+&lt;li&gt;提高了搜索速度（通常情况访问 Google 的速度要比 GitHub 快吧）。&lt;/li&gt;
+&lt;li&gt;可以应用 Google Analytics 和 AdSence 等服务。&lt;/li&gt;
+&lt;li&gt;大大节约了网站管理者的时间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;下面就让我们来一步步实现站内搜索的目标。&lt;/p&gt;
+&lt;h2 id="_1"&gt;第一步：给自己的网页添加搜索框&lt;/h2&gt;
+&lt;p&gt;既然要搜索，那必须得有搜索框了，以便输入搜索关键字。很多网站主题都提供有自己的原生搜索框，这个我就不赘述如何添加了。你也可以选择使用 Google 提供的示例搜索框。到以下网址：&lt;/p&gt;
+&lt;p&gt;&amp;lt;&lt;a href="https://www.google.com/cse/tools/create_onthefly?hl=zh-CN"&gt;https://www.google.com/cse/tools/create_onthefly?hl=zh-CN&lt;/a&gt;&amp;gt;&lt;/p&gt;
+&lt;p&gt;就可以看到示例搜索框的代码&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/p740s.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_01.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;&amp;lt;!-- 使用该代码即表示您同意接受 Google 自定义搜索服务条款。 --&amp;gt;&lt;/span&gt;
+&lt;span class="c"&gt;&amp;lt;!-- 有关服务条款，请访问 http://www.google.com/cse/docs/tos.html?hl=zh-CN --&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"cse"&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;"searchbox_demo"&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;"http://www.google.com/cse"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"hidden"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"cref"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;""&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"hidden"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"ie"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;"utf-8"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"hidden"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"hl"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;"zh-CN"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"q"&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"text"&lt;/span&gt; &lt;span class="na"&gt;size=&lt;/span&gt;&lt;span class="s"&gt;"40"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"submit"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"sa"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;"搜索"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"text/javascript"&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;"http://www.google.com/cse/tools/onthefly?form=searchbox_demo&amp;amp;lang=zh-CN"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;将其放到你网页中想显示搜索框的位置，就可以得到一个带有“Google 自定义搜索”标志的搜索框了。&lt;/p&gt;
+&lt;h2 id="google"&gt;第二步：定制并获取 Google 自定义搜索代码&lt;/h2&gt;
+&lt;p&gt;登录你的 Google 帐号，还是进入刚才的网址，点右侧的“自定义自己的搜索引擎”，进入下面的页面&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/77BLu.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_02.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;给自己的搜索引擎填上名称、描述，在“要搜索的网站”框中填入自己站点的地址，如上图所示。然后选择标准版，同意服务条款，点“下一步”。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/hHONe.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_03.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;选择一个自定义样式后，直接点下一步。可能有人会在这里先试用一下，结果发现没有搜索结果。这应该是因为你的站点还没有被 Google 收录。这一点先不管，点下一步继续。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/mf1Vp.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_04.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在这个页面就已经得到了一段代码，但它不是我们最后要用的，可以不管，点“外观”进入搜索引擎控制面板&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/sVnVu.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_05.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在“外观”页面除了可以修改先前选择的样式之外，还可以选择布局，就是搜索框和搜索结果之间的位置关系。选定之后可以点“保存并获取代码”。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/la8r9.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_06.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;在这里又看到和之前类似的代码，但它不是我想用的，点“切换到搜索元素V1代码”。&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/QSpgd.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_07.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;指定你网站的协议，对于 GitHub Pages 来说，应该是默认的 http. 下面的代码才是我想用的：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;"cse"&lt;/span&gt; &lt;span class="na"&gt;style=&lt;/span&gt;&lt;span class="s"&gt;"width: 100%;"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;Loading&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;src=&lt;/span&gt;&lt;span class="s"&gt;"http://www.google.com/jsapi"&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"text/javascript"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"text/javascript"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt; 
+  google.load('search', '1', {language : 'zh-CN', style : google.loader.themes.SHINY});
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};  var customSearchControl = new google.search.CustomSearchControl(
+      'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    customSearchControl.draw('cse');
+  }, true);
+&lt;span class="nt"&gt;&amp;lt;/script&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;其中，"xxxxx" 部分代表的是你特有的搜索ID。&lt;/p&gt;
+&lt;p&gt;好，先拷贝下这段代码，第三步要用的。&lt;/p&gt;
+&lt;h2 id="_2"&gt;第三步：给自己站点添加搜索结果页面&lt;/h2&gt;
+&lt;p&gt;给自己的站点新建一个搜索页面，用于显示搜索结果，例如我根据自己 GitHub Pages 站点的模板，新建了一个 "search.html" 页面，保留了主站点的布局。然后，将上面这段代码添加到 search 页面的 &lt;code&gt;&amp;lt;body&amp;gt;&amp;lt;/body&amp;gt;&lt;/code&gt; 标签内你想显示搜索结果的位置。当然，这段代码中除了第一行之外的其它行都是加载JS，最好是将它们放到 &lt;code&gt;&amp;lt;/body&amp;gt;&lt;/code&gt; 标签之前。&lt;/p&gt;
+&lt;h2 id="_3"&gt;第四步：修改搜索框的代码&lt;/h2&gt;
+&lt;p&gt;这一步很关键，以第一步中提到的 Google 示例搜索框的代码为例。将搜索框 &lt;code&gt;form&lt;/code&gt; 标签的 &lt;code&gt;action&lt;/code&gt; 属性值改为 &lt;code&gt;/search.html&lt;/code&gt;，输入框（&lt;code&gt;input&lt;/code&gt; 元素）的 &lt;code&gt;name&lt;/code&gt; 属性值改为 &lt;code&gt;q&lt;/code&gt;。如下所示：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"cse"&lt;/span&gt; &lt;span class="na"&gt;id=&lt;/span&gt;&lt;span class="s"&gt;"searchbox"&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;"/search.html"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"hidden"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"cref"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;""&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"hidden"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"ie"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;"utf-8"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"hidden"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"hl"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;"zh-CN"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"q"&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"text"&lt;/span&gt; &lt;span class="na"&gt;size=&lt;/span&gt;&lt;span class="s"&gt;"40"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+  &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"submit"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"sa"&lt;/span&gt; &lt;span class="na"&gt;value=&lt;/span&gt;&lt;span class="s"&gt;"搜索"&lt;/span&gt; &lt;span class="nt"&gt;/&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;其它原生的搜索框也作类似修改，例如我站点的搜索框：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nt"&gt;&amp;lt;div&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;"pull-right"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;form&lt;/span&gt; &lt;span class="na"&gt;action=&lt;/span&gt;&lt;span class="s"&gt;"/search.html"&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;"navbar-search"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;input&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"text"&lt;/span&gt; &lt;span class="na"&gt;placeholder=&lt;/span&gt;&lt;span class="s"&gt;"搜索"&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;"search-query input-medium"&lt;/span&gt; &lt;span class="na"&gt;name=&lt;/span&gt;&lt;span class="s"&gt;"q"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="nt"&gt;&amp;lt;button&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;"icon nav-search"&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;"submit"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;i&lt;/span&gt; &lt;span class="na"&gt;class=&lt;/span&gt;&lt;span class="s"&gt;"icon-search icon-white"&lt;/span&gt;&lt;span class="nt"&gt;&amp;gt;&amp;lt;/i&amp;gt;&amp;lt;/button&amp;gt;&lt;/span&gt;
+    &lt;span class="nt"&gt;&amp;lt;/form&amp;gt;&lt;/span&gt;
+&lt;span class="nt"&gt;&amp;lt;/div&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;这样修改之后，当进行搜索时，页面就会跳转到 &lt;code&gt;http://yoursite.com/search.html?q=你的搜索关键字&lt;/code&gt;，搜索结果就会在 &lt;code&gt;search.html&lt;/code&gt; 页面显示出来。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：子目录页面的 action 也必须指向根目录下的 search.html. 例如，一级子目录页面，action就得指向"../search.html"&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="_4"&gt;第五步：提取搜索关键字启动搜索&lt;/h2&gt;
+&lt;p&gt;简单地说，就是从 URL 中提取浏览者搜索的关键词，然后调用 Google API 进行搜索。在第三步 search.html 页面中，Google 代码的 &lt;code&gt;customSearchControl.draw(‘cse’, options)&lt;/code&gt; 的后面插入下面的这段代码：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;q&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;([&lt;/span&gt;&lt;span class="o"&gt;^&amp;amp;&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)(&lt;/span&gt;&lt;span class="o"&gt;&amp;amp;|&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]){&lt;/span&gt;
+    &lt;span class="n"&gt;var&lt;/span&gt; &lt;span class="n"&gt;search&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;decodeURIComponent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]);&lt;/span&gt; 
+&lt;span class="n"&gt;customSearchControl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;到此，就大功告成了。赶快去搜一搜吧，体验一下 Google 自定义搜索的好处吧！&lt;/p&gt;
+&lt;p&gt;如果你按照这五步操作之后，搜索之后显示没有搜索结果，表明你的网站还没被 Google 收录，它还没给你的网站编制索引。你可以到下面的网址提交你的站点：&lt;/p&gt;
+&lt;p&gt;&amp;lt;&lt;a href="http://www.google.com/intl/zh-CN/add_url.html"&gt;http://www.google.com/intl/zh-CN/add_url.html&lt;/a&gt;&amp;gt;&lt;/p&gt;
+&lt;p&gt;你也可以到你的自定义搜索引擎的控制面板的“编制索引”页面提交你的站点，让 Google 立即给你编制索引，如下图所示：&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://i.imgur.com/BF178.png"&gt;&lt;img alt="pic" src="../images/thumbs/googlecustomsearch_08.png"/&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意：在编制索引之前，Google 要先验证你是网站的拥有者。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;验证过程很简单：前往 &lt;a href="http://www.google.com/webmasters/tools/?hl=zh_CN"&gt;Google网站站长工具&lt;/a&gt;，生成一个网页文件，你把它上传你的网站根目录，在浏览器中访问一下，确认生效后点验证即可**&lt;/p&gt;
+&lt;h2 id="_5"&gt;第六步：优化搜索结果页面（可选）&lt;/h2&gt;
+&lt;p&gt;详细的优化和自定义设置，可参考：&lt;a href="https://developers.google.com/custom-search/docs/element"&gt;关于自定义搜索引擎 (CSE) 元素的完整文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;以下内容摘自 &lt;a href="http://fis.io/ajax-google-custom-search-engine.html"&gt;老肥博客&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id="google-css"&gt;不加载 Google 的 CSS&lt;/h3&gt;
+&lt;p&gt;如果要用自己网站的样式，最好是完全不加载 Google 的 CSS, 不然覆盖样式就有得写了。在 &lt;code&gt;google.load&lt;/code&gt; 中加入 &lt;code&gt;"nocss" : true&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;load&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="sc"&gt;'1'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;language&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;'&lt;/span&gt;&lt;span class="n"&gt;zh&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;CN&lt;/span&gt;&lt;span class="err"&gt;'&lt;/span&gt; &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;"nocss"&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nb"&gt;true&lt;/span&gt; &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="_6"&gt;无结果时显示的文字&lt;/h3&gt;
+&lt;p&gt;由 &lt;code&gt;setNoResultsString&lt;/code&gt; 控制，在无结果时将字串写入到 "正在搜索" 处。中文语言下缺省值为“无结果”&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;customSearchControl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setNoResultsString&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;'什么也没找到，请重试'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="_7"&gt;结果每页条数&lt;/h3&gt;
+&lt;p&gt;由 &lt;code&gt;setResultSetSize&lt;/code&gt; 控制，可选参数有：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;含义&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;FILTERED_CSE_RESULTSET&lt;/td&gt;
+&lt;td&gt;10条&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;LARGE_RESULTSET&lt;/td&gt;
+&lt;td&gt;8条&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;SMALL_RESULTSET&lt;/td&gt;
+&lt;td&gt;4条&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;customSearchControl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setResultSetSize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Search&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;SMALL_RESULTSET&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="_8"&gt;是否在新标签中打开链接&lt;/h3&gt;
+&lt;p&gt;由 &lt;code&gt;setLinkTarget&lt;/code&gt; 控制，一般用到的就是 &lt;code&gt;LINK_TARGET_BLANK&lt;/code&gt;（新标签打开） 和 &lt;code&gt;LINK_TARGET_SELF&lt;/code&gt;（当前标签页打开） 两种。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;customSearchControl&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;setLinkTarget&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="n"&gt;google&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;search&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Search&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;LINK_TARGET_SELF&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h3 id="_9"&gt;搜索执行完毕后调用其它脚本&lt;/h3&gt;
+&lt;p&gt;由 &lt;code&gt;setSearchCompleteCallback&lt;/code&gt; 控制，这是一个相当灵活的命令，我这里用它来将搜索结果标题中的“老肥博客 » 非唠不可”去掉，不然每条标题后面都有这样一句，比较难看。这里我另外加载了 jQuery 来用，当然这不是必需的，如果没有需要就不用了。&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6
+7
+8&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;customSearchControl.setSearchCompleteCallback&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kt"&gt;null&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'input.gsc-input'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;select&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'a.gs-title'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;wrap&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'&amp;lt;h3&amp;gt;&amp;lt;/h3&amp;gt;'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;each&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;function&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="n"&gt;title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;this&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;replace&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;/\|&lt;/span&gt;&lt;span class="nx"&gt;.&lt;/span&gt;&lt;span class="o"&gt;*/&lt;/span&gt;&lt;span class="nx"&gt;g&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;''&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;this&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;html&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;title&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+    &lt;span class="err"&gt;$&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'b:contains("...")'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nb"&gt;contents&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;span class="bp"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;unwrap&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;以上在 setSearchCompleteCallback 中执行了三个步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;将焦点放到搜索框 &lt;code&gt;input.gsc-input&lt;/code&gt; 中并全选文字；&lt;/li&gt;
+&lt;li&gt;将搜索结果标题链接 &lt;code&gt;a.gs-title&lt;/code&gt; 先去掉外面的一层 &lt;code&gt;div&lt;/code&gt;, 再套在 &lt;code&gt;&amp;lt;h3&amp;gt;&lt;/code&gt; 内（这样方便沿用全局 CSS 里面的标题样式），然后对每个标题链接读取内容，替换，写回去；&lt;/li&gt;
+&lt;li&gt;将包含 "..." 的关键字高亮去掉 &lt;code&gt;&amp;lt;b&amp;gt;&lt;/code&gt;;（Google 用 &lt;code&gt;&amp;lt;b&amp;gt;&lt;/code&gt; 标示关键字，但不知为何 "..." 也都这样标记）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id="_10"&gt;参考资料&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href="http://fis.io/ajax-google-custom-search-engine.html"&gt;老肥博客 » 非唠不可&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://developers.google.com/custom-search/docs/element"&gt;关于Google自定义搜索引擎 (CSE) 元素的完整文档&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="Google"></category><category term="Custom Search"></category><category term="GitHub Pages"></category></entry></feed>

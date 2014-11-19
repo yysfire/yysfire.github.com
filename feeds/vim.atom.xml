@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.com/" rel="alternate"></link><link href="http://yysfire.github.com/feeds/vim.atom.xml" rel="self"></link><id>http://yysfire.github.com/</id><updated>2012-12-05T15:43:44+08:00</updated><entry><title>让Vim在Gnome-terminal下使用Solarized Colorscheme</title><link href="http://yysfire.github.com/vim/make-vim-to-use-solarized-colorscheme-in-gnome-terminal.html" rel="alternate"></link><updated>2012-12-05T14:23:19+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-12-05:vim/make-vim-to-use-solarized-colorscheme-in-gnome-terminal.html</id><summary type="html">&lt;p&gt;最近给 Vim 安装了一款名叫 &lt;a href="https://github.com/altercation/vim-colors-solarized"&gt;Solarized&lt;/a&gt; 的配色方案，它提供了两种背景：深蓝色和浅黄色。效果截图请参考作者的主页 &amp;lt;&lt;a href="http://ethanschoonover.com/solarized"&gt;http://ethanschoonover.com/solarized&lt;/a&gt;.&amp;gt;&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.io/" rel="alternate"></link><link href="http://yysfire.github.io/feeds/vim.atom.xml" rel="self"></link><id>http://yysfire.github.io/</id><updated>2012-12-05T15:43:44+08:00</updated><entry><title>让Vim在Gnome-terminal下使用Solarized Colorscheme</title><link href="http://yysfire.github.io/vim/make-vim-to-use-solarized-colorscheme-in-gnome-terminal.html" rel="alternate"></link><updated>2012-12-05T14:23:19+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2012-12-05:vim/make-vim-to-use-solarized-colorscheme-in-gnome-terminal.html</id><summary type="html">&lt;p&gt;最近给 Vim 安装了一款名叫 &lt;a href="https://github.com/altercation/vim-colors-solarized"&gt;Solarized&lt;/a&gt; 的配色方案，它提供了两种背景：深蓝色和浅黄色。效果截图请参考作者的主页 &amp;lt;&lt;a href="http://ethanschoonover.com/solarized"&gt;http://ethanschoonover.com/solarized&lt;/a&gt;.&amp;gt;&lt;/p&gt;
 &lt;p&gt;此款配色方案在 Vim 的图形界面（例如GVim）下可以直接使用，但是，若要在终端模式下使用，就必须先给终端模拟器配置相应的256色的配色板（palettes）。对于 Gnome-terminal 的用户，这个活儿可不好做，作者在其说明文档里并没有作详细地介绍。因为作者在 &lt;a href="https://github.com/altercation/solarized"&gt;main Solarized repository&lt;/a&gt; 里提供了 Xresources 文件，所以，我以为将该文件复制到主目录，改名为 .Xresources 就可以了，其实不然。&lt;/p&gt;
 &lt;p&gt;以下就是我久经辗转才弄清楚的配置过程。&lt;/p&gt;
 &lt;p&gt;首先，给 Gnome-terminal 新建一个配置文件，例如 solarized.&lt;/p&gt;
@@ -12,7 +12,7 @@
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
-&lt;p&gt;会出现安装提示，在 dark 和 light 主题里任选一个，然后选择刚才新建的 solarized profile，最后输入 YES，按回车即配置成功。&lt;/p&gt;</summary><category term="Vim"></category><category term="Gnome"></category><category term="Terminal"></category><category term="Color"></category></entry><entry><title>Vim 脚本学习笔记</title><link href="http://yysfire.github.com/vim/vimscript-note.html" rel="alternate"></link><updated>2012-12-05T15:43:44+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-12-04:vim/vimscript-note.html</id><summary type="html">
+&lt;p&gt;会出现安装提示，在 dark 和 light 主题里任选一个，然后选择刚才新建的 solarized profile，最后输入 YES，按回车即配置成功。&lt;/p&gt;</summary><category term="Vim"></category><category term="Gnome"></category><category term="Terminal"></category><category term="Color"></category></entry><entry><title>Vim 脚本学习笔记</title><link href="http://yysfire.github.io/vim/vimscript-note.html" rel="alternate"></link><updated>2012-12-05T15:43:44+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2012-12-04:vim/vimscript-note.html</id><summary type="html">
 &lt;h2 id="_1"&gt;变量&lt;/h2&gt;
 &lt;p&gt;Vimscript 变量范围&lt;/p&gt;
 &lt;table&gt;
@@ -419,7 +419,7 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;参阅所有插件的特殊环节 &lt;code&gt;:help plugin-special&lt;/code&gt;。&lt;/p&gt;</summary><category term="Vim"></category><category term="Vimscript"></category></entry><entry><title>在 VimWiki 中使用 SyntaxHighlighter 实现代码语法高亮</title><link href="http://yysfire.github.com/vim/vimwiki-syntaxhighlighter.html" rel="alternate"></link><updated>2012-07-10T23:28:42+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-07-10:vim/vimwiki-syntaxhighlighter.html</id><summary type="html">
+&lt;p&gt;参阅所有插件的特殊环节 &lt;code&gt;:help plugin-special&lt;/code&gt;。&lt;/p&gt;</summary><category term="Vim"></category><category term="Vimscript"></category></entry><entry><title>在 VimWiki 中使用 SyntaxHighlighter 实现代码语法高亮</title><link href="http://yysfire.github.io/vim/vimwiki-syntaxhighlighter.html" rel="alternate"></link><updated>2012-07-10T23:28:42+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2012-07-10:vim/vimwiki-syntaxhighlighter.html</id><summary type="html">
 &lt;p&gt;下载最新的 &lt;a href="http://alexgorbatchev.com/SyntaxHighlighter/download/download.php?sh_current"&gt;SyntaxHighlighter&lt;/a&gt; 3.0.83&lt;/p&gt;
 &lt;p&gt;将压缩包里的 scripts 和 styles 文件夹解压到 VimWiki 的 html 文件输出目录下。我将它们都放在syntaxhighlighter目录下。&lt;/p&gt;
 &lt;h2 id="syntaxhighlighter"&gt;SyntaxHighlighter 基本用法&lt;/h2&gt;
@@ -731,7 +731,7 @@
 &lt;h2 id="_4"&gt;参考网站&lt;/h2&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a href="http://alexgorbatchev.com/SyntaxHighlighter/"&gt;SyntaxHighlighter 官网&lt;/a&gt;&lt;/li&gt;
-&lt;/ol&gt;</summary><category term="SyntaxHighlighter"></category><category term="VimWiki"></category><category term="Vim"></category></entry><entry><title>Vim命令拾遗</title><link href="http://yysfire.github.com/vim/vim-command-note.html" rel="alternate"></link><updated>2012-07-10T20:35:49+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.com,2012-07-10:vim/vim-command-note.html</id><summary type="html">
+&lt;/ol&gt;</summary><category term="SyntaxHighlighter"></category><category term="VimWiki"></category><category term="Vim"></category></entry><entry><title>Vim命令拾遗</title><link href="http://yysfire.github.io/vim/vim-command-note.html" rel="alternate"></link><updated>2012-07-10T20:35:49+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2012-07-10:vim/vim-command-note.html</id><summary type="html">
 &lt;p&gt;&lt;code&gt;:reg&lt;/code&gt;: 查看各个寄存器的内容&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;CTRL-R&lt;/code&gt;: 插入寄存器内容。在输入 CTRL-R 和第二个字符之间，'"' 会显示出来，以提示你需要输入寄存器的名字&lt;/p&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1

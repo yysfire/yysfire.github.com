@@ -13,7 +13,7 @@
 <meta name="keywords" content="SSH, ssh-agent, Linux, git, linux, " />
 
 <meta property="og:title" content="使用ssh和ssh-agent实现“无密码”登录远程机器 "/>
-<meta property="og:url" content="http://yysfire.github.com/linux/using-ssh-agent-with-ssh.html" />
+<meta property="og:url" content="http://yysfire.github.io/linux/using-ssh-agent-with-ssh.html" />
 <meta property="og:description" content="我们经常有从本地连接登录到远程机器的必要，例如，使用版本控制工具进行push操作时。每次push时都要求输入用户名和密码，这不仅不方便，也不安全。使用SSH密钥就可以轻松的解决这个问题。 本文目标 通过使用ssh和ssh-agent两种工具，加密安全地连接到远程机器，而又不用手工输入密码。 基本流程 在本地机器上创建密钥对 将公共密钥放到要连接的远程机器上 使用ssh-agent来缓存解密的私有密钥，实现后续的“无密码”连接 具体实现方法 以从基于Ubuntu系统的本地机器连接到GitHub.com为例进行说明。如果本地操作系统为Windows，请使用Cygwin或者msysgit。 步骤1：检查本地是否已存在密钥对 ..." />
 <meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
 <meta property="og:article:author" content="Yysfire" />
@@ -26,18 +26,18 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="http://yysfire.github.com/theme/css/style.min.css?7aeecf36">
-        <link rel="shortcut icon" href="http://yysfire.github.com/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
-        <link rel="icon" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="http://yysfire.github.com/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link href="http://yysfire.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css?7aeecf36">
+        <link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
     </head>
     <body>
         <div id="content-sans-footer">
@@ -49,14 +49,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="http://yysfire.github.com/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <a class="brand" href="http://yysfire.github.io/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="http://yysfire.github.com">Home</a></li>
-                            <li ><a href="http://yysfire.github.com/categories.html">Categories</a></li>
-                            <li ><a href="http://yysfire.github.com/tags.html">Tags</a></li>
-                            <li ><a href="http://yysfire.github.com/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://yysfire.github.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="http://yysfire.github.io">Home</a></li>
+                            <li ><a href="http://yysfire.github.io/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.io/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.io/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://yysfire.github.com/linux/using-ssh-agent-with-ssh.html"> 使用ssh和ssh-agent实现“无密码”登录远程机器  </a></h1>
+    <h1><a href="http://yysfire.github.io/linux/using-ssh-agent-with-ssh.html"> 使用ssh和ssh-agent实现“无密码”登录远程机器  </a></h1>
     </header>
 </div>
 
@@ -355,19 +355,19 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="http://yysfire.github.com/linux/sed-usage-summary.html" title="sed命令用法小结">sed命令用法小结</a></li>
-<li><a href="http://yysfire.github.com/linux/sed-example-center-line.html" title="sed用法举例(1)—行居中">sed用法举例(1)—行居中</a></li>
-<li><a href="http://yysfire.github.com/linux/create-ssh-alias.html" title="SSH使用技巧一则：使用config文件创建别名">SSH使用技巧一则：使用config文件创建别名</a></li>
-<li><a href="http://yysfire.github.com/linux/linux-command-note.html" title="Linux命令拾遗">Linux命令拾遗</a></li>
-<li><a href="http://yysfire.github.com/linux/rhythmbox-garbled.html" title="Rhythmbox乱码的解决办法">Rhythmbox乱码的解决办法</a></li>
+<li><a href="http://yysfire.github.io/linux/transmission-setting-file.html" title="Transmission配置文件各参数设置说明">Transmission配置文件各参数设置说明</a></li>
+<li><a href="http://yysfire.github.io/linux/show-grub-menu-when-ubuntu-12.04-startup.html" title="让Ubuntu12.04在启动系统时显示grub菜单">让Ubuntu12.04在启动系统时显示grub菜单</a></li>
+<li><a href="http://yysfire.github.io/linux/shell-proxy.html" title="Linux命令行实现代理连接上网">Linux命令行实现代理连接上网</a></li>
+<li><a href="http://yysfire.github.io/linux/create-ssh-alias.html" title="SSH使用技巧一则：使用config文件创建别名">SSH使用技巧一则：使用config文件创建别名</a></li>
+<li><a href="http://yysfire.github.io/linux/how-to-check-linux-terminal-whether-support-256-colors.html" title="如何查看Linux终端是否支持256色">如何查看Linux终端是否支持256色</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://yysfire.github.com/linux/sed-example-non-negative-integer-plus-one.html" title="Previous: sed用法举例(2)—非负整数加一">sed用法举例(2)—非负整数加一</a></li>
-                <li class="next-article"><a href="http://yysfire.github.com/linux/building-ffmpeg-mplayer-on-ubuntu-12.04-x64.html" title="Next: Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录">Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录</a> »</li>
+                <li class="previous-article">« <a href="http://yysfire.github.io/linux/sed-example-non-negative-integer-plus-one.html" title="Previous: sed用法举例(2)—非负整数加一">sed用法举例(2)—非负整数加一</a></li>
+                <li class="next-article"><a href="http://yysfire.github.io/linux/building-ffmpeg-mplayer-on-ubuntu-12.04-x64.html" title="Next: Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录">Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录</a> »</li>
             </ul>
             </nav>
             </aside>
@@ -381,19 +381,19 @@
 <time datetime="2012-10-30T22:16:04">十月 30, 2012</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://yysfire.github.com/categories.html#linux-ref">linux</a>
+            <a class="category-link" href="http://yysfire.github.io/categories.html#linux-ref">linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://yysfire.github.com/tags.html#git-ref">git
+                <li><a href="http://yysfire.github.io/tags.html#git-ref">git
                     <span>2</span>
 </a></li>
-                <li><a href="http://yysfire.github.com/tags.html#linux-ref">Linux
+                <li><a href="http://yysfire.github.io/tags.html#linux-ref">Linux
                     <span>18</span>
 </a></li>
-                <li><a href="http://yysfire.github.com/tags.html#ssh-ref">SSH
+                <li><a href="http://yysfire.github.io/tags.html#ssh-ref">SSH
                     <span>2</span>
 </a></li>
-                <li><a href="http://yysfire.github.com/tags.html#ssh-agent-ref">ssh-agent
+                <li><a href="http://yysfire.github.io/tags.html#ssh-agent-ref">ssh-agent
                     <span>2</span>
 </a></li>
             </ul>

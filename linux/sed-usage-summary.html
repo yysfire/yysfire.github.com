@@ -13,7 +13,7 @@
 <meta name="keywords" content="sed, Linux, Regexp, linux, " />
 
 <meta property="og:title" content="sed命令用法小结 "/>
-<meta property="og:url" content="http://yysfire.github.com/linux/sed-usage-summary.html" />
+<meta property="og:url" content="http://yysfire.github.io/linux/sed-usage-summary.html" />
 <meta property="og:description" content="本文的介绍基于 GNU sed ，它对 POSIX sed 进行了一些扩展。 Sed 是一个流编辑器。它是基于行的，按顺序对每一行执行命令，然后，将其结果写入标准输出 (stdout)。 sed 的工作原理 sed 维护着两个数据缓存区：模式空间和保留空间。两者均被初始化为空。 sed 对输入的每一行运行一次如下所述的执行周期：首先，sed 从输入流中读入一行 ..." />
 <meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
 <meta property="og:article:author" content="Yysfire" />
@@ -26,18 +26,18 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="http://yysfire.github.com/theme/css/style.min.css?7aeecf36">
-        <link rel="shortcut icon" href="http://yysfire.github.com/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
-        <link rel="icon" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="http://yysfire.github.com/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.com/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.com/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.com/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.com/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.com/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.com/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.com/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link href="http://yysfire.github.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css?7aeecf36">
+        <link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
     </head>
     <body>
         <div id="content-sans-footer">
@@ -49,14 +49,14 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </a>
-                    <a class="brand" href="http://yysfire.github.com/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <a class="brand" href="http://yysfire.github.io/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
                     <div class="nav-collapse collapse">
                         <ul class="nav pull-right top-menu">
-                            <li ><a href="http://yysfire.github.com">Home</a></li>
-                            <li ><a href="http://yysfire.github.com/categories.html">Categories</a></li>
-                            <li ><a href="http://yysfire.github.com/tags.html">Tags</a></li>
-                            <li ><a href="http://yysfire.github.com/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://yysfire.github.com/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                            <li ><a href="http://yysfire.github.io">Home</a></li>
+                            <li ><a href="http://yysfire.github.io/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.io/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.io/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
                         </ul>
                     </div>
                 </div>
@@ -69,7 +69,7 @@
 <article>
 <div class="row-fluid">
     <header class="page-header span10 offset2">
-    <h1><a href="http://yysfire.github.com/linux/sed-usage-summary.html"> sed命令用法小结  </a></h1>
+    <h1><a href="http://yysfire.github.io/linux/sed-usage-summary.html"> sed命令用法小结  </a></h1>
     </header>
 </div>
 
@@ -746,19 +746,19 @@ You<span class="err">'</span>re <span class="nb">history</span>, original line! 
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="http://yysfire.github.com/linux/change-startup-screen-and-resolution-of-ubuntu-12.04.html" title="Ubuntu12.04系统下修改启动画面和控制台的分辨率">Ubuntu12.04系统下修改启动画面和控制台的分辨率</a></li>
-<li><a href="http://yysfire.github.com/linux/sed-example-center-line.html" title="sed用法举例(1)—行居中">sed用法举例(1)—行居中</a></li>
-<li><a href="http://yysfire.github.com/linux/sed-example-non-negative-integer-plus-one.html" title="sed用法举例(2)—非负整数加一">sed用法举例(2)—非负整数加一</a></li>
-<li><a href="http://yysfire.github.com/linux/linux-command-note.html" title="Linux命令拾遗">Linux命令拾遗</a></li>
-<li><a href="http://yysfire.github.com/linux/rhythmbox-garbled.html" title="Rhythmbox乱码的解决办法">Rhythmbox乱码的解决办法</a></li>
+<li><a href="http://yysfire.github.io/linux/transmission-setting-file.html" title="Transmission配置文件各参数设置说明">Transmission配置文件各参数设置说明</a></li>
+<li><a href="http://yysfire.github.io/linux/show-grub-menu-when-ubuntu-12.04-startup.html" title="让Ubuntu12.04在启动系统时显示grub菜单">让Ubuntu12.04在启动系统时显示grub菜单</a></li>
+<li><a href="http://yysfire.github.io/linux/shell-proxy.html" title="Linux命令行实现代理连接上网">Linux命令行实现代理连接上网</a></li>
+<li><a href="http://yysfire.github.io/linux/sed-example-center-line.html" title="sed用法举例(1)—行居中">sed用法举例(1)—行居中</a></li>
+<li><a href="http://yysfire.github.io/linux/sed-example-non-negative-integer-plus-one.html" title="sed用法举例(2)—非负整数加一">sed用法举例(2)—非负整数加一</a></li>
 </ul>
 <hr />
 </section>
             <aside>
             <nav>
             <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://yysfire.github.com/linux/shell-proxy.html" title="Previous: Linux命令行实现代理连接上网">Linux命令行实现代理连接上网</a></li>
-                <li class="next-article"><a href="http://yysfire.github.com/linux/sed-example-center-line.html" title="Next: sed用法举例(1)—行居中">sed用法举例(1)—行居中</a> »</li>
+                <li class="previous-article">« <a href="http://yysfire.github.io/linux/shell-proxy.html" title="Previous: Linux命令行实现代理连接上网">Linux命令行实现代理连接上网</a></li>
+                <li class="next-article"><a href="http://yysfire.github.io/linux/sed-example-center-line.html" title="Next: sed用法举例(1)—行居中">sed用法举例(1)—行居中</a> »</li>
             </ul>
             </nav>
             </aside>
@@ -772,16 +772,16 @@ You<span class="err">'</span>re <span class="nb">history</span>, original line! 
 <time datetime="2012-11-30T07:33:40">十一月 30, 2012</time>
 
             <h4>Category</h4>
-            <a class="category-link" href="http://yysfire.github.com/categories.html#linux-ref">linux</a>
+            <a class="category-link" href="http://yysfire.github.io/categories.html#linux-ref">linux</a>
             <h4>Tags</h4>
             <ul class="list-of-tags tags-in-article">
-                <li><a href="http://yysfire.github.com/tags.html#linux-ref">Linux
+                <li><a href="http://yysfire.github.io/tags.html#linux-ref">Linux
                     <span>18</span>
 </a></li>
-                <li><a href="http://yysfire.github.com/tags.html#regexp-ref">Regexp
+                <li><a href="http://yysfire.github.io/tags.html#regexp-ref">Regexp
                     <span>3</span>
 </a></li>
-                <li><a href="http://yysfire.github.com/tags.html#sed-ref">sed
+                <li><a href="http://yysfire.github.io/tags.html#sed-ref">sed
                     <span>3</span>
 </a></li>
             </ul>

@@ -91,7 +91,7 @@
             
             
 <p>关于这个问题，网上的文章特别多，但很多都是重复的、过时的、无效的。但此问题是确确实实可以实现的，因为不少软件在安装的时候就会修改环境变量，安装完成后，这些修改就立马生效了。本文就介绍一下作者解决此问题的亲身经历及体会。</p>
-<p>作者为了搭建 node.js 及 npm 工作环境（搭建过程见：<a href="{{ SITEURL }}/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7">如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</a>），需要修改 PATH 环境变量，并添加一个新的环境变量。下面就仅以 PATH 变量为例来做介绍。</p>
+<p>作者为了搭建 node.js 及 npm 工作环境（搭建过程见：<a href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7">如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</a>），需要修改 PATH 环境变量，并添加一个新的环境变量。下面就仅以 PATH 变量为例来做介绍。</p>
 <h2 id="rapid-environment-editor">用软件 Rapid Environment Editor 来修改</h2>
 <p>这是我的系统已经装有的一个软件，可以快速修改 Windows 的系统环境变量和用户环境变量。它具备对环境变量进行编辑、添加、删除、排序、备份，以及清理无效路径的功能。软件界面如下（红色表示该路径不存在或无权访问，灰色表示系统的关键环境变量）：</p>
 <p><img alt="Rapid Environment Editor" src="../images/Rapid.Environment.Editor.JPG"/></p>
@@ -106,7 +106,7 @@
 </ol>
 <p>我用 Registry Workshop（这个软件比系统自带的 regedit 好用多了） 打开注册表，发现上面前三个的 PATH 键中已经保存着我之前用 Rapid Environment Environment 所做的修改，我就索性把第四个的 PATH 键值也给改了，然后打开新的 cmd，运行 <code>echo %PATH%</code>，发现修改仍未生效，再次重启 explorer 进程，再一次 <strong>失败了</strong> 。</p>
 <h2 id="-">计算机-&gt;属性-&gt;高级系统设置-&gt;环境变量</h2>
-<p>那就回归到最原始、最简单的方法中来吧，在“计算机“右键菜单-&gt;“属性”-&gt;“高级系统设置”-&gt;“环境变量”中修改完 PATH 变量后，一路点确定，然后打开新的 cmd 窗口，运行 <code>echo %PATH%</code>，发现 <strong>修改竟然生效了</strong> 。我无语了，原来<em>有时候最简单的方法却是最有效的</em>，之前把问题想复杂了，所以没有一开始就用这个方法。</p>
+<p>那就回归到最原始、最简单的方法中来吧，在“计算机“右键菜单-&gt;“属性”-&gt;“高级系统设置”-&gt;“环境变量”中修改完 PATH 变量后，一路点确定，然后打开新的 cmd 窗口，运行 <code>echo %PATH%</code>，发现 <strong>修改竟然生效了</strong> 。我无语了，原来 <strong>有时候最简单的方法却是最有效的</strong> ，之前把问题想复杂了，所以没有一开始就用这个方法。</p>
 <p><em>注意：修改完环境变量后，必须要通过“开始菜单”-&gt;“附件”-&gt;“命令提示符”或者“运行”对话框（可用快捷键 Win+R 打开）打开新的 cmd 窗口，才能看到生效了的环境变量。换句话说，只有在修改完成之后开启的进程，才能加载修改过的环境变量。而那些修改发生之前就已经在运行的进程，它们加载的仍然是修改之前的环境变量值，只要它们不退出，由它们开启的子进程所加载的也很有可能仍然是修改前的环境变量值。</em></p>
 <p><em>举个例子来说明：你先打开了 Double Commander（一款功能类似 Total Commander 的开源免费跨平台的文件管理器，界面如下图所示），然后修改了 PATH 环境变量，再通过 Double Commander 运行了一个 cmd 窗口，在里面运行 <code>echo %PATH%</code>，你会发现改动没有生效。只有先退出、再打开 Double Commander，然后通过它运行的 cmd 窗口，才会加载改动后的 PATH 变量值。</em></p>
 <p><img alt="Double Commander" src="../images/Double.Commander.0-5-10.beta.build.5514M-.2014-05-12.png"/></p>
@@ -121,10 +121,10 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="http://yysfire.github.io/windows/Solution_of_IE_proxy_server_can_not_be_set.html" title="IE代理服务器无法设置的解决方法">IE代理服务器无法设置的解决方法</a></li>
+<li><a href="http://yysfire.github.io/windows/change_background_of_fold_in_windows_xp.html" title="为文件夹修改背景，轻松打造个人系统">为文件夹修改背景，轻松打造个人系统</a></li>
 <li><a href="http://yysfire.github.io/windows/Unable-to-locate-the-program-input-on-points-_except_handler4_common-in-the-dynamic-link-library-msvcrt.dll.html" title="无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法">无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法</a></li>
+<li><a href="http://yysfire.github.io/vim/How_to_add_context_menu_of_gvim_manually.html" title="鼠标右键菜单添加vim选项">鼠标右键菜单添加vim选项</a></li>
 <li><a href="http://yysfire.github.io/windows/How_to_remove_the_arrow_mark_of_shortcut_in_windows.html" title="如何去掉快捷方式的小箭头">如何去掉快捷方式的小箭头</a></li>
-<li><a href="http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html" title="Windows平台便携版Evernote的制作与下载 - （更新到v5.7.1.5586）">Windows平台便携版Evernote的制作与下载 <small>（更新到v5.7.1.5586）</small></a></li>
 <li><a href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" title="如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境">如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</a></li>
 </ul>
 <hr />

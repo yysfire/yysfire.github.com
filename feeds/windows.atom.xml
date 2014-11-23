@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.io/" rel="alternate"></link><link href="http://yysfire.github.io/feeds/windows.atom.xml" rel="self"></link><id>http://yysfire.github.io/</id><updated>2014-11-23T07:06:03+08:00</updated><entry><title>如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效</title><link href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" rel="alternate"></link><updated>2014-11-23T07:06:03+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-11-23:windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html</id><summary type="html">
 &lt;p&gt;关于这个问题，网上的文章特别多，但很多都是重复的、过时的、无效的。但此问题是确确实实可以实现的，因为不少软件在安装的时候就会修改环境变量，安装完成后，这些修改就立马生效了。本文就介绍一下作者解决此问题的亲身经历及体会。&lt;/p&gt;
-&lt;p&gt;作者为了搭建 node.js 及 npm 工作环境（搭建过程见：&lt;a href="{{ SITEURL }}/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7"&gt;如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境&lt;/a&gt;），需要修改 PATH 环境变量，并添加一个新的环境变量。下面就仅以 PATH 变量为例来做介绍。&lt;/p&gt;
+&lt;p&gt;作者为了搭建 node.js 及 npm 工作环境（搭建过程见：&lt;a href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7"&gt;如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境&lt;/a&gt;），需要修改 PATH 环境变量，并添加一个新的环境变量。下面就仅以 PATH 变量为例来做介绍。&lt;/p&gt;
 &lt;h2 id="rapid-environment-editor"&gt;用软件 Rapid Environment Editor 来修改&lt;/h2&gt;
 &lt;p&gt;这是我的系统已经装有的一个软件，可以快速修改 Windows 的系统环境变量和用户环境变量。它具备对环境变量进行编辑、添加、删除、排序、备份，以及清理无效路径的功能。软件界面如下（红色表示该路径不存在或无权访问，灰色表示系统的关键环境变量）：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Rapid Environment Editor" src="../images/Rapid.Environment.Editor.JPG"/&gt;&lt;/p&gt;
@@ -16,7 +16,7 @@
 &lt;/ol&gt;
 &lt;p&gt;我用 Registry Workshop（这个软件比系统自带的 regedit 好用多了） 打开注册表，发现上面前三个的 PATH 键中已经保存着我之前用 Rapid Environment Environment 所做的修改，我就索性把第四个的 PATH 键值也给改了，然后打开新的 cmd，运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，发现修改仍未生效，再次重启 explorer 进程，再一次 &lt;strong&gt;失败了&lt;/strong&gt; 。&lt;/p&gt;
 &lt;h2 id="-"&gt;计算机-&amp;gt;属性-&amp;gt;高级系统设置-&amp;gt;环境变量&lt;/h2&gt;
-&lt;p&gt;那就回归到最原始、最简单的方法中来吧，在“计算机“右键菜单-&amp;gt;“属性”-&amp;gt;“高级系统设置”-&amp;gt;“环境变量”中修改完 PATH 变量后，一路点确定，然后打开新的 cmd 窗口，运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，发现 &lt;strong&gt;修改竟然生效了&lt;/strong&gt; 。我无语了，原来&lt;em&gt;有时候最简单的方法却是最有效的&lt;/em&gt;，之前把问题想复杂了，所以没有一开始就用这个方法。&lt;/p&gt;
+&lt;p&gt;那就回归到最原始、最简单的方法中来吧，在“计算机“右键菜单-&amp;gt;“属性”-&amp;gt;“高级系统设置”-&amp;gt;“环境变量”中修改完 PATH 变量后，一路点确定，然后打开新的 cmd 窗口，运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，发现 &lt;strong&gt;修改竟然生效了&lt;/strong&gt; 。我无语了，原来 &lt;strong&gt;有时候最简单的方法却是最有效的&lt;/strong&gt; ，之前把问题想复杂了，所以没有一开始就用这个方法。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;注意：修改完环境变量后，必须要通过“开始菜单”-&amp;gt;“附件”-&amp;gt;“命令提示符”或者“运行”对话框（可用快捷键 Win+R 打开）打开新的 cmd 窗口，才能看到生效了的环境变量。换句话说，只有在修改完成之后开启的进程，才能加载修改过的环境变量。而那些修改发生之前就已经在运行的进程，它们加载的仍然是修改之前的环境变量值，只要它们不退出，由它们开启的子进程所加载的也很有可能仍然是修改前的环境变量值。&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;举个例子来说明：你先打开了 Double Commander（一款功能类似 Total Commander 的开源免费跨平台的文件管理器，界面如下图所示），然后修改了 PATH 环境变量，再通过 Double Commander 运行了一个 cmd 窗口，在里面运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，你会发现改动没有生效。只有先退出、再打开 Double Commander，然后通过它运行的 cmd 窗口，才会加载改动后的 PATH 变量值。&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Double Commander" src="../images/Double.Commander.0-5-10.beta.build.5514M-.2014-05-12.png"/&gt;&lt;/p&gt;

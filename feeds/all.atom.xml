@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.io/" rel="alternate"></link><link href="http://yysfire.github.io/feeds/all.atom.xml" rel="self"></link><id>http://yysfire.github.io/</id><updated>2014-11-23T07:08:17+08:00</updated><entry><title>如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</title><link href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" rel="alternate"></link><updated>2014-11-23T07:08:17+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-11-23:tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html</id><summary type="html"></summary><category term="node.js"></category><category term="npm"></category><category term="Windows"></category><category term="Windows7"></category><category term="Portable"></category></entry><entry><title>如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效</title><link href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" rel="alternate"></link><updated>2014-11-23T07:06:03+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-11-23:windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html</id><summary type="html">
+<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.io/" rel="alternate"></link><link href="http://yysfire.github.io/feeds/all.atom.xml" rel="self"></link><id>http://yysfire.github.io/</id><updated>2014-11-23T16:42:43+08:00</updated><entry><title>如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</title><link href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" rel="alternate"></link><updated>2014-11-23T16:42:43+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-11-23:tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html</id><summary type="html">
+&lt;p&gt;本文目标是在 Windows 的非系统盘（甚至是U盘和移动硬盘）中搭建一个便携的 node.js 及 npm 的工作环境（例如，部署在目录 D:\DevPack\opt64\nodejs 下），这样重装系统时就不用备份数据，也可以放在移动存储设备上随身带着。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提示：请严格按照我的步骤来做，否则出现问题了后果自负哦:)&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="nodejs-windows"&gt;下载 node.js 官方 Windows 版程序&lt;/h2&gt;
+&lt;p&gt;前往官方网站： &lt;a href="http://nodejs.org/#download"&gt;http://nodejs.org/#download&lt;/a&gt; 下载 .exe 可执行文件（就是个单一文件 nodejs.exe），放到目录 D:\DevPack\opt64\nodejs 下，并将该目录添加进环境变量 PATH 中，便于在任意位置执行该程序。关于修改完 PATH 变量如何使其立即生效，可参阅我的另一篇文章：
+&lt;a href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html"&gt;如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="npm-windows"&gt;下载 npm 官方 Windows 版程序&lt;/h2&gt;
+&lt;p&gt;前往 &lt;a href="http://nodejs.org/dist/npm/"&gt;http://nodejs.org/dist/npm/&lt;/a&gt; 下载一份已经编译好的 npm 包（只下载 zip 格式的即可），我下载时上面最新的是 1.4.12 版。将其解压到路径 D:\DevPack\opt64\nodejs 下，目录结构如下：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="The structure of node.js directory" src="../images/the.structure.of.nodejs.directory.JPG"/&gt;&lt;/p&gt;
+&lt;p&gt;到这里，一个基本可用的工作环境就搭建好了，可以打开一个 cmd 命令行窗口，运行 &lt;code&gt;node -v&lt;/code&gt; 和 &lt;code&gt;npm -v&lt;/code&gt;，输出了版本号，就表示 OK 了。&lt;/p&gt;
+&lt;h2 id="npm-cache"&gt;配置 npm 全局模块的存放路径以及cache的路径&lt;/h2&gt;
+&lt;p&gt;在用 &lt;code&gt;npm install&lt;/code&gt; 安装模块时，如果附带一个 &lt;code&gt;-g&lt;/code&gt; 参数，就表示将该模块安装到全局模块（默认路径是： %APPDATA%\Roming\npm\），而在安装模块时所下载的一些依赖包等缓存文件就都保存在目录 %APPDATA%\Roaming\npm-cache 下。&lt;/p&gt;
+&lt;p&gt;为了实现便携的目的，有必要将这两个目录全部设定到 D:\DevPack\opt64\nodejs 下。设定方法有两个。&lt;/p&gt;
+&lt;h3 id="_1"&gt;方法一&lt;/h3&gt;
+&lt;p&gt;运行以下两个命令：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt; &lt;span class="s"&gt;"D:\DevPack\opt64&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;odejs&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;pm-global"&lt;/span&gt;
+&lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;cache&lt;/span&gt;  &lt;span class="s"&gt;"D:\DevPack\opt64&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;odejs&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;pm-cache"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;运行完后，在你的 &lt;code&gt;%HOMEPATH%&lt;/code&gt; 下面会出现一个名为 &lt;code&gt;.npmrc&lt;/code&gt; 的文件，将其重命名为 &lt;code&gt;npmrc&lt;/code&gt;，并移动到目录 D:\DevPack\opt64\nodejs\node_modules\npm 下。&lt;/p&gt;
+&lt;h3 id="_2"&gt;方法二&lt;/h3&gt;
+&lt;p&gt;直接在 D:\DevPack\opt64\nodejs\node_modules\npm 目录下新建一个 &lt;code&gt;npmrc&lt;/code&gt; 文件，并写入以下内容并保存：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;prefix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;DevPack&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;opt64&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;nodejs&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;npm&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;global&lt;/span&gt;
+&lt;span class="n"&gt;cache&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;DevPack&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;opt64&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;nodejs&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;npm&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cache&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h2 id="npm"&gt;更新 npm&lt;/h2&gt;
+&lt;p&gt;完成以上配置之后，就可以运行命令 &lt;code&gt;npm install -g npm&lt;/code&gt; 更新 npm 到最新版本，或者运行命令 &lt;code&gt;npm install -g npm@版本号&lt;/code&gt; 更新 npm 到指定版本。&lt;/p&gt;
+&lt;p&gt;更新完后，将路径 D:\DevPack\opt64\nodejs\npm-global 添加到 PATH 环境变量中，并且放在 D:\DevPack\opt64\nodejs 的前面。再在命令行中运行 &lt;code&gt;npm -v&lt;/code&gt;，可以看到 npm 的版本号变了（笔者写此文时是2.1.9版）。&lt;/p&gt;
+&lt;p&gt;还要新建一个环境变量，名称为 &lt;code&gt;NODE_PATH&lt;/code&gt;，值为 &lt;code&gt;D:\DevPack\opt64\nodejs\npm-global\npm_modules&lt;/code&gt;，最后把文件 D:\DevPack\opt64\nodejs\node_modules\npm\npmrc 复制一份到 D:\DevPack\opt64\nodejs\npm-global\node_modules\npm 下。&lt;/p&gt;
+&lt;h2 id="_3"&gt;测试&lt;/h2&gt;
+&lt;p&gt;至此，一个便携的最新版 node.js &amp;amp; npm 工作环境就建好了。我们来测试一下。运行命令 &lt;code&gt;npm install -g javascripting&lt;/code&gt;，可以看到如下界面，表示安装成功了：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="npm install javascripting" src="../images/npm.install.javascripting.JPG"/&gt;&lt;/p&gt;
+&lt;p&gt;运行 &lt;code&gt;javascripting&lt;/code&gt; 命令，可以看到如下界面：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="javascripting GUI" src="../images/javascripting.gui.JPG"/&gt;&lt;/p&gt;
+&lt;p&gt;可以开始学习 Javascript 了。&lt;/p&gt;
+&lt;p&gt;要卸载 javascripting，只需运行 &lt;code&gt;npm remove javascripting -g&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;h2 id="_4"&gt;参考资料&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://blog.csdn.net/html5_/article/details/40896091"&gt;NodeJS、NPM安装配置步骤(windows版本)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/npm/npm/wiki/Troubleshooting#upgrading-on-windows"&gt;Troubleshooting: upgrading-on-windows&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="node.js"></category><category term="npm"></category><category term="Windows"></category><category term="Windows7"></category><category term="Portable"></category><category term="Javascript"></category></entry><entry><title>如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效</title><link href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" rel="alternate"></link><updated>2014-11-23T07:06:03+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-11-23:windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html</id><summary type="html">
 &lt;p&gt;关于这个问题，网上的文章特别多，但很多都是重复的、过时的、无效的。但此问题是确确实实可以实现的，因为不少软件在安装的时候就会修改环境变量，安装完成后，这些修改就立马生效了。本文就介绍一下作者解决此问题的亲身经历及体会。&lt;/p&gt;
-&lt;p&gt;作者为了搭建 node.js 及 npm 工作环境（搭建过程见：&lt;a href="{{ SITEURL }}/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7"&gt;如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境&lt;/a&gt;），需要修改 PATH 环境变量，并添加一个新的环境变量。下面就仅以 PATH 变量为例来做介绍。&lt;/p&gt;
+&lt;p&gt;作者为了搭建 node.js 及 npm 工作环境（搭建过程见：&lt;a href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7"&gt;如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境&lt;/a&gt;），需要修改 PATH 环境变量，并添加一个新的环境变量。下面就仅以 PATH 变量为例来做介绍。&lt;/p&gt;
 &lt;h2 id="rapid-environment-editor"&gt;用软件 Rapid Environment Editor 来修改&lt;/h2&gt;
 &lt;p&gt;这是我的系统已经装有的一个软件，可以快速修改 Windows 的系统环境变量和用户环境变量。它具备对环境变量进行编辑、添加、删除、排序、备份，以及清理无效路径的功能。软件界面如下（红色表示该路径不存在或无权访问，灰色表示系统的关键环境变量）：&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Rapid Environment Editor" src="../images/Rapid.Environment.Editor.JPG"/&gt;&lt;/p&gt;
@@ -16,7 +59,7 @@
 &lt;/ol&gt;
 &lt;p&gt;我用 Registry Workshop（这个软件比系统自带的 regedit 好用多了） 打开注册表，发现上面前三个的 PATH 键中已经保存着我之前用 Rapid Environment Environment 所做的修改，我就索性把第四个的 PATH 键值也给改了，然后打开新的 cmd，运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，发现修改仍未生效，再次重启 explorer 进程，再一次 &lt;strong&gt;失败了&lt;/strong&gt; 。&lt;/p&gt;
 &lt;h2 id="-"&gt;计算机-&amp;gt;属性-&amp;gt;高级系统设置-&amp;gt;环境变量&lt;/h2&gt;
-&lt;p&gt;那就回归到最原始、最简单的方法中来吧，在“计算机“右键菜单-&amp;gt;“属性”-&amp;gt;“高级系统设置”-&amp;gt;“环境变量”中修改完 PATH 变量后，一路点确定，然后打开新的 cmd 窗口，运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，发现 &lt;strong&gt;修改竟然生效了&lt;/strong&gt; 。我无语了，原来&lt;em&gt;有时候最简单的方法却是最有效的&lt;/em&gt;，之前把问题想复杂了，所以没有一开始就用这个方法。&lt;/p&gt;
+&lt;p&gt;那就回归到最原始、最简单的方法中来吧，在“计算机“右键菜单-&amp;gt;“属性”-&amp;gt;“高级系统设置”-&amp;gt;“环境变量”中修改完 PATH 变量后，一路点确定，然后打开新的 cmd 窗口，运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，发现 &lt;strong&gt;修改竟然生效了&lt;/strong&gt; 。我无语了，原来 &lt;strong&gt;有时候最简单的方法却是最有效的&lt;/strong&gt; ，之前把问题想复杂了，所以没有一开始就用这个方法。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;注意：修改完环境变量后，必须要通过“开始菜单”-&amp;gt;“附件”-&amp;gt;“命令提示符”或者“运行”对话框（可用快捷键 Win+R 打开）打开新的 cmd 窗口，才能看到生效了的环境变量。换句话说，只有在修改完成之后开启的进程，才能加载修改过的环境变量。而那些修改发生之前就已经在运行的进程，它们加载的仍然是修改之前的环境变量值，只要它们不退出，由它们开启的子进程所加载的也很有可能仍然是修改前的环境变量值。&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;举个例子来说明：你先打开了 Double Commander（一款功能类似 Total Commander 的开源免费跨平台的文件管理器，界面如下图所示），然后修改了 PATH 环境变量，再通过 Double Commander 运行了一个 cmd 窗口，在里面运行 &lt;code&gt;echo %PATH%&lt;/code&gt;，你会发现改动没有生效。只有先退出、再打开 Double Commander，然后通过它运行的 cmd 窗口，才会加载改动后的 PATH 变量值。&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Double Commander" src="../images/Double.Commander.0-5-10.beta.build.5514M-.2014-05-12.png"/&gt;&lt;/p&gt;

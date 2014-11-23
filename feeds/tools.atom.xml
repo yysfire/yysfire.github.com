@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.io/" rel="alternate"></link><link href="http://yysfire.github.io/feeds/tools.atom.xml" rel="self"></link><id>http://yysfire.github.io/</id><updated>2014-11-23T07:08:17+08:00</updated><entry><title>如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</title><link href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" rel="alternate"></link><updated>2014-11-23T07:08:17+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-11-23:tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html</id><summary type="html"></summary><category term="node.js"></category><category term="npm"></category><category term="Windows"></category><category term="Windows7"></category><category term="Portable"></category></entry><entry><title>命令行环境下为OpenShift PaaS平台部署Snova</title><link href="http://yysfire.github.io/tools/deploy-snova-on-Openshift-in-CLI.html" rel="alternate"></link><updated>2014-08-29T01:31:00+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-08-28:tools/deploy-snova-on-Openshift-in-CLI.html</id><summary type="html">&lt;p&gt;客户端部署工具为rhc，它依赖Ruby，同时会用到Git，因此要先安装Ruby和Git。这两个工具的安装依据不同的操作系统而不同，这里就不赘述。&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.io/" rel="alternate"></link><link href="http://yysfire.github.io/feeds/tools.atom.xml" rel="self"></link><id>http://yysfire.github.io/</id><updated>2014-11-23T16:42:43+08:00</updated><entry><title>如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</title><link href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" rel="alternate"></link><updated>2014-11-23T16:42:43+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-11-23:tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html</id><summary type="html">
+&lt;p&gt;本文目标是在 Windows 的非系统盘（甚至是U盘和移动硬盘）中搭建一个便携的 node.js 及 npm 的工作环境（例如，部署在目录 D:\DevPack\opt64\nodejs 下），这样重装系统时就不用备份数据，也可以放在移动存储设备上随身带着。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;提示：请严格按照我的步骤来做，否则出现问题了后果自负哦:)&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="nodejs-windows"&gt;下载 node.js 官方 Windows 版程序&lt;/h2&gt;
+&lt;p&gt;前往官方网站： &lt;a href="http://nodejs.org/#download"&gt;http://nodejs.org/#download&lt;/a&gt; 下载 .exe 可执行文件（就是个单一文件 nodejs.exe），放到目录 D:\DevPack\opt64\nodejs 下，并将该目录添加进环境变量 PATH 中，便于在任意位置执行该程序。关于修改完 PATH 变量如何使其立即生效，可参阅我的另一篇文章：
+&lt;a href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html"&gt;如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="npm-windows"&gt;下载 npm 官方 Windows 版程序&lt;/h2&gt;
+&lt;p&gt;前往 &lt;a href="http://nodejs.org/dist/npm/"&gt;http://nodejs.org/dist/npm/&lt;/a&gt; 下载一份已经编译好的 npm 包（只下载 zip 格式的即可），我下载时上面最新的是 1.4.12 版。将其解压到路径 D:\DevPack\opt64\nodejs 下，目录结构如下：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="The structure of node.js directory" src="../images/the.structure.of.nodejs.directory.JPG"/&gt;&lt;/p&gt;
+&lt;p&gt;到这里，一个基本可用的工作环境就搭建好了，可以打开一个 cmd 命令行窗口，运行 &lt;code&gt;node -v&lt;/code&gt; 和 &lt;code&gt;npm -v&lt;/code&gt;，输出了版本号，就表示 OK 了。&lt;/p&gt;
+&lt;h2 id="npm-cache"&gt;配置 npm 全局模块的存放路径以及cache的路径&lt;/h2&gt;
+&lt;p&gt;在用 &lt;code&gt;npm install&lt;/code&gt; 安装模块时，如果附带一个 &lt;code&gt;-g&lt;/code&gt; 参数，就表示将该模块安装到全局模块（默认路径是： %APPDATA%\Roming\npm\），而在安装模块时所下载的一些依赖包等缓存文件就都保存在目录 %APPDATA%\Roaming\npm-cache 下。&lt;/p&gt;
+&lt;p&gt;为了实现便携的目的，有必要将这两个目录全部设定到 D:\DevPack\opt64\nodejs 下。设定方法有两个。&lt;/p&gt;
+&lt;h3 id="_1"&gt;方法一&lt;/h3&gt;
+&lt;p&gt;运行以下两个命令：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;prefix&lt;/span&gt; &lt;span class="s"&gt;"D:\DevPack\opt64&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;odejs&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;pm-global"&lt;/span&gt;
+&lt;span class="n"&gt;npm&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="n"&gt;set&lt;/span&gt; &lt;span class="n"&gt;cache&lt;/span&gt;  &lt;span class="s"&gt;"D:\DevPack\opt64&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;odejs&lt;/span&gt;&lt;span class="se"&gt;\n&lt;/span&gt;&lt;span class="s"&gt;pm-cache"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;p&gt;运行完后，在你的 &lt;code&gt;%HOMEPATH%&lt;/code&gt; 下面会出现一个名为 &lt;code&gt;.npmrc&lt;/code&gt; 的文件，将其重命名为 &lt;code&gt;npmrc&lt;/code&gt;，并移动到目录 D:\DevPack\opt64\nodejs\node_modules\npm 下。&lt;/p&gt;
+&lt;h3 id="_2"&gt;方法二&lt;/h3&gt;
+&lt;p&gt;直接在 D:\DevPack\opt64\nodejs\node_modules\npm 目录下新建一个 &lt;code&gt;npmrc&lt;/code&gt; 文件，并写入以下内容并保存：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;prefix&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;DevPack&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;opt64&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;nodejs&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;npm&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;global&lt;/span&gt;
+&lt;span class="n"&gt;cache&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;D&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;DevPack&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;opt64&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;nodejs&lt;/span&gt;&lt;span class="err"&gt;\&lt;/span&gt;&lt;span class="n"&gt;npm&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;cache&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;h2 id="npm"&gt;更新 npm&lt;/h2&gt;
+&lt;p&gt;完成以上配置之后，就可以运行命令 &lt;code&gt;npm install -g npm&lt;/code&gt; 更新 npm 到最新版本，或者运行命令 &lt;code&gt;npm install -g npm@版本号&lt;/code&gt; 更新 npm 到指定版本。&lt;/p&gt;
+&lt;p&gt;更新完后，将路径 D:\DevPack\opt64\nodejs\npm-global 添加到 PATH 环境变量中，并且放在 D:\DevPack\opt64\nodejs 的前面。再在命令行中运行 &lt;code&gt;npm -v&lt;/code&gt;，可以看到 npm 的版本号变了（笔者写此文时是2.1.9版）。&lt;/p&gt;
+&lt;p&gt;还要新建一个环境变量，名称为 &lt;code&gt;NODE_PATH&lt;/code&gt;，值为 &lt;code&gt;D:\DevPack\opt64\nodejs\npm-global\npm_modules&lt;/code&gt;，最后把文件 D:\DevPack\opt64\nodejs\node_modules\npm\npmrc 复制一份到 D:\DevPack\opt64\nodejs\npm-global\node_modules\npm 下。&lt;/p&gt;
+&lt;h2 id="_3"&gt;测试&lt;/h2&gt;
+&lt;p&gt;至此，一个便携的最新版 node.js &amp;amp; npm 工作环境就建好了。我们来测试一下。运行命令 &lt;code&gt;npm install -g javascripting&lt;/code&gt;，可以看到如下界面，表示安装成功了：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="npm install javascripting" src="../images/npm.install.javascripting.JPG"/&gt;&lt;/p&gt;
+&lt;p&gt;运行 &lt;code&gt;javascripting&lt;/code&gt; 命令，可以看到如下界面：&lt;/p&gt;
+&lt;p&gt;&lt;img alt="javascripting GUI" src="../images/javascripting.gui.JPG"/&gt;&lt;/p&gt;
+&lt;p&gt;可以开始学习 Javascript 了。&lt;/p&gt;
+&lt;p&gt;要卸载 javascripting，只需运行 &lt;code&gt;npm remove javascripting -g&lt;/code&gt; 即可。&lt;/p&gt;
+&lt;h2 id="_4"&gt;参考资料&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href="http://blog.csdn.net/html5_/article/details/40896091"&gt;NodeJS、NPM安装配置步骤(windows版本)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href="https://github.com/npm/npm/wiki/Troubleshooting#upgrading-on-windows"&gt;Troubleshooting: upgrading-on-windows&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;</summary><category term="node.js"></category><category term="npm"></category><category term="Windows"></category><category term="Windows7"></category><category term="Portable"></category><category term="Javascript"></category></entry><entry><title>命令行环境下为OpenShift PaaS平台部署Snova</title><link href="http://yysfire.github.io/tools/deploy-snova-on-Openshift-in-CLI.html" rel="alternate"></link><updated>2014-08-29T01:31:00+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-08-28:tools/deploy-snova-on-Openshift-in-CLI.html</id><summary type="html">&lt;p&gt;客户端部署工具为rhc，它依赖Ruby，同时会用到Git，因此要先安装Ruby和Git。这两个工具的安装依据不同的操作系统而不同，这里就不赘述。&lt;/p&gt;
 &lt;p&gt;安装好Ruby后，运行：&lt;/p&gt;
 &lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;gem&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="n"&gt;rhc&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;

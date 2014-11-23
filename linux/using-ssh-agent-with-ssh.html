@@ -17,8 +17,8 @@
 <meta property="og:description" content="我们经常有从本地连接登录到远程机器的必要，例如，使用版本控制工具进行push操作时。每次push时都要求输入用户名和密码，这不仅不方便，也不安全。使用SSH密钥就可以轻松的解决这个问题。 本文目标 通过使用ssh和ssh-agent两种工具，加密安全地连接到远程机器，而又不用手工输入密码。 基本流程 在本地机器上创建密钥对 将公共密钥放到要连接的远程机器上 使用ssh-agent来缓存解密的私有密钥，实现后续的“无密码”连接 具体实现方法 以从基于Ubuntu系统的本地机器连接到GitHub.com为例进行说明。如果本地操作系统为Windows，请使用Cygwin或者msysgit。 步骤1：检查本地是否已存在密钥对 ..." />
 <meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
 <meta property="og:article:author" content="Yysfire" />
-<meta property="og:article:published_time" content="2012-10-25T21:06:12" />
-<meta property="" content="2012-10-30T22:16:04" />
+<meta property="og:article:published_time" content="2012-10-25T21:06:12+08:00" />
+<meta property="" content="2012-10-30T22:16:04+08:00" />
 <meta name="twitter:title" content="使用ssh和ssh-agent实现“无密码”登录远程机器 ">
 <meta name="twitter:description" content="我们经常有从本地连接登录到远程机器的必要，例如，使用版本控制工具进行push操作时。每次push时都要求输入用户名和密码，这不仅不方便，也不安全。使用SSH密钥就可以轻松的解决这个问题。 本文目标 通过使用ssh和ssh-agent两种工具，加密安全地连接到远程机器，而又不用手工输入密码。 基本流程 在本地机器上创建密钥对 将公共密钥放到要连接的远程机器上 使用ssh-agent来缓存解密的私有密钥，实现后续的“无密码”连接 具体实现方法 以从基于Ubuntu系统的本地机器连接到GitHub.com为例进行说明。如果本地操作系统为Windows，请使用Cygwin或者msysgit。 步骤1：检查本地是否已存在密钥对 ...">
 
@@ -26,7 +26,7 @@
 </title>
         <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css?7aeecf36">
+<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css">
         <link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
         <link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
         <link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
@@ -76,7 +76,6 @@
 <div class="row-fluid">
     <div class="span2 table-of-content">
         <nav>
-        <h4>Contents</h4>
         <div class="toc">
 <ul>
 <li><a href="#_1">本文目标</a></li>
@@ -355,11 +354,11 @@
 <section>
     <h2>Related Posts</h2>
 <ul class="related-posts-list">
-<li><a href="http://yysfire.github.io/linux/transmission-setting-file.html" title="Transmission配置文件各参数设置说明">Transmission配置文件各参数设置说明</a></li>
-<li><a href="http://yysfire.github.io/linux/show-grub-menu-when-ubuntu-12.04-startup.html" title="让Ubuntu12.04在启动系统时显示grub菜单">让Ubuntu12.04在启动系统时显示grub菜单</a></li>
-<li><a href="http://yysfire.github.io/linux/shell-proxy.html" title="Linux命令行实现代理连接上网">Linux命令行实现代理连接上网</a></li>
+<li><a href="http://yysfire.github.io/linux/build-and-install-official-NVIDIA-driver-manually-on-ubuntu-12.04.html" title="Ubuntu12.04 x64系统手动编译安装NVIDIA官方驱动">Ubuntu12.04 x64系统手动编译安装NVIDIA官方驱动</a></li>
+<li><a href="http://yysfire.github.io/linux/building-deb-package-from-source-and-modify-deb-package.html" title="从源代码制作deb包的两种方法以及修改已有deb包">从源代码制作deb包的两种方法以及修改已有deb包</a></li>
+<li><a href="http://yysfire.github.io/linux/building-ffmpeg-mplayer-on-ubuntu-12.04-x64.html" title="Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录">Ubuntu 12.04 x64系统下编译ffmpeg和mplayer全程记录</a></li>
 <li><a href="http://yysfire.github.io/linux/create-ssh-alias.html" title="SSH使用技巧一则：使用config文件创建别名">SSH使用技巧一则：使用config文件创建别名</a></li>
-<li><a href="http://yysfire.github.io/linux/how-to-check-linux-terminal-whether-support-256-colors.html" title="如何查看Linux终端是否支持256色">如何查看Linux终端是否支持256色</a></li>
+<li><a href="http://yysfire.github.io/linux/change-ubuntu-12.10-login-ui-background.html" title="修改Ubuntu 12.10登录界面的背景">修改Ubuntu 12.10登录界面的背景</a></li>
 </ul>
 <hr />
 </section>
@@ -375,10 +374,10 @@
         <section>
         <div class="span2" style="float:right;font-size:0.9em;">
             <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2012-10-25T21:06:12">十月 25, 2012</time>
+            <time pubdate="pubdate" datetime="2012-10-25T21:06:12+08:00">十月 25, 2012</time>
 
 <h4>Last Updated</h4>
-<time datetime="2012-10-30T22:16:04">十月 30, 2012</time>
+<time datetime="2012-10-30T22:16:04+08:00">十月 30, 2012</time>
 
             <h4>Category</h4>
             <a class="category-link" href="http://yysfire.github.io/categories.html#linux-ref">linux</a>

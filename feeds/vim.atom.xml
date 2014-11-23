@@ -758,4 +758,37 @@
 &lt;p&gt;&lt;code&gt;e!&lt;/code&gt;: 放弃所有更动，重新编辑&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;:r 文件名&lt;/code&gt;: 在当前光标插入文件内容&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;:r !命令&lt;/code&gt;: 在当前光标插入命令执行结果(:r !date)&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;X(大写)&lt;/code&gt;: 删除光标前一个字符&lt;/p&gt;</summary><category term="Vim"></category><category term="Command"></category></entry></feed>
+&lt;p&gt;&lt;code&gt;X(大写)&lt;/code&gt;: 删除光标前一个字符&lt;/p&gt;</summary><category term="Vim"></category><category term="Command"></category></entry><entry><title>鼠标右键菜单添加vim选项</title><link href="http://yysfire.github.io/vim/How_to_add_context_menu_of_gvim_manually.html" rel="alternate"></link><updated>2011-09-24T07:35:00+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2011-09-24:vim/How_to_add_context_menu_of_gvim_manually.html</id><summary type="html">&lt;p&gt;鼠标右键菜单添加vim选项&lt;/p&gt;
+&lt;p&gt;1、添加edit with vim选项，每个文件打开一个新窗口。&lt;/p&gt;
+&lt;p&gt;新建reg文件，代码如下：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;Windows Registry Editor Version 5.00
+
+&lt;span class="k"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;HKEY_CLASSES_ROOT&lt;/span&gt;&lt;span class="k"&gt;\*\Shell\edit with vim]&lt;/span&gt;
+&lt;span class="na"&gt;@&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;edit with vim&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;HKEY_CLASSES_ROOT&lt;/span&gt;&lt;span class="k"&gt;\*\Shell\edit with vim\command]&lt;/span&gt;
+&lt;span class="na"&gt;@&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;\&amp;quot;D:\\Program Files\\Vim\\vim71\\gvim.exe\&amp;quot; \&amp;quot;%1\&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;2、添加vim tabnew选项，每个文件打开一个新标签页。&lt;/p&gt;
+&lt;p&gt;新建reg文件，代码如下：&lt;/p&gt;
+&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+2
+3
+4
+5
+6&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;Windows Registry Editor Version 5.00
+
+&lt;span class="k"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;HKEY_CLASSES_ROOT&lt;/span&gt;&lt;span class="k"&gt;\*\Shell\vim tabnew]&lt;/span&gt;
+&lt;span class="na"&gt;@&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;vim tabnew&amp;quot;&lt;/span&gt;
+&lt;span class="k"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;HKEY_CLASSES_ROOT&lt;/span&gt;&lt;span class="k"&gt;\*\Shell\vim tabnew\command]&lt;/span&gt;
+&lt;span class="na"&gt;@&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;\&amp;quot;D:\\Program Files\\Vim\\vim71\\gvim.exe\&amp;quot; -p --remote-tab-silent \&amp;quot;%1\&amp;quot; \&amp;quot;%*\&amp;quot;&amp;quot;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+
+&lt;p&gt;本文来自CSDN博客，转载请标明出处：&lt;a href="http://blog.csdn.net/flynetcn/archive/2008/05/09/2420752.aspx"&gt;http://blog.csdn.net/flynetcn/archive/2008/05/09/2420752.aspx&lt;/a&gt;&lt;/p&gt;</summary><category term="Windows"></category><category term="Vim"></category><category term="右键菜单"></category></entry></feed>

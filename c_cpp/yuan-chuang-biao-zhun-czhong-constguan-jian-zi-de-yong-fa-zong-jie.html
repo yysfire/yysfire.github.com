@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Yysfire" />
+        <meta name="copyright" content="Yysfire" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="C++, const, c_cpp, " />
+
+<meta property="og:title" content="[原创]标准C++中const关键字的用法总结 "/>
+<meta property="og:url" content="http://yysfire.github.io/c_cpp/yuan-chuang-biao-zhun-czhong-constguan-jian-zi-de-yong-fa-zong-jie.html" />
+<meta property="og:description" content="我们都知道，在标准C++中可以用const关键字来定义一个常类型的量或者是对象。用const定义的常类型的量或对象的值是不能被更新的， 因此，定义或说明常类型的量或对象时必须进行初始化。 其实，const在C++中是一个很有用的关键字，下面总结一下它的用法。 1．定义一般常量 在c语言中，我们一般是用 #define 来声明常量的，它是一种编译预处理，给人的感觉好像不是语言的一部分。 而在C++中，我们完全可以用 const 代替 #define，即 ..." />
+<meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
+<meta property="og:article:author" content="Yysfire" />
+<meta property="og:article:published_time" content="2008-04-04T02:19:00+08:00" />
+<meta property="" content="2008-04-04T02:19:00+08:00" />
+<meta name="twitter:title" content="[原创]标准C++中const关键字的用法总结 ">
+<meta name="twitter:description" content="我们都知道，在标准C++中可以用const关键字来定义一个常类型的量或者是对象。用const定义的常类型的量或对象的值是不能被更新的， 因此，定义或说明常类型的量或对象时必须进行初始化。 其实，const在C++中是一个很有用的关键字，下面总结一下它的用法。 1．定义一般常量 在c语言中，我们一般是用 #define 来声明常量的，它是一种编译预处理，给人的感觉好像不是语言的一部分。 而在C++中，我们完全可以用 const 代替 #define，即 ...">
+
+        <title>[原创]标准C++中const关键字的用法总结  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css">
+        <link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://yysfire.github.io/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://yysfire.github.io">Home</a></li>
+                            <li ><a href="http://yysfire.github.io/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.io/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.io/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://yysfire.github.io/c_cpp/yuan-chuang-biao-zhun-czhong-constguan-jian-zi-de-yong-fa-zong-jie.html"> [原创]标准C++中const关键字的用法总结  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+        <div class="span8 offset2 article-content">
+
+            
+            <p>我们都知道，在标准C++中可以用const关键字来定义一个常类型的量或者是对象。用const定义的常类型的量或对象的值是不能被更新的，
+因此，定义或说明常类型的量或对象时必须进行初始化。
+其实，const在C++中是一个很有用的关键字，下面总结一下它的用法。</p>
+<h2 id="1">1．定义一般常量</h2>
+<p>在c语言中，我们一般是用 <code>#define</code> 来声明常量的，它是一种编译预处理，给人的感觉好像不是语言的一部分。
+而在C++中，我们完全可以用 <code>const</code> 代替 <code>#define</code>，即“尽量用编译器而不用预处理”，<code>const</code> 有很多特性，使其优于 <code>#define</code>。</p>
+<p><code>const</code>可以放在类型说明符前，也可以放在类型说明符后，即语句<code>const int k=10</code>和语句<code>int const k=10</code>是等效的，都表示k是一个int型的常量10。</p>
+<h2 id="2">2．常指针和常引用</h2>
+<p>使用<code>const</code>修饰指针时，由于<code>const</code>的位置不同，而含意不同。下面举两个例子以说明它们的区别。</p>
+<p>下面定义了—个指向字符串的常量指针：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="kt">char</span><span class="err"> </span><span class="n">arr1</span><span class="p">[]</span><span class="o">=</span><span class="s">&quot;Hello const!&quot;</span><span class="p">;</span>
+
+<span class="kt">char</span><span class="err"> </span><span class="n">arr2</span><span class="p">[]</span><span class="o">=</span><span class="s">&quot;Yes,I am fine&quot;</span><span class="p">;</span>
+
+<span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="err"> </span><span class="k">const</span><span class="err"> </span><span class="n">pstr</span><span class="o">=</span><span class="n">arr</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+
+<p>其中，pstr是个常量指针。因此，下面赋值是非法的：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">pstr</span><span class="o">=</span><span class="n">arr2</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+
+<p>而下面的赋值是合法的：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">*</span><span class="n">pstr</span><span class="o">=</span><span class="sc">&#39;h&#39;</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+
+<p>因为指针pstr所指向的变量是可以更新的，不可更新的是常量指针pstr本身，即它所指的方向(别的字符串)。</p>
+<p>下面定义了一个指向字符串常量的指针：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">const</span><span class="err"> </span><span class="kt">char</span><span class="err"> </span><span class="o">*</span><span class="n">pstr2</span><span class="err">＝</span><span class="n">arr1</span><span class="p">;</span><span class="err"> </span><span class="c1">//和char const * pstr2=arr1等效</span>
+</pre></div>
+</td></tr></table>
+
+<p>其中，pstr2是—个指向字符串常量的指针。pstr2所指向的字符串不能更新，而pstr2本身是可以更新的。因此语句<code>*pstr2='h'</code>是非法的，而语句<code>pstr2=arr2</code>是合法的。</p>
+<p>所以，在使用const修饰指针时，应该注意const的位置。<strong>定义一个指向字符串的指针常量时，const放在星号的右边；定义—个指向字符串常量的指针时，const放在星号的左边（char的前面，或者char与星号之间）。</strong></p>
+<p>使用const修饰符也可以说明引用，被说明的引用为常引用，该引用所引用的对象不能被更新。其定义格式如下：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">const</span><span class="err"> </span><span class="o">&lt;</span><span class="err">类型说明符</span><span class="o">&gt;</span><span class="err"> ＆ </span><span class="o">&lt;</span><span class="err">引用名</span><span class="o">&gt;</span>
+</pre></div>
+</td></tr></table>
+
+<p>例如：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">const</span><span class="err"> </span><span class="kt">double</span><span class="err"> </span><span class="o">&amp;</span><span class="err"> </span><span class="n">d</span>
+</pre></div>
+</td></tr></table>
+
+<p>在实际应用中，常指针和常引用往往用来作函数的形参，这样的参数称为常参数。使用常参数则表明该函数不会更新该常参数所指向或所引用的对象，非常适用于使用引用传递参数但在函数体内又不改变该参数的场合。</p>
+<h2 id="3">3．常成员函数</h2>
+<p>使用const关键字进行说明的成员函数，称为常成员函数。常成员函数有两个作用：一是可以用来操作常对象，只有常成员函数才有资格操作常对象，没有使用const关键字说明的成员函数不能用来操作常对象。二是限制成员函数，使其不能修改本对象的成员变量。</p>
+<p>常成员函数说明格式如下：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="o">&lt;</span><span class="err">类型说明符</span><span class="o">&gt;</span> <span class="o">&lt;</span><span class="err">函数名</span><span class="o">&gt;</span><span class="p">(</span><span class="o">&lt;</span><span class="err">参数表</span><span class="o">&gt;</span><span class="p">)</span> <span class="k">const</span>
+</pre></div>
+</td></tr></table>
+
+<p>其中，const是加在函数说明后面的类型修饰符，它是函数类型的—个组成部分。因此，在函数实现部分也要带const关键字。下面举例说明了常成员函数的特征。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span class="vi">#include</span><span class="err"> </span><span class="o">&lt;</span><span class="nx">iostream</span><span class="o">&gt;</span>
+<span class="nx">using</span><span class="err"> </span><span class="nx">namespace</span><span class="err"> </span><span class="nx">std</span><span class="p">;</span>
+
+<span class="nb">class</span><span class="err"> </span><span class="nx">test</span>
+<span class="p">{</span>
+    <span class="k">private</span><span class="p">:</span>
+        <span class="nx">int</span><span class="err"> </span><span class="nx">r1</span><span class="p">,</span> <span class="nx">r2</span><span class="p">;</span>
+    <span class="k">public</span><span class="p">:</span>
+        <span class="nx">test</span><span class="p">(</span> <span class="nx">int</span><span class="err"> </span><span class="nx">a</span><span class="p">,</span> <span class="nx">int</span><span class="err"> </span><span class="nx">b</span> <span class="p">)</span> <span class="p">{</span> <span class="n">r1</span><span class="o">=</span><span class="nx">a</span><span class="p">,</span> <span class="n">r2</span><span class="o">=</span><span class="nx">b</span><span class="p">;</span> <span class="p">}</span>
+        <span class="bp">void</span><span class="err"> </span><span class="nx">display</span><span class="p">();</span>
+        <span class="bp">void</span><span class="err"> </span><span class="nx">display</span><span class="p">()</span> <span class="nx">const</span><span class="p">;</span>
+        <span class="nx">int</span><span class="err"> </span><span class="nb">add</span><span class="p">()</span> <span class="nx">const</span><span class="p">;</span>
+        <span class="nx">int</span><span class="err"> </span><span class="nx">mul</span><span class="p">();</span><span class="err">         </span>
+<span class="p">};</span>
+
+<span class="bp">void</span><span class="err"> </span><span class="nx">test</span><span class="p">::</span><span class="nl">display</span><span class="p">()</span> <span class="p">{</span> <span class="nx">cout</span><span class="o">&lt;&lt;</span><span class="nx">r1</span><span class="o">&lt;&lt;</span><span class="s1">&#39;#&#39;</span><span class="o">&lt;&lt;</span><span class="nx">r2</span><span class="o">&lt;&lt;</span><span class="nx">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="bp">void</span><span class="err"> </span><span class="nx">test</span><span class="p">::</span><span class="nl">display</span><span class="p">()</span><span class="err"> </span><span class="nx">const</span><span class="err"> </span><span class="p">{</span> <span class="nx">cout</span><span class="o">&lt;&lt;</span><span class="nx">r1</span><span class="o">&lt;&lt;</span><span class="s1">&#39;&amp;&#39;</span><span class="o">&lt;&lt;</span><span class="nx">r2</span><span class="o">&lt;&lt;</span><span class="nx">endl</span><span class="p">;</span> <span class="p">}</span>
+<span class="nx">int</span><span class="err">  </span><span class="nx">test</span><span class="p">::</span><span class="nl">add</span><span class="p">()</span><span class="err"> </span><span class="nx">const</span><span class="err"> </span><span class="p">{</span> <span class="k">return</span><span class="err"> </span><span class="p">(</span> <span class="nx">r1</span> <span class="o">+</span> <span class="nx">r2</span> <span class="p">);</span> <span class="p">}</span>
+<span class="nx">int</span><span class="err">  </span><span class="nx">test</span><span class="p">::</span><span class="nl">mul</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span><span class="err"> </span><span class="p">(</span> <span class="nx">r1</span> <span class="o">*</span> <span class="nx">r2</span> <span class="p">);</span> <span class="p">}</span>
+
+<span class="nx">int</span><span class="err"> </span><span class="nx">main</span><span class="p">()</span><span class="err"> </span>
+<span class="p">{</span>
+    <span class="nx">test</span><span class="err"> </span><span class="nx">t1</span><span class="p">(</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span> <span class="p">);</span>
+    <span class="nx">t1.display</span><span class="p">();</span>
+    <span class="nx">cout</span><span class="o">&lt;&lt;</span><span class="s2">&quot;t1:r1+r2=&quot;</span><span class="o">&lt;&lt;</span><span class="nx">t1.add</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="nx">endl</span><span class="p">;</span>
+    <span class="nx">cout</span><span class="o">&lt;&lt;</span><span class="s2">&quot;t1:r1*r2=&quot;</span><span class="o">&lt;&lt;</span><span class="nx">t1.mul</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="nx">endl</span><span class="p">;</span>
+    <span class="nx">const</span><span class="err"> </span><span class="nx">test</span><span class="err"> </span><span class="nx">t2</span><span class="p">(</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">17</span> <span class="p">);</span>
+    <span class="nx">t2.display</span><span class="p">();</span>
+    <span class="nx">cout</span><span class="o">&lt;&lt;</span><span class="s2">&quot;t2:r1+r2=&quot;</span><span class="o">&lt;&lt;</span><span class="nx">t2.add</span><span class="p">()</span><span class="o">&lt;&lt;</span><span class="nx">endl</span><span class="p">;</span>
+    <span class="c1">//cout&lt;&lt;&quot;t2:r1*r2=&quot;&lt;&lt;t2.mul()&lt;&lt;endl; 错误！  </span>
+    <span class="nx">system</span><span class="p">(</span><span class="s2">&quot;pause&quot;</span><span class="p">);</span>
+    <span class="k">return</span><span class="err"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+
+<p>运行结果为：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="highlight"><pre><span class="mi">2</span><span class="err">#</span><span class="mi">10</span><span class="err"> </span>
+<span class="nl">t1:</span><span class="n">r1</span><span class="o">+</span><span class="n">r2</span><span class="o">=</span><span class="mi">12</span>
+<span class="nl">t1:</span><span class="n">r1</span><span class="o">*</span><span class="n">r2</span><span class="o">=</span><span class="mi">20</span><span class="err"> </span>
+<span class="mi">3</span><span class="o">&amp;</span><span class="mi">17</span><span class="err"> </span>
+<span class="nl">t2:</span><span class="n">r1</span><span class="o">+</span><span class="n">r2</span><span class="o">=</span><span class="mi">20</span>
+</pre></div>
+</td></tr></table>
+
+<p>该程序中test类中声明了两个同名的display成员函数，但类型不同，相当于实现了函数重载，由const类型的成员函数来显示const类型的test对象t2。这里要注意的是：
+只有常成员函数才有资格操作常对象，也就是说常对象只能调用常成员函数，不能调用非常成员函数（没有用const修饰的）；但是，非常对象却能调用常成员函数
+。因此，上例中t1.add()是对的，而t2.mul()是错误的。</p>
+<h2 id="4">4．常数据成员</h2>
+<p>类型修饰符const不仅可以修饰成员函数，也可以修饰数据成员，即常数据成员。由于const类型对象必须被切始化，并且不能更新，因此，在类中声明了const型数据成员时，只能通过成员初始化列表的方式来生成构造函数对常数据成员初始化。下面通过一个例子讲述使用成员初始化列表来生成构造函数。</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29</pre></div></td><td class="code"><div class="highlight"><pre><span class="vi">#include</span><span class="err"> </span><span class="o">&lt;</span><span class="nx">iostream</span><span class="o">&gt;</span>
+<span class="nx">using</span><span class="err"> </span><span class="nx">namespace</span><span class="err"> </span><span class="nx">std</span><span class="p">;</span>
+
+<span class="nb">class</span><span class="err"> </span><span class="nx">test</span>
+<span class="p">{</span>
+    <span class="k">private</span><span class="p">:</span>
+        <span class="nx">const</span><span class="err"> </span><span class="nx">int</span><span class="err"> </span><span class="nx">a</span><span class="p">;</span>
+        <span class="nx">const</span><span class="err"> </span><span class="nx">int</span><span class="err"> </span><span class="o">&amp;</span><span class="nx">addr</span><span class="p">;</span>
+        <span class="nx">static</span><span class="err"> </span><span class="nx">const</span><span class="err"> </span><span class="nx">int</span><span class="err"> </span><span class="nx">b</span><span class="p">;</span>
+    <span class="k">public</span><span class="p">:</span>
+        <span class="nx">test</span><span class="p">(</span><span class="nx">int</span><span class="err"> </span><span class="nx">i</span><span class="p">);</span>
+        <span class="bp">void</span><span class="err"> </span><span class="nx">display</span><span class="p">();</span><span class="err">       </span>
+<span class="p">};</span>
+
+<span class="nx">const</span><span class="err"> </span><span class="nx">int</span><span class="err"> </span><span class="n">test</span><span class="p">::</span><span class="nl">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+
+<span class="nx">test</span><span class="p">::</span><span class="nl">test</span><span class="p">(</span><span class="nx">int</span><span class="err"> </span><span class="nx">i</span><span class="p">):</span><span class="nx">a</span><span class="p">(</span><span class="nx">i</span><span class="p">),</span> <span class="nx">addr</span><span class="p">(</span><span class="nx">a</span><span class="p">){}</span>
+
+<span class="bp">void</span><span class="err"> </span><span class="nx">test</span><span class="p">::</span><span class="nl">display</span><span class="p">(){</span> <span class="nx">cout</span><span class="o">&lt;&lt;</span><span class="nx">a</span><span class="o">&lt;&lt;</span><span class="s1">&#39;:&#39;</span><span class="o">&lt;&lt;</span><span class="nx">addr</span><span class="o">&lt;&lt;</span><span class="s1">&#39;:&#39;</span><span class="o">&lt;&lt;</span><span class="nx">b</span><span class="o">&lt;&lt;</span><span class="nx">endl</span><span class="p">;</span> <span class="p">}</span>
+
+<span class="nx">int</span><span class="err"> </span><span class="nx">main</span><span class="p">()</span><span class="err"> </span>
+<span class="p">{</span>
+    <span class="nx">test</span><span class="err"> </span><span class="nx">t1</span><span class="p">(</span><span class="mi">30</span><span class="p">);</span>
+    <span class="nx">test</span><span class="err"> </span><span class="nx">t2</span><span class="p">(</span><span class="mi">100</span><span class="p">);</span>
+    <span class="nx">t1.display</span><span class="p">();</span>
+    <span class="nx">t2.display</span><span class="p">();</span>
+    <span class="nx">system</span><span class="p">(</span><span class="s2">&quot;pause&quot;</span><span class="p">);</span>
+    <span class="k">return</span><span class="err"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+
+<p>运行结果：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2</pre></div></td><td class="code"><div class="highlight"><pre><span class="mi">30</span><span class="o">:</span><span class="mi">30</span><span class="o">:</span><span class="mi">5</span>
+<span class="mi">100</span><span class="o">:</span><span class="mi">100</span><span class="o">:</span><span class="mi">5</span>
+</pre></div>
+</td></tr></table>
+
+<p>在该程序中，设置了如下3个常类型数据成员：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">const</span><span class="err">  </span><span class="kt">int</span><span class="err">  </span><span class="o">&amp;</span><span class="err"> </span><span class="n">addr</span><span class="p">;</span>
+<span class="k">const</span><span class="err">  </span><span class="kt">int</span><span class="err">  </span><span class="n">a</span><span class="p">;</span>
+<span class="k">static</span><span class="err">  </span><span class="k">const</span><span class="err">  </span><span class="kt">int</span><span class="err">  </span><span class="n">b</span><span class="p">;</span>
+</pre></div>
+</td></tr></table>
+
+<p>其中，addr是常int型引用，a是int型常量，b是静态常int型变量。程序中对静态数据成员b进行初始化。值得注意的是构造函数的格式：</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="highlight"><pre><span class="n">test</span><span class="p">(</span><span class="kt">int</span><span class="err"> </span><span class="n">i</span><span class="p">)</span><span class="o">:</span><span class="n">a</span><span class="p">(</span><span class="n">i</span><span class="p">),</span><span class="n">addr</span><span class="p">(</span><span class="n">a</span><span class="p">){}</span>
+</pre></div>
+</td></tr></table>
+
+<p>其中，冒号后面是一个数据成员初始化列表，它包含两个初始化项，用逗号隔开。
+对于常类型的数据成员，必须采用这种方式初始化 。</p>
+<h2 id="5const">5．用const修饰函数返回值</h2>
+<p>const也可以用来修饰函数返回值，表明该返回值是不可修改的。事实上，函数返回值本来就不应该被修改（例如被赋值）。用const修饰函数返回值，就可以避免那些很蹩脚的人对函数返回值进行修改，尤其是在自定义数据类型的时候。</p>
+<p>综上可见，const的使用可以使我们的程序更加安全可靠，可以将很多隐藏的错误交给编译器来帮你检查出来。因此，请在一切可以用const的地方用上const 。</p>
+            
+            
+            <hr/>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="http://yysfire.github.io/misc/Some_English_proverbs_and_its_Chinese_translation.html" title="Previous: [转载]英语谚语">[转载]英语谚语</a></li>
+                <li class="next-article"><a href="http://yysfire.github.io/misc/zuo-ren-zong-yao-xin.html" title="Next: 做人，总要信！">做人，总要信！</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2008-04-04T02:19:00+08:00">四月 4, 2008</time>
+
+<h4>Last Updated</h4>
+<time datetime="2008-04-04T02:19:00+08:00">四月 4, 2008</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://yysfire.github.io/categories.html#c_cpp-ref">c_cpp</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://yysfire.github.io/tags.html#c-ref">C++
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.io/tags.html#const-ref">const
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-facebook sidebar-social-links"></i></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>

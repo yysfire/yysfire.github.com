@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8"> 
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Yysfire" />
+        <meta name="copyright" content="Yysfire" />
+
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary">
+
+<meta name="keywords" content="Windows7, Windows, Environment variable, 环境变量, 注册表, Rapid Environment Editor, windows, " />
+
+<meta property="og:title" content="如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效 "/>
+<meta property="og:url" content="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" />
+<meta property="og:description" content="关于这个问题，网上的文章特别多，但很多都是重复的、过时的、无效的。但此问题是确确实实可以实现的，因为不少软件在安装的时候就会修改环境变量，安装完成后，这些修改就立马生效了。本文就介绍一下作者解决此问题的亲身经历及体会。 作者为了搭建 node.js 及 npm 工作环境（搭建过程见：如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境 ..." />
+<meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
+<meta property="og:article:author" content="Yysfire" />
+<meta property="og:article:published_time" content="2014-11-23T04:50:08+08:00" />
+<meta property="" content="2014-11-23T07:06:03+08:00" />
+<meta name="twitter:title" content="如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效 ">
+<meta name="twitter:description" content="关于这个问题，网上的文章特别多，但很多都是重复的、过时的、无效的。但此问题是确确实实可以实现的，因为不少软件在安装的时候就会修改环境变量，安装完成后，这些修改就立马生效了。本文就介绍一下作者解决此问题的亲身经历及体会。 作者为了搭建 node.js 及 npm 工作环境（搭建过程见：如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境 ...">
+
+        <title>如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+</title>
+        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
+<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css">
+        <link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
+        <link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
+        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
+        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
+        <link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+    </head>
+    <body>
+        <div id="content-sans-footer">
+        <div class="navbar navbar-static-top">
+            <div class="navbar-inner">
+                <div class="container-fluid">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+                    <a class="brand" href="http://yysfire.github.io/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
+                    <div class="nav-collapse collapse">
+                        <ul class="nav pull-right top-menu">
+                            <li ><a href="http://yysfire.github.io">Home</a></li>
+                            <li ><a href="http://yysfire.github.io/categories.html">Categories</a></li>
+                            <li ><a href="http://yysfire.github.io/tags.html">Tags</a></li>
+                            <li ><a href="http://yysfire.github.io/archives.html">Archives</a></li>
+                            <li><form class="navbar-search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span1"></div>
+                <div class="span10">
+<article>
+<div class="row-fluid">
+    <header class="page-header span10 offset2">
+    <h1><a href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html"> 如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效  </a></h1>
+    </header>
+</div>
+
+<div class="row-fluid">
+    <div class="span2 table-of-content">
+        <nav>
+        <div class="toc">
+<ul>
+<li><a href="#rapid-environment-editor">用软件 Rapid Environment Editor 来修改</a></li>
+<li><a href="#_1">直接修改注册表</a></li>
+<li><a href="#-">计算机-&gt;属性-&gt;高级系统设置-&gt;环境变量</a></li>
+<li><a href="#_2">结论</a></li>
+</ul>
+</div>
+        </nav>
+    </div>
+    <div class="span8 article-content">
+
+            
+            
+<p>关于这个问题，网上的文章特别多，但很多都是重复的、过时的、无效的。但此问题是确确实实可以实现的，因为不少软件在安装的时候就会修改环境变量，安装完成后，这些修改就立马生效了。本文就介绍一下作者解决此问题的亲身经历及体会。</p>
+<p>作者为了搭建 node.js 及 npm 工作环境（搭建过程见：<a href="{{ SITEURL }}/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7">如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</a>），需要修改 PATH 环境变量，并添加一个新的环境变量。下面就仅以 PATH 变量为例来做介绍。</p>
+<h2 id="rapid-environment-editor">用软件 Rapid Environment Editor 来修改</h2>
+<p>这是我的系统已经装有的一个软件，可以快速修改 Windows 的系统环境变量和用户环境变量。它具备对环境变量进行编辑、添加、删除、排序、备份，以及清理无效路径的功能。软件界面如下（红色表示该路径不存在或无权访问，灰色表示系统的关键环境变量）：</p>
+<p><img alt="Rapid Environment Editor" src="../images/Rapid.Environment.Editor.JPG"/></p>
+<p>我用此软件修改完 PATH 环境变量（为保险起见，也为了做个对比，我在用户环境变量的 PATH 变量和系统环境变量的 PATH 变量中都作了修改），并点“保存”后，打开新的 cmd 命令行窗口，运行 <code>echo %PATH%</code>，发现修改并未生效，即使是重启 explorer 进程，也依然 <strong>无效</strong> 。看来，此软件除了上述功能外，也没什么强力之处。</p>
+<h2 id="_1">直接修改注册表</h2>
+<p>既然第三方软件修改无果，那我就直接拿注册表开刀呗，心想着这总应该能成吧。注册表中有三个项保存着环境变量的信息，它们分别是：</p>
+<ol>
+<li><code>HKEY_CURRENT_USER\Environment</code> 保存着用户环境变量的信息</li>
+<li><code>HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Control\Session Manager\Environment</code> 保存着系统环境变量当前的信息</li>
+<li><code>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment</code> 和上面第二个一模一样，实际就是指向上面第二个的链接</li>
+<li><code>HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Control\Session Manager\Environment</code> 保存着系统环境变量上一次的信息</li>
+</ol>
+<p>我用 Registry Workshop（这个软件比系统自带的 regedit 好用多了） 打开注册表，发现上面前三个的 PATH 键中已经保存着我之前用 Rapid Environment Environment 所做的修改，我就索性把第四个的 PATH 键值也给改了，然后打开新的 cmd，运行 <code>echo %PATH%</code>，发现修改仍未生效，再次重启 explorer 进程，再一次 <strong>失败了</strong> 。</p>
+<h2 id="-">计算机-&gt;属性-&gt;高级系统设置-&gt;环境变量</h2>
+<p>那就回归到最原始、最简单的方法中来吧，在“计算机“右键菜单-&gt;“属性”-&gt;“高级系统设置”-&gt;“环境变量”中修改完 PATH 变量后，一路点确定，然后打开新的 cmd 窗口，运行 <code>echo %PATH%</code>，发现 <strong>修改竟然生效了</strong> 。我无语了，原来<em>有时候最简单的方法却是最有效的</em>，之前把问题想复杂了，所以没有一开始就用这个方法。</p>
+<p><em>注意：修改完环境变量后，必须要通过“开始菜单”-&gt;“附件”-&gt;“命令提示符”或者“运行”对话框（可用快捷键 Win+R 打开）打开新的 cmd 窗口，才能看到生效了的环境变量。换句话说，只有在修改完成之后开启的进程，才能加载修改过的环境变量。而那些修改发生之前就已经在运行的进程，它们加载的仍然是修改之前的环境变量值，只要它们不退出，由它们开启的子进程所加载的也很有可能仍然是修改前的环境变量值。</em></p>
+<p><em>举个例子来说明：你先打开了 Double Commander（一款功能类似 Total Commander 的开源免费跨平台的文件管理器，界面如下图所示），然后修改了 PATH 环境变量，再通过 Double Commander 运行了一个 cmd 窗口，在里面运行 <code>echo %PATH%</code>，你会发现改动没有生效。只有先退出、再打开 Double Commander，然后通过它运行的 cmd 窗口，才会加载改动后的 PATH 变量值。</em></p>
+<p><img alt="Double Commander" src="../images/Double.Commander.0-5-10.beta.build.5514M-.2014-05-12.png"/></p>
+<h2 id="_2">结论</h2>
+<ol>
+<li>不重启或注销 Windows7 系统而使环境变量的修改能生效的方法是：在“计算机“右键菜单-&gt;“属性”-&gt;“高级系统设置”-&gt;“环境变量”中修改，然后一路点确定直到关闭了“系统属性”对话框。</li>
+<li>修改环境变量后，如果该环境变量影响的是应用程序，那么只需要重启该程序即可生效。但是，如果影响的是系统服务，就必须重启系统才能将环境变量的修改反映到系统服务中。</li>
+</ol>
+            
+            
+            <hr/>
+<section>
+    <h2>Related Posts</h2>
+<ul class="related-posts-list">
+<li><a href="http://yysfire.github.io/windows/Solution_of_IE_proxy_server_can_not_be_set.html" title="IE代理服务器无法设置的解决方法">IE代理服务器无法设置的解决方法</a></li>
+<li><a href="http://yysfire.github.io/windows/Unable-to-locate-the-program-input-on-points-_except_handler4_common-in-the-dynamic-link-library-msvcrt.dll.html" title="无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法">无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法</a></li>
+<li><a href="http://yysfire.github.io/windows/How_to_remove_the_arrow_mark_of_shortcut_in_windows.html" title="如何去掉快捷方式的小箭头">如何去掉快捷方式的小箭头</a></li>
+<li><a href="http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html" title="Windows平台便携版Evernote的制作与下载 - （更新到v5.7.1.5586）">Windows平台便携版Evernote的制作与下载 <small>（更新到v5.7.1.5586）</small></a></li>
+<li><a href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" title="如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境">如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</a></li>
+</ul>
+<hr />
+</section>
+            <aside>
+            <nav>
+            <ul class="articles-timeline">
+                <li class="previous-article">« <a href="http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html" title="Previous: Windows平台便携版Evernote的制作与下载 - （更新到v5.7.1.5586）">Windows平台便携版Evernote的制作与下载 <small>（更新到v5.7.1.5586）</small></a></li>
+                <li class="next-article"><a href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" title="Next: 如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境">如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</a> »</li>
+            </ul>
+            </nav>
+            </aside>
+        </div>
+        <section>
+        <div class="span2" style="float:right;font-size:0.9em;">
+            <h4>Published</h4>
+            <time pubdate="pubdate" datetime="2014-11-23T04:50:08+08:00">十一月 23, 2014</time>
+
+<h4>Last Updated</h4>
+<time datetime="2014-11-23T07:06:03+08:00">十一月 23, 2014</time>
+
+            <h4>Category</h4>
+            <a class="category-link" href="http://yysfire.github.io/categories.html#windows-ref">windows</a>
+            <h4>Tags</h4>
+            <ul class="list-of-tags tags-in-article">
+                <li><a href="http://yysfire.github.io/tags.html#environment-variable-ref">Environment variable
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.io/tags.html#huan-jing-bian-liang-ref">环境变量
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.io/tags.html#rapid-environment-editor-ref">Rapid Environment Editor
+                    <span>1</span>
+</a></li>
+                <li><a href="http://yysfire.github.io/tags.html#windows-ref">Windows
+                    <span>10</span>
+</a></li>
+                <li><a href="http://yysfire.github.io/tags.html#windows7-ref">Windows7
+                    <span>2</span>
+</a></li>
+                <li><a href="http://yysfire.github.io/tags.html#zhu-ce-biao-ref">注册表
+                    <span>1</span>
+</a></li>
+            </ul>
+<h4>Contact</h4>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-twitter sidebar-social-links"></i></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-facebook sidebar-social-links"></i></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
+    <i class="fa fa-github sidebar-social-links"></i></a>
+        </div>
+        </section>
+</div>
+</article>
+                </div>
+                <div class="span1"></div>
+            </div>
+        </div>
+        <div id="push"></div>
+    </div>
+<footer>
+<div id="footer">
+    <ul class="footer-content">
+        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
+        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
+    </ul>
+</div>
+</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+        <script>
+            function validateForm(query)
+            {
+                return (query.length > 0);
+            }
+        </script>
+
+    
+    </body>
+    <!-- Theme: Elegant built for Pelican
+    License : http://oncrashreboot.com/pelican-elegant -->
+</html>

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <meta charset="utf-8"> 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Yysfire" />
-        <meta name="copyright" content="Yysfire" />
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="author" content="Yysfire" />
+    <meta name="copyright" content="Yysfire" />
 
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary" />
 
 <meta name="keywords" content="Windows, 快捷方式, Shortcut, windows, " />
 
@@ -22,146 +25,142 @@
 <meta name="twitter:title" content="如何去掉快捷方式的小箭头 ">
 <meta name="twitter:description" content="在windows系统中，桌面的快捷方式图标总是带有一个小箭头，非常不美观，有三种方法去掉它： 1、运行注册表编辑器（在“运行”中运行“regedit”），删除HKEY_CLASSES_ROOT\lnkfile子键的一个名为“IsShortcut”的键值，关闭注册表编辑器，重启系统（或注销后再进入）。 2、使用优化大师，然后进入使用性能优化，选择系统个性设置，在“消除快捷方式图标上的小箭头 ...">
 
-        <title>如何去掉快捷方式的小箭头  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+    <title>如何去掉快捷方式的小箭头  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
 </title>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css">
-        <link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
-        <link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
-    </head>
-    <body>
-        <div id="content-sans-footer">
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="http://yysfire.github.io/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right top-menu">
-                            <li ><a href="http://yysfire.github.io">Home</a></li>
-                            <li ><a href="http://yysfire.github.io/categories.html">Categories</a></li>
-                            <li ><a href="http://yysfire.github.io/tags.html">Tags</a></li>
-                            <li ><a href="http://yysfire.github.io/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span1"></div>
-                <div class="span10">
-<article>
-<div class="row-fluid">
-    <header class="page-header span10 offset2">
-    <h1><a href="http://yysfire.github.io/windows/How_to_remove_the_arrow_mark_of_shortcut_in_windows.html"> 如何去掉快捷方式的小箭头  </a></h1>
+    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/1.0.1/css/amazeui.min.css" />
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/css/pygments.css" media="screen">
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/css/custom.css" media="screen">
+<link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.png" />
+<link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" />
+<link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  />
+<link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" />
+<link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+  </head>
+  <body>
+    <header class="am-topbar am-topbar-fixed-top am-topbar-inverse">
+      <h1 class="am-topbar-brand">
+        <a href="http://yysfire.github.io">幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</a>
+      </h1>
+
+      <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+        data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+          class="am-icon-bars"></span></button>
+
+      <div class="am-collapse am-topbar-collapse am-topbar-right" id="doc-topbar-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav">
+          <li ><a href="http://yysfire.github.io">首页</a></li>
+          <li ><a href="http://yysfire.github.io/categories.html">分类</a></li>
+          <li ><a href="http://yysfire.github.io/tags.html">标签</a></li>
+          <li ><a href="http://yysfire.github.io/archives.html">归档</a></li>
+        </ul>
+
+        <form class="am-topbar-form am-form-inline am-topbar-right" role="search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);">
+          <div class="am-input-group">
+            <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章" name="q" id="tipue_search_input">
+          </div>
+        </form>
+
+      </div>
     </header>
-</div>
 
-<div class="row-fluid">
-        <div class="span8 offset2 article-content">
+<header class="am-g am-container">
+  <div class="col-sm-12 am-article">
+    <h1 class="am-article-title pla-header"><a href="http://yysfire.github.io/windows/How_to_remove_the_arrow_mark_of_shortcut_in_windows.html"> 如何去掉快捷方式的小箭头  </a></h1>
+    <p class="am-article-meta"></p>
+  </div>
+</header>
+<hr />
 
-            
-            <p>在windows系统中，桌面的快捷方式图标总是带有一个小箭头，非常不美观，有三种方法去掉它：</p>
+<div class="am-g">
+  <div class="col-md-9">
+    <div class="am-g">
+      <div class="col-sm-11 col-sm-centered pla-article-bd">
+        <div class="am-cf am-article">
+          
+          <p>在windows系统中，桌面的快捷方式图标总是带有一个小箭头，非常不美观，有三种方法去掉它：</p>
 <p>1、运行注册表编辑器（在“运行”中运行“regedit”），删除<code>HKEY_CLASSES_ROOT\lnkfile</code>子键的一个名为“IsShortcut”的键值，关闭注册表编辑器，重启系统（或注销后再进入）。</p>
 <p>2、使用优化大师，然后进入使用性能优化，选择系统个性设置，在“消除快捷方式图标上的小箭头”前打勾，重启后就OK啦。</p>
 <p>3、打开IE，将浏览器窗口缩至合适的大小。单击“开始”菜单，在“程序”中选中并按住鼠标左键拖动应用程序图标到浏览器任意空白处。如果想保留“开始”菜单中的应用程序图标，拖动时可以按住Ctrl键，然后释放鼠标左键，此时系统会弹出一个询问是打开应用程序还是保存到磁盘的对话框，选择保存到磁盘选项，单击“确定”，接下来系统会弹出一个保存窗口，我们选择保存路径为桌面，然后单击“确定”。再看一看，“快捷方式到”和小箭头是不是没有出现？</p>
 <p>参考资料：<a href="http://bbs.cwb11.com/dispbbs.asp?BoardID=8&amp;id=2867">http://bbs.cwb11.com/dispbbs.asp?BoardID=8&amp;id=2867</a></p>
-            
-            
-            <hr/>
+        </div>
+        <hr />
+        <div class="pla-cc-license">
+          <p>本作品由<a href="https://twitter.com/yysfirecn" title="幽谷奇峰"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="知识共享署名-非商业性使用 4.0 国际许可协议"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>进行许可。转载时请在显著位置标明本文永久链接：<br />
+            <a href="http://yysfire.github.io/windows/How_to_remove_the_arrow_mark_of_shortcut_in_windows.html" title="如何去掉快捷方式的小箭头">http://yysfire.github.io/windows/How_to_remove_the_arrow_mark_of_shortcut_in_windows.html</a></p>
+        </div>
+        <hr/>
 <section>
-    <h2>Related Posts</h2>
+    <h2>相关文章</h2>
 <ul class="related-posts-list">
 <li><a href="http://yysfire.github.io/windows/change_background_of_fold_in_windows_xp.html" title="为文件夹修改背景，轻松打造个人系统">为文件夹修改背景，轻松打造个人系统</a></li>
-<li><a href="http://yysfire.github.io/windows/Unable-to-locate-the-program-input-on-points-_except_handler4_common-in-the-dynamic-link-library-msvcrt.dll.html" title="无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法">无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法</a></li>
-<li><a href="http://yysfire.github.io/vim/How_to_add_context_menu_of_gvim_manually.html" title="鼠标右键菜单添加vim选项">鼠标右键菜单添加vim选项</a></li>
+<li><a href="http://yysfire.github.io/windows/Solution_of_IE_proxy_server_can_not_be_set.html" title="IE代理服务器无法设置的解决方法">IE代理服务器无法设置的解决方法</a></li>
+<li><a href="http://yysfire.github.io/tools/msysgit-Chinese-characters-garbled.html" title="Windows下msysgit中文支持问题的探讨">Windows下msysgit中文支持问题的探讨</a></li>
 <li><a href="http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html" title="Windows平台便携版Evernote的制作与下载 - （更新到v5.7.1.5586）">Windows平台便携版Evernote的制作与下载 <small>（更新到v5.7.1.5586）</small></a></li>
 <li><a href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" title="如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效">如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效</a></li>
 </ul>
 <hr />
 </section>
-            <aside>
-            <nav>
-            <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://yysfire.github.io/vim/How_to_add_context_menu_of_gvim_manually.html" title="Previous: 鼠标右键菜单添加vim选项">鼠标右键菜单添加vim选项</a></li>
-                <li class="next-article"><a href="http://yysfire.github.io/vim/vim-command-note.html" title="Next: Vim命令拾遗">Vim命令拾遗</a> »</li>
-            </ul>
-            </nav>
-            </aside>
-        </div>
-        <section>
-        <div class="span2" style="float:right;font-size:0.9em;">
-            <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2011-09-29T23:39:00+08:00">九月 29, 2011</time>
-
-<h4>Last Updated</h4>
-<time datetime="2011-09-29T23:39:00+08:00">九月 29, 2011</time>
-
-            <h4>Category</h4>
-            <a class="category-link" href="http://yysfire.github.io/categories.html#windows-ref">windows</a>
-            <h4>Tags</h4>
-            <ul class="list-of-tags tags-in-article">
-                <li><a href="http://yysfire.github.io/tags.html#kuai-jie-fang-shi-ref">快捷方式
-                    <span>1</span>
-</a></li>
-                <li><a href="http://yysfire.github.io/tags.html#shortcut-ref">Shortcut
-                    <span>1</span>
-</a></li>
-                <li><a href="http://yysfire.github.io/tags.html#windows-ref">Windows
-                    <span>10</span>
-</a></li>
-            </ul>
-<h4>Contact</h4>
-    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-twitter sidebar-social-links"></i></a>
-    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-facebook sidebar-social-links"></i></a>
-    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-github sidebar-social-links"></i></a>
-        </div>
-        </section>
-</div>
-</article>
-                </div>
-                <div class="span1"></div>
-            </div>
-        </div>
-        <div id="push"></div>
+        
+        <ul class="am-pagination">
+          <li class="am-pagination-prev"><a href="http://yysfire.github.io/vim/How_to_add_context_menu_of_gvim_manually.html" title="前一篇：鼠标右键菜单添加vim选项">&laquo;鼠标右键菜单添加vim选项</a></li>
+          <li class="am-pagination-next"><a href="http://yysfire.github.io/vim/vim-command-note.html" title="后一篇：Vim命令拾遗">Vim命令拾遗&raquo;</a></li>
+        </ul>
+        
+      </div>
     </div>
-<footer>
-<div id="footer">
-    <ul class="footer-content">
-        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
-        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
-    </ul>
-</div>
-</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script>
-            function validateForm(query)
-            {
-                return (query.length > 0);
-            }
-        </script>
+  </div>
 
-    
-    </body>
-    <!-- Theme: Elegant built for Pelican
-    License : http://oncrashreboot.com/pelican-elegant -->
+  <div class="col-md-3 pl-sidebar">
+    <section>
+      <div><strong>最后修改</strong></div>
+        <div>2011-09-29 23:39</div>
+        <div><strong>发表时间</strong></div>
+        <div>2011-09-29 23:39</div>
+    </section>
+    <section>
+        <div><strong>本文标签</strong></div>
+        <div class="list-of-tags tags-in-article">
+          <a href="http://yysfire.github.io/tags.html#kuai-jie-fang-shi-ref">快捷方式
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#shortcut-ref">Shortcut
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#windows-ref">Windows
+              <span>10</span>
+ </a>
+        </div>
+    </section>
+    <section>
+<div><strong>关注我</strong></div>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="am-icon-btn am-icon-twitter am-icon-sm" target="_blank"></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="am-icon-btn am-icon-facebook am-icon-sm" target="_blank"></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="am-icon-btn am-icon-github am-icon-sm" target="_blank"></a>
+    </section>
+  </div>
+</div>
+<footer>
+  <div id="footer" class="am-vertical-align" style="height: 50px;">
+    <div class="site-power am-vertical-align-middle">©2012-2014 <a href="/">Yysfire</a>. Powered by <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank">Pelican</a>. Theme: built with <a href="http://amazeui.org/" title="Amaze UI" target="_blank">Amaze UI</a> by <a href="http://yysfire.github.io" title="幽谷奇峰">Yysfire</a>
+    </div>
+  </div>
+</footer>    <script src="//apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script src="//cdn.amazeui.org/amazeui/1.0.1/js/amazeui.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      function validateForm(query)
+      {
+        return (query.length > 0);
+      }
+    </script>
+
+
+  </body>
 </html>

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html lang="en-US">
-    <head>
-        <meta charset="utf-8"> 
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="author" content="Yysfire" />
-        <meta name="copyright" content="Yysfire" />
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="author" content="Yysfire" />
+    <meta name="copyright" content="Yysfire" />
 
-        <meta property="og:type" content="article" />
-        <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary" />
 
 <meta name="keywords" content="Evernote, PortableApps, Windows, PAL, windows, " />
 
@@ -22,83 +25,66 @@
 <meta name="twitter:title" content="Windows平台便携版Evernote的制作与下载  - （更新到v5.7.1.5586） ">
 <meta name="twitter:description" content="使用便携软件的好处就不用我赘述了，本人是有着轻微强迫症的便携软件的狂热粉丝，我在windows平台下使用的大部分软件都是便携版的。PortableApps.com Platform 是Windows系统下比较流行的便携软件平台，PortableApps.com Launcher（以下简称PAL）是PortableApps.com开发的便携软件制作工具。本文就介绍如何制作兼容PortableApps.com Platform的便携版Evernote。 提取Evernote程序文件 先到Evernote官网上下载最新的Evernote安装程序，然后到 这里 下载提取工具Universal Extractor， 建议下载Archive版（便携版）。 不能直接用Universal ...">
 
-        <title>Windows平台便携版Evernote的制作与下载  - （更新到v5.7.1.5586）  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+    <title>Windows平台便携版Evernote的制作与下载  - （更新到v5.7.1.5586）  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
 </title>
-        <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.1/css/font-awesome.css" rel="stylesheet">
-<link rel="stylesheet" href="http://yysfire.github.io/theme/css/style.min.css">
-        <link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.ico" type="image/x-icon" type="image/png" />
-        <link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  type="image/png" />
-        <link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" type="image/png" />
-        <link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" type="image/png" />
-        <link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
-    </head>
-    <body>
-        <div id="content-sans-footer">
-        <div class="navbar navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container-fluid">
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <a class="brand" href="http://yysfire.github.io/"><span class=site-name>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</span></a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav pull-right top-menu">
-                            <li ><a href="http://yysfire.github.io">Home</a></li>
-                            <li ><a href="http://yysfire.github.io/categories.html">Categories</a></li>
-                            <li ><a href="http://yysfire.github.io/tags.html">Tags</a></li>
-                            <li ><a href="http://yysfire.github.io/archives.html">Archives</a></li>
-                            <li><form class="navbar-search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);"> <input type="text" class="search-query" placeholder="Search" name="q" id="tipue_search_input"></form></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span1"></div>
-                <div class="span10">
-<article>
-<div class="row-fluid">
-    <header class="page-header span10 offset2">
-    <h1><a href="http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html"> Windows平台便携版Evernote的制作与下载  <small> （更新到v5.7.1.5586） </small>  </a></h1>
+    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/1.0.1/css/amazeui.min.css" />
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/css/pygments.css" media="screen">
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/css/custom.css" media="screen">
+<link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.png" />
+<link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" />
+<link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  />
+<link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" />
+<link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+  </head>
+  <body>
+    <header class="am-topbar am-topbar-fixed-top am-topbar-inverse">
+      <h1 class="am-topbar-brand">
+        <a href="http://yysfire.github.io">幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</a>
+      </h1>
+
+      <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+        data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+          class="am-icon-bars"></span></button>
+
+      <div class="am-collapse am-topbar-collapse am-topbar-right" id="doc-topbar-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav">
+          <li ><a href="http://yysfire.github.io">首页</a></li>
+          <li ><a href="http://yysfire.github.io/categories.html">分类</a></li>
+          <li ><a href="http://yysfire.github.io/tags.html">标签</a></li>
+          <li ><a href="http://yysfire.github.io/archives.html">归档</a></li>
+        </ul>
+
+        <form class="am-topbar-form am-form-inline am-topbar-right" role="search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);">
+          <div class="am-input-group">
+            <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章" name="q" id="tipue_search_input">
+          </div>
+        </form>
+
+      </div>
     </header>
-</div>
 
-<div class="row-fluid">
-    <div class="span2 table-of-content">
-        <nav>
-        <div class="toc">
-<ul>
-<li><a href="#evernote">提取Evernote程序文件</a></li>
-<li><a href="#_1">分析程序运行机理</a></li>
-<li><a href="#_2">编写配置文件</a><ul>
-<li><a href="#appinfoini">appinfo.ini</a></li>
-<li><a href="#_3">图标</a></li>
-<li><a href="#launcher">Launcher</a></li>
-<li><a href="#defaultdata">DefaultData</a></li>
-<li><a href="#custom-code">Custom Code</a></li>
-</ul>
-</li>
-<li><a href="#_4">编译与封包</a></li>
-<li><a href="#_5">扩展阅读</a></li>
-<li><a href="#evernote_1">Evernote便携版下载地址</a></li>
-</ul>
-</div>
-        </nav>
-    </div>
-    <div class="span8 article-content">
+<header class="am-g am-container">
+  <div class="col-sm-12 am-article">
+    <h1 class="am-article-title pla-header"><a href="http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html"> Windows平台便携版Evernote的制作与下载  <small> （更新到v5.7.1.5586） </small>  </a></h1>
+    <p class="am-article-meta"></p>
+  </div>
+</header>
+<hr />
 
-            
-            
+<div class="am-g">
+  <div class="col-md-9">
+    <div class="am-g">
+      <div class="col-sm-11 col-sm-centered pla-article-bd">
+        <div class="am-cf am-article">
+          
+          
 <p>使用便携软件的好处就不用我赘述了，本人是有着轻微强迫症的便携软件的狂热粉丝，我在windows平台下使用的大部分软件都是便携版的。PortableApps.com Platform 是Windows系统下比较流行的便携软件平台，PortableApps.com Launcher（以下简称PAL）是PortableApps.com开发的便携软件制作工具。本文就介绍如何制作兼容PortableApps.com Platform的便携版Evernote。</p>
 <h2 id="evernote">提取Evernote程序文件</h2>
 <p>先到Evernote官网上下载最新的Evernote安装程序，然后到
@@ -117,7 +103,7 @@
 <p>下载上述模板，解压后，重命名AppNamePortable为EvernotePortable。在App下新建Evernote目录，将提取出的程序文件复制到此处。</p>
 <p>创建 App\AppInfo\appinfo.ini ，此目录下的文件主要是为PortableApps.com Platform提供程序的基本信息。使用PAL创建便携软件，此目录是不可缺少的。</p>
 <p>在appinfo.ini中这样写：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -142,7 +128,7 @@
 23
 24
 25
-26</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">[Format]</span>
+26</pre></div></td><td class="code"><div class="codehilite"><pre><span class="k">[Format]</span>
 <span class="na">Type</span><span class="o">=</span><span class="s">PortableApps.comFormat</span>
 <span class="na">Version</span><span class="o">=</span><span class="s">3.0</span>
 
@@ -175,7 +161,7 @@
 <h3 id="launcher">Launcher</h3>
 <p>创建<code>App\Appinfo\Launcher\EvernotePortable.ini</code>，这个INI是制作便携软件的关键，它告诉PAL如何使我们的软件便携化。</p>
 <p><em>参考：<a href="http://www.portableappc.com/guide/pal-guide/">使用Portableapps.com Launcher制作便携软件：以Evernote Portable为例</a></em></p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -225,7 +211,7 @@
 48
 49
 50
-51</pre></div></td><td class="code"><div class="highlight"><pre><span class="k">[Launch]</span>
+51</pre></div></td><td class="code"><div class="codehilite"><pre><span class="k">[Launch]</span>
 <span class="na">ProgramExecutable</span><span class="o">=</span><span class="s">Evernote\Evernote.exe</span>
 <span class="c1">;主程序位置</span>
 <span class="na">SinglePortableAppInstance</span><span class="o">=</span><span class="s">true</span>
@@ -281,11 +267,11 @@
 <h3 id="defaultdata">DefaultData</h3>
 <p>PortableApps.com Platform 便携软件一般是不能通过软件自身的升级方式更新的，因此，我们需要修改程序的默认设置，关闭自动升级选项。通过观察注册表，可知Evernote自动升级主要由2个键值控制。在程序第一次运行时，需要将这两个键值设为0，以关闭默认升级。</p>
 <p>新建<code>App\DefaultData\settings\EvernotePortable.reg</code>，写入如下内容：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
-5</pre></div></td><td class="code"><div class="highlight"><pre>Windows Registry Editor Version 5.00
+5</pre></div></td><td class="code"><div class="codehilite"><pre>Windows Registry Editor Version 5.00
 
 <span class="k">[</span><span class="nb">HKEY_CURRENT_USER</span><span class="k">\Software\Evernote\Evernote]</span>
 <span class="na">"UpdateToPreReleaseVersion"</span><span class="o">=</span><span class="nv">dword</span><span class="p">:</span><span class="m">00000000</span>
@@ -294,7 +280,7 @@
 </td></tr></table>
 <h3 id="custom-code">Custom Code</h3>
 <p>Evernote有一个残余进程EvernoteClipper.exe，并不会在程序结束后自动退出。PAL并没有结束进程的功能，因此需要用到一段Custom Code。在<code>App\AppInfo\Launcher</code>目录下新建Custom.nsh，写入如下内容：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
@@ -302,7 +288,7 @@
 6
 7
 8
-9</pre></div></td><td class="code"><div class="highlight"><pre><span class="cp">${</span><span class="n">SegmentFile</span><span class="cp">}</span>
+9</pre></div></td><td class="code"><div class="codehilite"><pre><span class="cp">${</span><span class="n">SegmentFile</span><span class="cp">}</span>
 
 <span class="cp">${</span><span class="n">SegmentPrePrimary</span><span class="cp">}</span>
 KillProcDLL::KillProc "EvernoteClipper.exe"
@@ -325,7 +311,7 @@ KillProcDLL::KillProc "EvernoteClipper.exe"
 </ol>
 <p>对于思路一，我找到了控制Evernote安装右键菜单的注册表键值：<code>HKEY_CURRENT_USER\Software\Evernote\Evernote\SendToLinkInstalled</code>，在<code>App\DefaultData\settings\EvernotePortable.reg</code>中将此键值清零，结果好象不起作用。</p>
 <p>对于思路二，可以在<code>App\AppInfo\Launcher\Custom.nsh</code>中写入以下代码解决：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -336,7 +322,7 @@ KillProcDLL::KillProc "EvernoteClipper.exe"
  9
 10
 11
-12</pre></div></td><td class="code"><div class="highlight"><pre><span class="sx">!define SENDTO   `$SENDTO\Evernote.lnk`</span>
+12</pre></div></td><td class="code"><div class="codehilite"><pre><span class="sx">!define SENDTO   `$SENDTO\Evernote.lnk`</span>
 
 $<span class="p">{</span><span class="n">SegmentFile</span><span class="p">}</span>
 
@@ -351,7 +337,7 @@ $<span class="p">{</span><span class="n">SegmentPostPrimary</span><span class="p
 </pre></div>
 </td></tr></table>
 <p>综合以上，文件<code>D:\PortableApps\EvernotePortable\App\AppInfo\Launcher\Custom.nsh</code>最终的内容如下：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
  4
@@ -364,7 +350,7 @@ $<span class="p">{</span><span class="n">SegmentPostPrimary</span><span class="p
 11
 12
 13
-14</pre></div></td><td class="code"><div class="highlight"><pre><span class="sx">!define SENDTO   `$SENDTO\Evernote.lnk`</span>
+14</pre></div></td><td class="code"><div class="codehilite"><pre><span class="sx">!define SENDTO   `$SENDTO\Evernote.lnk`</span>
 
 $<span class="p">{</span><span class="n">SegmentFile</span><span class="p">}</span>
 
@@ -381,13 +367,13 @@ $<span class="p">{</span><span class="n">SegmentPostPrimary</span><span class="p
 </pre></div>
 </td></tr></table>
 <p>文件<code>App\DefaultData\settings\EvernotePortable.reg</code>最终的内容如下：</p>
-<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
 2
 3
 4
 5
 6
-7</pre></div></td><td class="code"><div class="highlight"><pre>Windows Registry Editor Version 5.00
+7</pre></div></td><td class="code"><div class="codehilite"><pre>Windows Registry Editor Version 5.00
 
 <span class="k">[</span><span class="nb">HKEY_CURRENT_USER</span><span class="k">\Software\Evernote\Evernote]</span>
 <span class="na">"UpdateToPreReleaseVersion"</span><span class="o">=</span><span class="nv">dword</span><span class="p">:</span><span class="m">00000000</span>
@@ -417,89 +403,108 @@ $<span class="p">{</span><span class="n">SegmentPostPrimary</span><span class="p
 <li><a href="http://pan.baidu.com/s/1jG1MbR4">百度云盘</a></li>
 <li><a href="https://onedrive.live.com/?cid=3E5BAA7041F5AC70&amp;id=3E5BAA7041F5AC70!110">OneDrive</a></li>
 </ul>
-            
-            
-            <hr/>
+        </div>
+        <hr />
+        <div class="pla-cc-license">
+          <p>本作品由<a href="https://twitter.com/yysfirecn" title="幽谷奇峰"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="知识共享署名-非商业性使用 4.0 国际许可协议"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>进行许可。转载时请在显著位置标明本文永久链接：<br />
+            <a href="http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html" title="Windows平台便携版Evernote的制作与下载">http://yysfire.github.io/windows/make_and_download_portable-evernote_for_windows.html</a></p>
+        </div>
+        <hr/>
 <section>
-    <h2>Related Posts</h2>
+    <h2>相关文章</h2>
 <ul class="related-posts-list">
 <li><a href="http://yysfire.github.io/windows/change_background_of_fold_in_windows_xp.html" title="为文件夹修改背景，轻松打造个人系统">为文件夹修改背景，轻松打造个人系统</a></li>
-<li><a href="http://yysfire.github.io/windows/Unable-to-locate-the-program-input-on-points-_except_handler4_common-in-the-dynamic-link-library-msvcrt.dll.html" title="无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法">无法定位程序输入点_except_handler4_common于动态链接库msvcrt.dll上的解决方法</a></li>
-<li><a href="http://yysfire.github.io/windows/Commanders_can_be_used_in_Run_dialog_of_Windows_XP.html" title="Windows XP下常用的运行命令">Windows XP下常用的运行命令</a></li>
+<li><a href="http://yysfire.github.io/windows/Solution_of_IE_proxy_server_can_not_be_set.html" title="IE代理服务器无法设置的解决方法">IE代理服务器无法设置的解决方法</a></li>
 <li><a href="http://yysfire.github.io/windows/How_to_remove_the_arrow_mark_of_shortcut_in_windows.html" title="如何去掉快捷方式的小箭头">如何去掉快捷方式的小箭头</a></li>
-<li><a href="http://yysfire.github.io/tools/msysgit-Chinese-characters-garbled.html" title="Windows下msysgit中文支持问题的探讨">Windows下msysgit中文支持问题的探讨</a></li>
+<li><a href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" title="如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效">如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效</a></li>
+<li><a href="http://yysfire.github.io/tools/How_to_build_a_portable_node.js_and_npm_working_environment_in_Windows7.html" title="如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境">如何在 Windows7 下搭建绿色便携的 node.js 及 npm 工作环境</a></li>
 </ul>
 <hr />
 </section>
-            <aside>
-            <nav>
-            <ul class="articles-timeline">
-                <li class="previous-article">« <a href="http://yysfire.github.io/tools/deploy-snova-on-Openshift-in-CLI.html" title="Previous: 命令行环境下为OpenShift PaaS平台部署Snova">命令行环境下为OpenShift PaaS平台部署Snova</a></li>
-                <li class="next-article"><a href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" title="Next: 如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效">如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效</a> »</li>
-            </ul>
-            </nav>
-            </aside>
-        </div>
-        <section>
-        <div class="span2" style="float:right;font-size:0.9em;">
-            <h4>Published</h4>
-            <time pubdate="pubdate" datetime="2014-11-18T02:12:50+08:00">十一月 18, 2014</time>
-
-<h4>Last Updated</h4>
-<time datetime="2014-11-18T06:11:34+08:00">十一月 18, 2014</time>
-
-            <h4>Category</h4>
-            <a class="category-link" href="http://yysfire.github.io/categories.html#windows-ref">windows</a>
-            <h4>Tags</h4>
-            <ul class="list-of-tags tags-in-article">
-                <li><a href="http://yysfire.github.io/tags.html#evernote-ref">Evernote
-                    <span>1</span>
-</a></li>
-                <li><a href="http://yysfire.github.io/tags.html#pal-ref">PAL
-                    <span>1</span>
-</a></li>
-                <li><a href="http://yysfire.github.io/tags.html#portableapps-ref">PortableApps
-                    <span>1</span>
-</a></li>
-                <li><a href="http://yysfire.github.io/tags.html#windows-ref">Windows
-                    <span>10</span>
-</a></li>
-            </ul>
-<h4>Contact</h4>
-    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-twitter sidebar-social-links"></i></a>
-    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-facebook sidebar-social-links"></i></a>
-    <a href="https://github.com/yysfire" title="My github Profile" class="sidebar-social-links" target="_blank">
-    <i class="fa fa-github sidebar-social-links"></i></a>
-        </div>
-        </section>
-</div>
-</article>
-                </div>
-                <div class="span1"></div>
-            </div>
-        </div>
-        <div id="push"></div>
+        
+        <ul class="am-pagination">
+          <li class="am-pagination-prev"><a href="http://yysfire.github.io/tools/deploy-snova-on-Openshift-in-CLI.html" title="前一篇：命令行环境下为OpenShift PaaS平台部署Snova">&laquo;命令行环境下为OpenShift PaaS平台部署Snova</a></li>
+          <li class="am-pagination-next"><a href="http://yysfire.github.io/windows/How_to_modify_environment_variables_and_take_it_effect_immediately_without_reboot_or_logout_Windows7.html" title="后一篇：如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效">如何在 Windows7 系统不重启或注销的情况下使环境变量的修改立即全局生效&raquo;</a></li>
+        </ul>
+        
+      </div>
     </div>
-<footer>
-<div id="footer">
-    <ul class="footer-content">
-        <li class="elegant-license"> 除非另有声明，本站作品由<a href="https://twitter.com/yysfirecn"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/">知识共享署名-非商业性使用-相同方式共享 3.0 中国大陆许可协议</a>进行许可。</li>
-        <li class="elegant-power">Powered by <a href="http://getpelican.com/" title="Pelican Home Page">Pelican</a>. Theme: <a href="http://oncrashreboot.com/pelican-elegant" title="Theme Elegant Home Page">Elegant</a> by <a href="http://oncrashreboot.com" title="Talha Mansoor Home Page">Talha Mansoor</a></li>
-    </ul>
-</div>
-</footer>            <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-        <script>
-            function validateForm(query)
-            {
-                return (query.length > 0);
-            }
-        </script>
+  </div>
 
-    
-    </body>
-    <!-- Theme: Elegant built for Pelican
-    License : http://oncrashreboot.com/pelican-elegant -->
+  <div class="col-md-3 pl-sidebar">
+    <section>
+      <div><strong>最后修改</strong></div>
+        <div>2014-11-18 06:11</div>
+        <div><strong>发表时间</strong></div>
+        <div>2014-11-18 02:12</div>
+    </section>
+    <section>
+        <div><strong>本文标签</strong></div>
+        <div class="list-of-tags tags-in-article">
+          <a href="http://yysfire.github.io/tags.html#evernote-ref">Evernote
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#pal-ref">PAL
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#portableapps-ref">PortableApps
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#windows-ref">Windows
+              <span>10</span>
+ </a>
+        </div>
+    </section>
+    <section>
+<div><strong>关注我</strong></div>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="am-icon-btn am-icon-twitter am-icon-sm" target="_blank"></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="am-icon-btn am-icon-facebook am-icon-sm" target="_blank"></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="am-icon-btn am-icon-github am-icon-sm" target="_blank"></a>
+    </section>
+    <hr />
+    <div class="am-offcanvas" id="sidebar">
+      <div><strong>内容导航</strong></div>
+      <div class="am-offcanvas-bar">
+        <ul class="am-nav">
+          <!--<li class="am-nav-header">目录</li>-->
+          <div class="toc">
+<ul>
+<li><a href="#evernote">提取Evernote程序文件</a></li>
+<li><a href="#_1">分析程序运行机理</a></li>
+<li><a href="#_2">编写配置文件</a><ul>
+<li><a href="#appinfoini">appinfo.ini</a></li>
+<li><a href="#_3">图标</a></li>
+<li><a href="#launcher">Launcher</a></li>
+<li><a href="#defaultdata">DefaultData</a></li>
+<li><a href="#custom-code">Custom Code</a></li>
+</ul>
+</li>
+<li><a href="#_4">编译与封包</a></li>
+<li><a href="#_5">扩展阅读</a></li>
+<li><a href="#evernote_1">Evernote便携版下载地址</a></li>
+</ul>
+</div>
+        </ul>
+      </div>
+    </div>
+    <a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
+  </div>
+</div>
+<footer>
+  <div id="footer" class="am-vertical-align" style="height: 50px;">
+    <div class="site-power am-vertical-align-middle">©2012-2014 <a href="/">Yysfire</a>. Powered by <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank">Pelican</a>. Theme: built with <a href="http://amazeui.org/" title="Amaze UI" target="_blank">Amaze UI</a> by <a href="http://yysfire.github.io" title="幽谷奇峰">Yysfire</a>
+    </div>
+  </div>
+</footer>    <script src="//apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script src="//cdn.amazeui.org/amazeui/1.0.1/js/amazeui.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      function validateForm(query)
+      {
+        return (query.length > 0);
+      }
+    </script>
+
+
+  </body>
 </html>

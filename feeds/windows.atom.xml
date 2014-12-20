@@ -43,7 +43,7 @@
 &lt;p&gt;下载上述模板，解压后，重命名AppNamePortable为EvernotePortable。在App下新建Evernote目录，将提取出的程序文件复制到此处。&lt;/p&gt;
 &lt;p&gt;创建 App\AppInfo\appinfo.ini ，此目录下的文件主要是为PortableApps.com Platform提供程序的基本信息。使用PAL创建便携软件，此目录是不可缺少的。&lt;/p&gt;
 &lt;p&gt;在appinfo.ini中这样写：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
  4
@@ -68,7 +68,7 @@
 23
 24
 25
-26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Format]&lt;/span&gt;
+26&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Format]&lt;/span&gt;
 &lt;span class="na"&gt;Type&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;PortableApps.comFormat&lt;/span&gt;
 &lt;span class="na"&gt;Version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;3.0&lt;/span&gt;
 
@@ -101,7 +101,7 @@
 &lt;h3 id="launcher"&gt;Launcher&lt;/h3&gt;
 &lt;p&gt;创建&lt;code&gt;App\Appinfo\Launcher\EvernotePortable.ini&lt;/code&gt;，这个INI是制作便携软件的关键，它告诉PAL如何使我们的软件便携化。&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;参考：&lt;a href="http://www.portableappc.com/guide/pal-guide/"&gt;使用Portableapps.com Launcher制作便携软件：以Evernote Portable为例&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
  4
@@ -151,7 +151,7 @@
 48
 49
 50
-51&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Launch]&lt;/span&gt;
+51&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;[Launch]&lt;/span&gt;
 &lt;span class="na"&gt;ProgramExecutable&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;Evernote\Evernote.exe&lt;/span&gt;
 &lt;span class="c1"&gt;;主程序位置&lt;/span&gt;
 &lt;span class="na"&gt;SinglePortableAppInstance&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;true&lt;/span&gt;
@@ -207,11 +207,11 @@
 &lt;h3 id="defaultdata"&gt;DefaultData&lt;/h3&gt;
 &lt;p&gt;PortableApps.com Platform 便携软件一般是不能通过软件自身的升级方式更新的，因此，我们需要修改程序的默认设置，关闭自动升级选项。通过观察注册表，可知Evernote自动升级主要由2个键值控制。在程序第一次运行时，需要将这两个键值设为0，以关闭默认升级。&lt;/p&gt;
 &lt;p&gt;新建&lt;code&gt;App\DefaultData\settings\EvernotePortable.reg&lt;/code&gt;，写入如下内容：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
 3
 4
-5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;Windows Registry Editor Version 5.00
+5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;Windows Registry Editor Version 5.00
 
 &lt;span class="k"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;HKEY_CURRENT_USER&lt;/span&gt;&lt;span class="k"&gt;\Software\Evernote\Evernote]&lt;/span&gt;
 &lt;span class="na"&gt;"UpdateToPreReleaseVersion"&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;dword&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="m"&gt;00000000&lt;/span&gt;
@@ -220,7 +220,7 @@
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;h3 id="custom-code"&gt;Custom Code&lt;/h3&gt;
 &lt;p&gt;Evernote有一个残余进程EvernoteClipper.exe，并不会在程序结束后自动退出。PAL并没有结束进程的功能，因此需要用到一段Custom Code。在&lt;code&gt;App\AppInfo\Launcher&lt;/code&gt;目录下新建Custom.nsh，写入如下内容：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
 3
 4
@@ -228,7 +228,7 @@
 6
 7
 8
-9&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;SegmentFile&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
+9&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;SegmentFile&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
 
 &lt;span class="cp"&gt;${&lt;/span&gt;&lt;span class="n"&gt;SegmentPrePrimary&lt;/span&gt;&lt;span class="cp"&gt;}&lt;/span&gt;
 KillProcDLL::KillProc "EvernoteClipper.exe"
@@ -251,7 +251,7 @@ KillProcDLL::KillProc "EvernoteClipper.exe"
 &lt;/ol&gt;
 &lt;p&gt;对于思路一，我找到了控制Evernote安装右键菜单的注册表键值：&lt;code&gt;HKEY_CURRENT_USER\Software\Evernote\Evernote\SendToLinkInstalled&lt;/code&gt;，在&lt;code&gt;App\DefaultData\settings\EvernotePortable.reg&lt;/code&gt;中将此键值清零，结果好象不起作用。&lt;/p&gt;
 &lt;p&gt;对于思路二，可以在&lt;code&gt;App\AppInfo\Launcher\Custom.nsh&lt;/code&gt;中写入以下代码解决：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
  4
@@ -262,7 +262,7 @@ KillProcDLL::KillProc "EvernoteClipper.exe"
  9
 10
 11
-12&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="sx"&gt;!define SENDTO   `$SENDTO\Evernote.lnk`&lt;/span&gt;
+12&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="sx"&gt;!define SENDTO   `$SENDTO\Evernote.lnk`&lt;/span&gt;
 
 $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentFile&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 
@@ -277,7 +277,7 @@ $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentPostPrimary&lt
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;p&gt;综合以上，文件&lt;code&gt;D:\PortableApps\EvernotePortable\App\AppInfo\Launcher\Custom.nsh&lt;/code&gt;最终的内容如下：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
  4
@@ -290,7 +290,7 @@ $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentPostPrimary&lt
 11
 12
 13
-14&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="sx"&gt;!define SENDTO   `$SENDTO\Evernote.lnk`&lt;/span&gt;
+14&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="sx"&gt;!define SENDTO   `$SENDTO\Evernote.lnk`&lt;/span&gt;
 
 $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentFile&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 
@@ -307,13 +307,13 @@ $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentPostPrimary&lt
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;p&gt;文件&lt;code&gt;App\DefaultData\settings\EvernotePortable.reg&lt;/code&gt;最终的内容如下：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
 3
 4
 5
 6
-7&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;Windows Registry Editor Version 5.00
+7&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;Windows Registry Editor Version 5.00
 
 &lt;span class="k"&gt;[&lt;/span&gt;&lt;span class="nb"&gt;HKEY_CURRENT_USER&lt;/span&gt;&lt;span class="k"&gt;\Software\Evernote\Evernote]&lt;/span&gt;
 &lt;span class="na"&gt;"UpdateToPreReleaseVersion"&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="nv"&gt;dword&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="m"&gt;00000000&lt;/span&gt;
@@ -348,7 +348,7 @@ $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentPostPrimary&lt
 &lt;p&gt;3、打开IE，将浏览器窗口缩至合适的大小。单击“开始”菜单，在“程序”中选中并按住鼠标左键拖动应用程序图标到浏览器任意空白处。如果想保留“开始”菜单中的应用程序图标，拖动时可以按住Ctrl键，然后释放鼠标左键，此时系统会弹出一个询问是打开应用程序还是保存到磁盘的对话框，选择保存到磁盘选项，单击“确定”，接下来系统会弹出一个保存窗口，我们选择保存路径为桌面，然后单击“确定”。再看一看，“快捷方式到”和小箭头是不是没有出现？&lt;/p&gt;
 &lt;p&gt;参考资料：&lt;a href="http://bbs.cwb11.com/dispbbs.asp?BoardID=8&amp;amp;id=2867"&gt;http://bbs.cwb11.com/dispbbs.asp?BoardID=8&amp;amp;id=2867&lt;/a&gt;&lt;/p&gt;</summary><category term="Windows"></category><category term="快捷方式"></category><category term="Shortcut"></category></entry><entry><title>Windows XP下常用的运行命令</title><link href="http://yysfire.github.io/windows/Commanders_can_be_used_in_Run_dialog_of_Windows_XP.html" rel="alternate"></link><updated>2011-09-10T08:22:00+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2011-09-10:windows/Commanders_can_be_used_in_Run_dialog_of_Windows_XP.html</id><summary type="html">&lt;p&gt;本文标题中提到的“运行命令”是指：在系统默认配置下，可以在“运行”对话框（“开始”菜单——“运行”弹出，或者使用快捷键“Windows徽标键+R”弹出）中运行的命令。&lt;/p&gt;
 &lt;p&gt;比较常用的：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
  4
@@ -368,7 +368,7 @@ $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentPostPrimary&lt
 18
 19
 20
-21&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;regedit&lt;/span&gt;&lt;span class="err"&gt;            注册表编辑器&lt;/span&gt;
+21&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;regedit&lt;/span&gt;&lt;span class="err"&gt;            注册表编辑器&lt;/span&gt;
 &lt;span class="n"&gt;regedt32&lt;/span&gt;&lt;span class="err"&gt;          &lt;/span&gt; &lt;span class="err"&gt;注册表编辑器（功能同上，但注意没有字母&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="err"&gt;）&lt;/span&gt;
 &lt;span class="n"&gt;cmd&lt;/span&gt;&lt;span class="err"&gt;                &lt;/span&gt;&lt;span class="n"&gt;cmd&lt;/span&gt;&lt;span class="err"&gt;命令提示符&lt;/span&gt;
 &lt;span class="n"&gt;notepad&lt;/span&gt;&lt;span class="err"&gt;            打开记事本&lt;/span&gt;
@@ -393,7 +393,7 @@ $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentPostPrimary&lt
 &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 
 &lt;p&gt;较少用到的：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1
  2
  3
  4
@@ -449,7 +449,7 @@ $&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="n"&gt;SegmentPostPrimary&lt
 54
 55
 56
-57&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;winver&lt;/span&gt;&lt;span class="err"&gt;            &lt;/span&gt; &lt;span class="err"&gt;检查&lt;/span&gt;&lt;span class="n"&gt;windows&lt;/span&gt;&lt;span class="err"&gt;版本&lt;/span&gt;
+57&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="n"&gt;winver&lt;/span&gt;&lt;span class="err"&gt;            &lt;/span&gt; &lt;span class="err"&gt;检查&lt;/span&gt;&lt;span class="n"&gt;windows&lt;/span&gt;&lt;span class="err"&gt;版本&lt;/span&gt;
 &lt;span class="n"&gt;wmimgmt&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;msc&lt;/span&gt;&lt;span class="err"&gt;        打开&lt;/span&gt;&lt;span class="n"&gt;windows&lt;/span&gt;&lt;span class="err"&gt;管理体系结构&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;wmi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="n"&gt;wupdmgr&lt;/span&gt;&lt;span class="err"&gt;            &lt;/span&gt;&lt;span class="n"&gt;windows&lt;/span&gt;&lt;span class="err"&gt;更新程序&lt;/span&gt;
 &lt;span class="n"&gt;wscript&lt;/span&gt;&lt;span class="err"&gt;            &lt;/span&gt;&lt;span class="n"&gt;windows&lt;/span&gt;&lt;span class="err"&gt;脚本宿主设置&lt;/span&gt;
@@ -535,9 +535,9 @@ Explorer”，在右侧窗口将“禁用更改代理服务器设置”改成“
 &lt;p&gt;1、首先在“文件夹选项”里的把“隐藏已知文件类型的扩展名”前的勾去掉，再在分区根目录下（比如D盘下）新建一个叫
 Desktop.ini 的文件（如果已经有此文件，则直接复制下列代码到该文件）&lt;/p&gt;
 &lt;p&gt;2、复制下面的代码到到文件里：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
-3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[{BE098140-A513-11D0-A3A4-00C04FD706EC}]&lt;/span&gt;
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;[{BE098140-A513-11D0-A3A4-00C04FD706EC}]&lt;/span&gt;
 &lt;span class="na"&gt;IconArea_Image&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;1.JPG&lt;/span&gt;
 &lt;span class="k"&gt;[ExtShellFolderViews]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -552,9 +552,9 @@ Desktop.ini 的文件（如果已经有此文件，则直接复制下列代码�
 &lt;p&gt;首先需要做的是在子文件夹下生成一个desktop.ini文件，下面就以D盘下wma文件夹更换背景为例：&lt;/p&gt;
 &lt;p&gt;1、右键点wma文件夹，选择“属性”，选“自定义”，找到“更改文件夹图标”选项，选择它，然后确定。此时你的文件夹图标已经更换，desktop.ini文件也会自动生成，不过是隐藏的，要先修改先把它显示出来才可以（方法很简单我就不说了）。&lt;/p&gt;
 &lt;p&gt;2、然后到e:\wma下找到那个生成的desktop.ini文件，双击打开就会发现他已经有了以下代码：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
-3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[.ShellClassInfo]&lt;/span&gt;
+3&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;[.ShellClassInfo]&lt;/span&gt;
 &lt;span class="na"&gt;IconFile&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;%SystemRoot%\\system32\\SHELL32.dll&lt;/span&gt;
 &lt;span class="na"&gt;IconIndex&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;20&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -563,11 +563,11 @@ Desktop.ini 的文件（如果已经有此文件，则直接复制下列代码�
 &lt;p&gt;这里我解释一下：
 其中“iconindex=20”表示使用的图标是指定文件中的第20个图标，“iconfile=%SystemRoot%\system32\SHELL32.dll”表示文件夹使用的图标文件的路径。&lt;/p&gt;
 &lt;p&gt;3、然后再copy一个图片（比如1.JPG）到wma文件夹下，接着在已有的代码下加上下列代码：&lt;/p&gt;
-&lt;table class="highlighttable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
+&lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt;1
 2
 3
 4
-5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;[extshellfolderviews]&lt;/span&gt;
+5&lt;/pre&gt;&lt;/div&gt;&lt;/td&gt;&lt;td class="code"&gt;&lt;div class="codehilite"&gt;&lt;pre&gt;&lt;span class="k"&gt;[extshellfolderviews]&lt;/span&gt;
 &lt;span class="na"&gt;{be098140-a513-11d0-a3a4-00c04fd706ec}&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;{be098140-a513-11d0-a3a4-00c04fd706ec}&lt;/span&gt;
 &lt;span class="k"&gt;[{be098140-a513-11d0-a3a4-00c04fd706ec}]&lt;/span&gt;
 &lt;span class="na"&gt;attributes&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;1&lt;/span&gt;

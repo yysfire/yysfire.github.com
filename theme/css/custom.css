@@ -1,0 +1,219 @@
+code {
+    font-size: 100%;
+}
+
+.pla-article-bd {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+footer {
+    padding: 0 20px;
+}
+
+.pla-header {
+    margin-top: 1.6rem;
+    margin-bottom: 0;
+    /*position: relative;*/
+}
+
+@media only screen
+and (min-width: 641px)
+and (max-width: 800px) {
+    .pla-header {
+        margin-top: 6.6rem;
+        margin-bottom: 0;
+    }
+}
+
+.pl-sidebar {
+    /*padding-left: 0;*/
+    border-left: 1px solid #eeeeee;
+}
+
+@media only screen and (min-width: 641px) {
+    .am-offcanvas {
+        display: block;
+        position: static;
+        background: none;
+    }
+
+    .am-offcanvas-bar {
+        position: static;
+        width: auto;
+        background: none;
+        -webkit-transform: translate3d(0, 0, 0);
+        -ms-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
+    .am-offcanvas-bar:after {
+        content: none;
+    }
+
+    .am-topbar-brand {
+        margin-left: 10px
+    }
+
+    #doc-topbar-collapse {
+        margin-right: 0
+    }
+
+    /*.am-topbar-form {*/
+        /*margin-bottom: 8px*/
+    /*}*/
+
+    .toc ul {
+        padding-left: 1em;
+    }
+}
+
+@media only screen and (max-width: 640px) {
+    .am-offcanvas-bar .am-nav>li>a {
+        color:#ccc;
+        border-radius: 0;
+        border-top: 1px solid rgba(0,0,0,.3);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05)
+    }
+
+    .am-offcanvas-bar .am-nav>li>a:hover {
+        background: #404040;
+        color: #fff
+    }
+
+    .am-offcanvas-bar .am-nav>li.am-nav-header {
+        color: #777;
+        background: #404040;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.05);
+        text-shadow: 0 1px 0 rgba(0,0,0,.5);
+        border-top: 1px solid rgba(0,0,0,.3);
+        font-weight: 400;
+        font-size: 75%
+    }
+
+    .am-offcanvas-bar .am-nav>li.am-active>a {
+        background: #1a1a1a;
+        color: #fff;
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+    }
+
+    .am-offcanvas-bar .am-nav>li+li {
+        margin-top: 0;
+    }
+}
+
+/* Syntax codehilite */
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+td {
+    vertical-align: top;
+}
+
+/*@media only screen and (max-width:979px) {*/
+@media only screen and (max-width:640px) {
+    .linenos {
+        display:none !important;
+    }
+}
+.linenos {
+    width: 30px;
+}
+.linenos div pre {
+    text-align: right;
+    overflow: hidden;
+}
+pre {
+    overflow: auto;
+    white-space: pre;
+    word-break: normal;
+    word-wrap: normal;
+}
+td.code .codehilite pre {
+    border-radius: 0 3px 3px 0;
+}
+td.code {
+    width: 100%;
+}
+.linenodiv pre {
+    background-color: #eee8d5;
+    border-radius: 3px 0 0 3px;
+    color: #657b83;
+}
+
+/* Categories */
+.list-of-categories span {
+    font-size: .7em;
+    vertical-align: super;
+}
+.list-of-categories:hover {
+    background-color: #08c;
+    border-radius: 4px;
+    color: #FFF;
+}
+.list-of-cat-articles {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+.list-of-cat-articles li time {
+    color: #8F8F8F;
+    display: inline-block;
+    width: auto;
+    margin: 0 10px 0 0
+}
+
+/* Archives */
+.blog-archives h2 {
+    color: #AAA;
+    /*float: left;*/
+    /*position: relative;*/
+    /*margin:0;*/
+}
+.blog-archives article, .recent-posts article {
+    border-bottom: 1px dotted #AAA;
+}
+.blog-archives article, .recent-posts article {
+    padding: .3em .2em;
+    position: relative;
+    overflow: auto;
+}
+/*.blog-archives .last-entry-of-year {*/
+    /*margin-bottom: 1em;*/
+/*}*/
+.blog-archives time, .recent-posts time {
+    float: right;
+    text-align: right;
+}
+.recent-posts-time {
+    display: inline;
+}
+#allposts {
+    float: right;
+}
+
+
+/* Tags */
+.list-of-tags {
+    list-style: none;
+    margin: 1.6rem 0;
+    padding: 0;
+    overflow: hidden;
+}
+.list-of-tags li {
+    float: left;
+    line-height: 28px;
+    margin: 0;
+}
+.list-of-tags a {
+    background: #EEE;
+    border-radius: 3px;
+    color: #222;
+    margin: 2px;
+    padding: 3px 6px;
+    text-decoration: none;
+}
+.list-of-tags a span {
+    font-size: .8em;
+    vertical-align: super;
+}

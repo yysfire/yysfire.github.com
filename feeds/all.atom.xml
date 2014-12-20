@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</title><link href="http://yysfire.github.io/" rel="alternate"></link><link href="http://yysfire.github.io/feeds/all.atom.xml" rel="self"></link><id>http://yysfire.github.io/</id><updated>2014-12-21T04:18:00+08:00</updated><entry><title>二叉树的遍历序列转换算法及其复杂度分析</title><link href="http://yysfire.github.io/algorithm/Algorithm_and_its_complexity_analysis_to_convert_the_binary_tree_traversal_sequence.html" rel="alternate"></link><updated>2014-12-21T04:18:00+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-12-20:algorithm/Algorithm_and_its_complexity_analysis_to_convert_the_binary_tree_traversal_sequence.html</id><summary type="html">
+&lt;p&gt;&lt;em&gt;本文是笔者参加网易自虐团，学习&lt;a href="http://www.icourse163.org/course/zju0901-93001#/info"&gt;《数据结构》&lt;/a&gt;课程第三周的成果帖。&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id="_1"&gt;由中序和先序遍历序列求后序遍历序列&lt;/h2&gt;
 &lt;p&gt;何老师在视频中讲到：由先序和中序遍历序列可以来确定一棵二叉树，其方法如下：&lt;/p&gt;
 &lt;ol&gt;
@@ -176,6 +177,7 @@
 &lt;li&gt;由层序和中序遍历序列能否唯一确定一个二叉树？&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;前两个问题的答案依然是：不能。第三个问题，我觉得能，但是没有想出一个好的适合于编程用的算法，求指导！&lt;/p&gt;</summary><category term="Algorithm"></category><category term="二叉树"></category><category term="先序遍历"></category><category term="中序遍历"></category><category term="后序遍历"></category><category term="递归"></category></entry><entry><title>表达式求值及转换算法</title><link href="http://yysfire.github.io/algorithm/algorithm_to_evaluate_and_convert_expression.html" rel="alternate"></link><updated>2014-12-14T20:38:00+08:00</updated><author><name>Yysfire</name></author><id>tag:yysfire.github.io,2014-12-14:algorithm/algorithm_to_evaluate_and_convert_expression.html</id><summary type="html">
+&lt;p&gt;&lt;em&gt;本文是笔者参加网易自虐团，学习&lt;a href="http://www.icourse163.org/course/zju0901-93001#/info"&gt;《数据结构》&lt;/a&gt;课程第二周的成果帖。&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id="_1"&gt;后缀表达式求值算法&lt;/h2&gt;
 &lt;p&gt;伪码描述：&lt;/p&gt;
 &lt;table class="codehilitetable"&gt;&lt;tr&gt;&lt;td class="linenos"&gt;&lt;div class="linenodiv"&gt;&lt;pre&gt; 1

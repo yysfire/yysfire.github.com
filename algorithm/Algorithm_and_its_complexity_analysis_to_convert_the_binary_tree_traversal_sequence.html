@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="renderer" content="webkit" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <meta name="author" content="Yysfire" />
+    <meta name="copyright" content="Yysfire" />
+
+    <meta property="og:type" content="article" />
+    <meta name="twitter:card" content="summary" />
+
+<meta name="keywords" content="Algorithm, 二叉树, 先序遍历, 中序遍历, 后序遍历, 递归, algorithm, " />
+
+<meta property="og:title" content="二叉树的遍历序列转换算法及其复杂度分析 "/>
+<meta property="og:url" content="http://yysfire.github.io/algorithm/Algorithm_and_its_complexity_analysis_to_convert_the_binary_tree_traversal_sequence.html" />
+<meta property="og:description" content="本文是笔者参加网易自虐团，学习《数据结构》课程第三周的成果帖。 由中序和先序遍历序列求后序遍历序列 何老师在视频中讲到：由先序和中序遍历序列可以来确定一棵二叉树，其方法如下： 根据先序遍历序列第一个结点确定根结点； 根据根结点在中序遍历序列中分割出左右两个子序列； 对左子树和右子树分别递归使用相同的方法继续分解。 根据此递归算法，求后序遍历序列，就可用代码写成以下形式： 1 2 3 4 5 6 7 ..." />
+<meta property="og:site_name" content="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰" />
+<meta property="og:article:author" content="Yysfire" />
+<meta property="og:article:published_time" content="2014-12-20T23:04:00+08:00" />
+<meta property="" content="2014-12-21T04:18:00+08:00" />
+<meta name="twitter:title" content="二叉树的遍历序列转换算法及其复杂度分析 ">
+<meta name="twitter:description" content="本文是笔者参加网易自虐团，学习《数据结构》课程第三周的成果帖。 由中序和先序遍历序列求后序遍历序列 何老师在视频中讲到：由先序和中序遍历序列可以来确定一棵二叉树，其方法如下： 根据先序遍历序列第一个结点确定根结点； 根据根结点在中序遍历序列中分割出左右两个子序列； 对左子树和右子树分别递归使用相同的方法继续分解。 根据此递归算法，求后序遍历序列，就可用代码写成以下形式： 1 2 3 4 5 6 7 ...">
+
+    <title>二叉树的遍历序列转换算法及其复杂度分析  · 幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰
+</title>
+    <link rel="stylesheet" href="//cdn.amazeui.org/amazeui/1.0.1/css/amazeui.min.css" />
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/css/pygments.css" media="screen">
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/tipuesearch/tipuesearch.css" media="screen">
+    <link rel="stylesheet" href="http://yysfire.github.io/theme/css/custom.css" media="screen">
+<link rel="shortcut icon" href="http://yysfire.github.io/theme/images/favicon.png" />
+<link rel="icon" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" />
+<link rel="apple-touch-icon" href="http://yysfire.github.io/theme/images/apple-touch-icon.png"  />
+<link rel="apple-touch-icon" sizes="57x57" href="http://yysfire.github.io/theme/images/apple-touch-icon-57x57.png" />
+<link rel="apple-touch-icon" sizes="72x72" href="http://yysfire.github.io/theme/images/apple-touch-icon-72x72.png" />
+<link rel="apple-touch-icon" sizes="76x76" href="http://yysfire.github.io/theme/images/apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" sizes="114x114" href="http://yysfire.github.io/theme/images/apple-touch-icon-114x114.png" />
+<link rel="apple-touch-icon" sizes="120x120" href="http://yysfire.github.io/theme/images/apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" sizes="144x144" href="http://yysfire.github.io/theme/images/apple-touch-icon-144x144.png" />
+<link rel="apple-touch-icon" sizes="152x152" href="http://yysfire.github.io/theme/images/apple-touch-icon-152x152.png" />
+<link href="http://yysfire.github.io/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰 - Full Atom Feed" />
+  </head>
+  <body>
+    <header class="am-topbar am-topbar-fixed-top am-topbar-inverse">
+      <h1 class="am-topbar-brand">
+        <a href="http://yysfire.github.io">幽谷奇峰 | 燕雀鸣幽谷，鸿鹄掠奇峰</a>
+      </h1>
+
+      <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only"
+        data-am-collapse="{target: '#doc-topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span
+          class="am-icon-bars"></span></button>
+
+      <div class="am-collapse am-topbar-collapse am-topbar-right" id="doc-topbar-collapse">
+        <ul class="am-nav am-nav-pills am-topbar-nav">
+          <li ><a href="http://yysfire.github.io">首页</a></li>
+          <li ><a href="http://yysfire.github.io/categories.html">分类</a></li>
+          <li ><a href="http://yysfire.github.io/tags.html">标签</a></li>
+          <li ><a href="http://yysfire.github.io/archives.html">归档</a></li>
+        </ul>
+
+        <form class="am-topbar-form am-form-inline am-topbar-right" role="search" action="http://yysfire.github.io/search.html" onsubmit="return validateForm(this.elements['q'].value);">
+          <div class="am-input-group">
+            <input type="text" class="am-form-field am-input-sm" placeholder="搜索文章" name="q" id="tipue_search_input">
+          </div>
+        </form>
+
+      </div>
+    </header>
+
+<header class="am-g am-container">
+  <div class="col-sm-12 am-article">
+    <h1 class="am-article-title pla-header"><a href="http://yysfire.github.io/algorithm/Algorithm_and_its_complexity_analysis_to_convert_the_binary_tree_traversal_sequence.html"> 二叉树的遍历序列转换算法及其复杂度分析  </a></h1>
+    <p class="am-article-meta"></p>
+  </div>
+</header>
+<hr />
+
+<div class="am-g">
+  <div class="col-md-9">
+    <div class="am-g">
+      <div class="col-sm-11 col-sm-centered pla-article-bd">
+        <div class="am-cf am-article">
+          
+          
+<p><em>本文是笔者参加网易自虐团，学习<a href="http://www.icourse163.org/course/zju0901-93001#/info">《数据结构》</a>课程第三周的成果帖。</em></p>
+<h2 id="_1">由中序和先序遍历序列求后序遍历序列</h2>
+<p>何老师在视频中讲到：由先序和中序遍历序列可以来确定一棵二叉树，其方法如下：</p>
+<ol>
+<li>根据<strong>先序</strong>遍历序列<strong>第一个结点</strong>确定根结点；</li>
+<li>根据根结点在中序遍历序列中分割出左右两个子序列；</li>
+<li>对左子树和右子树分别递归使用相同的方法继续分解。</li>
+</ol>
+<p>根据此递归算法，求后序遍历序列，就可用代码写成以下形式：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre></div></td><td class="code"><div class="codehilite"><pre><span class="kt">bool</span> <span class="nf">PreInOrder2PostOrder</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span><span class="p">);</span>
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">FindRoot</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">);</span>
+
+<span class="kt">bool</span> <span class="nf">PreInOrder2PostOrder</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">preorder</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">inorder</span><span class="p">,</span> <span class="kt">int</span> <span class="n">p0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i0</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">postorder</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">static</span> <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">ri</span> <span class="o">=</span> <span class="n">FindRoot</span><span class="p">(</span><span class="n">inorder</span><span class="p">,</span> <span class="n">preorder</span><span class="p">[</span><span class="n">p0</span><span class="p">],</span> <span class="n">i0</span><span class="p">,</span> <span class="n">n</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">ri</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">ri</span> <span class="o">-</span> <span class="n">i0</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">postorder</span><span class="p">[</span><span class="n">count</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">inorder</span><span class="p">[</span><span class="n">i0</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">ri</span> <span class="o">-</span> <span class="n">i0</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">PreInOrder2PostOrder</span><span class="p">(</span><span class="n">preorder</span><span class="p">,</span> <span class="n">inorder</span><span class="p">,</span> <span class="n">p0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">i0</span><span class="p">,</span> <span class="n">ri</span> <span class="o">-</span> <span class="n">i0</span><span class="p">,</span> <span class="n">postorder</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">ri</span> <span class="o">+</span> <span class="n">i0</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">postorder</span><span class="p">[</span><span class="n">count</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">inorder</span><span class="p">[</span><span class="n">ri</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">else</span>
+        <span class="p">{</span>
+            <span class="n">PreInOrder2PostOrder</span><span class="p">(</span><span class="n">preorder</span><span class="p">,</span> <span class="n">inorder</span><span class="p">,</span> <span class="n">p0</span> <span class="o">+</span> <span class="n">ri</span><span class="o">-</span> <span class="n">i0</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">ri</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="n">ri</span> <span class="o">+</span> <span class="n">i0</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">postorder</span><span class="p">);</span>
+            <span class="n">postorder</span><span class="p">[</span><span class="n">count</span><span class="o">++</span><span class="p">]</span> <span class="o">=</span> <span class="n">inorder</span><span class="p">[</span><span class="n">ri</span><span class="p">];</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="nb">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"The preorder and inorder sequences are not matched!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">static</span> <span class="kt">int</span> <span class="nf">FindRoot</span><span class="p">(</span><span class="kt">int</span><span class="o">*</span> <span class="n">inorder</span><span class="p">,</span> <span class="kt">int</span> <span class="n">root</span><span class="p">,</span> <span class="kt">int</span> <span class="n">i</span><span class="p">,</span> <span class="kt">int</span> <span class="n">n</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span> <span class="o">+</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">inorder</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">==</span> <span class="n">root</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">j</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</td></tr></table>
+<p>其中，preorder 和 inorder 分别是整个二叉树的前序遍历序列和中序遍历序列，p0 是当前处理的前序遍历序列的第一个元素在 preorder 中的索引，i0 是当前处理的中序遍历序列的第一个元素在 inorder 中的索引，n 是当前处理的前序（中序）遍历序列的长度，postorder 是返回的整个二叉树的后序遍历序列。</p>
+<h3 id="_2">时间复杂度分析</h3>
+<p>我们来分析一下此递归算法的时间复杂度。</p>
+<p>先来看看最坏情况——所有结点都只有左孩子：</p>
+<p><img alt="only left child" src="../images/binary.tree.only.has.left.child.jpg" title="最坏情况"/></p>
+<p>如上图所示的二叉树，它的前序遍历序列为：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="mi">4</span> <span class="mi">1</span> <span class="mi">6</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">7</span> <span class="mi">5</span>
+</pre></div>
+</td></tr></table>
+<p>中序遍历序列为：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="mi">5</span> <span class="mi">7</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">6</span> <span class="mi">1</span> <span class="mi">4</span>
+</pre></div>
+</td></tr></table>
+<p>在第一步中，要在中序遍历序列中查找先序遍历序列的第一个结点，对于一般的二叉树，由于遍历序列是无序的，只能使用顺序查找的方法，故该查找操作的 T(n) = cn, 这对于最坏情况也是成立的。</p>
+<p>在这种最坏情况下，每次都只能将中序遍历分割成左子序列，故时间复杂度满足下列递归方程：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4
+5</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">T</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">cn</span>
+     <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">cn</span>
+     <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">cn</span>
+     <span class="o">=</span> <span class="n">T</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="n">c</span> <span class="o">+</span> <span class="mi">3</span><span class="n">c</span> <span class="o">+</span> <span class="p">...</span> <span class="o">+</span> <span class="n">cn</span>
+     <span class="o">=</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span><span class="o">^</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+<p>再来看看平均情况——满二叉树：</p>
+<p><img alt="full binary tree" src="../images/full.binary.tree.png" title="满二叉树"/></p>
+<p>上面满二叉树的前序遍历序列为：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="mi">4</span> <span class="mi">1</span> <span class="mi">3</span> <span class="mi">2</span> <span class="mi">6</span> <span class="mi">5</span> <span class="mi">7</span>
+</pre></div>
+</td></tr></table>
+<p>中序遍历序列为：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="mi">3</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">4</span> <span class="mi">5</span> <span class="mi">6</span> <span class="mi">7</span>
+</pre></div>
+</td></tr></table>
+<p>每次查找，都要遍历一半的序列，然后将中序遍历序列平分为两半，故时间复杂度满足下列递归方程：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">T</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="n">T</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">cn</span><span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</td></tr></table>
+<p>由 Master 定理，很容易得出 <strong>T(n) = O(nlogn)</strong>.</p>
+<h3 id="_3">空间复杂度分析</h3>
+<p>在上面的代码中，函数递归调用时，系统堆栈只需记住当前的 p0, i0, n 的值，故每一级递归调用的空间消耗是个与 N 无关的常量。</p>
+<p>最坏情况下：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1
+2
+3
+4</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">S</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span>
+     <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="n">c</span>
+     <span class="o">=</span> <span class="n">S</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="n">c</span>
+     <span class="o">=</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</td></tr></table>
+<p>平均情况下：</p>
+<table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre>1</pre></div></td><td class="code"><div class="codehilite"><pre><span class="n">S</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="o">=</span> <span class="mi">2</span><span class="n">S</span><span class="p">(</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">c</span>
+</pre></div>
+</td></tr></table>
+<p>由 Master 定理，容易得出 <strong>S(n) = O(n)</strong>.</p>
+<h3 id="_4">结论</h3>
+<ul>
+<li>该递归算法的时间复杂度在最坏情况下为 O(n^2), 平均为 O(nlogn).</li>
+<li>该递归算法的空间复杂度为 O(n).</li>
+</ul>
+<h2 id="_5">由中序和后序遍历序列求先序遍历序列</h2>
+<p>类似地，其方法描述如下：</p>
+<ol>
+<li>根据<strong>后序</strong>遍历序列<strong>最后一个结点</strong>确定根结点；</li>
+<li>根据根结点在中序遍历序列中分割出左右两个子序列；</li>
+<li>对左子树和右子树分别递归使用相同的方法继续分解。</li>
+</ol>
+<p>复杂度的情况也和前面是相同的。</p>
+<h2 id="_6">层序遍历序列</h2>
+<p>关于层序遍历序列，引申出下列三个问题：</p>
+<ol>
+<li>由层序和前序遍历序列能否唯一确定一个二叉树？</li>
+<li>由层序和后序遍历序列能否唯一确定一个二叉树？</li>
+<li>由层序和中序遍历序列能否唯一确定一个二叉树？</li>
+</ol>
+<p>前两个问题的答案依然是：不能。第三个问题，我觉得能，但是没有想出一个好的适合于编程用的算法，求指导！</p>
+        </div>
+        <hr />
+        <div class="pla-cc-license">
+          <p>本作品由<a href="https://twitter.com/yysfirecn" title="幽谷奇峰"> Yysfire </a>创作，采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" title="知识共享署名-非商业性使用 4.0 国际许可协议"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>进行许可。转载时请在显著位置标明本文永久链接：<br />
+            <a href="http://yysfire.github.io/algorithm/Algorithm_and_its_complexity_analysis_to_convert_the_binary_tree_traversal_sequence.html" title="二叉树的遍历序列转换算法及其复杂度分析">http://yysfire.github.io/algorithm/Algorithm_and_its_complexity_analysis_to_convert_the_binary_tree_traversal_sequence.html</a></p>
+        </div>
+        <hr/>
+<section>
+    <h2>相关文章</h2>
+<ul class="related-posts-list">
+<li><a href="http://yysfire.github.io/algorithm/algorithm_to_evaluate_and_convert_expression.html" title="表达式求值及转换算法">表达式求值及转换算法</a></li>
+</ul>
+<hr />
+</section>
+        
+        <ul class="am-pagination">
+          <li class="am-pagination-prev"><a href="http://yysfire.github.io/algorithm/algorithm_to_evaluate_and_convert_expression.html" title="前一篇：表达式求值及转换算法">&laquo;表达式求值及转换算法</a></li>
+        </ul>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3 pl-sidebar">
+    <section>
+      <div><strong>最后修改</strong></div>
+        <div>2014-12-21 04:18</div>
+        <div><strong>发表时间</strong></div>
+        <div>2014-12-20 23:04</div>
+    </section>
+    <section>
+        <div><strong>本文标签</strong></div>
+        <div class="list-of-tags tags-in-article">
+          <a href="http://yysfire.github.io/tags.html#algorithm-ref">Algorithm
+              <span>2</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#di-gui-ref">递归
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#er-cha-shu-ref">二叉树
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#hou-xu-bian-li-ref">后序遍历
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#xian-xu-bian-li-ref">先序遍历
+              <span>1</span>
+ </a>
+          <a href="http://yysfire.github.io/tags.html#zhong-xu-bian-li-ref">中序遍历
+              <span>1</span>
+ </a>
+        </div>
+    </section>
+    <section>
+<div><strong>关注我</strong></div>
+    <a href="https://twitter.com/yysfirecn" title="My twitter Profile" class="am-icon-btn am-icon-twitter am-icon-sm" target="_blank"></a>
+    <a href="https://www.facebook.com/yysfire" title="My facebook Profile" class="am-icon-btn am-icon-facebook am-icon-sm" target="_blank"></a>
+    <a href="https://github.com/yysfire" title="My github Profile" class="am-icon-btn am-icon-github am-icon-sm" target="_blank"></a>
+    </section>
+    <hr />
+    <div class="am-offcanvas" id="sidebar">
+      <div><strong>内容导航</strong></div>
+      <div class="am-offcanvas-bar">
+        <ul class="am-nav">
+          <!--<li class="am-nav-header">目录</li>-->
+          <div class="toc">
+<ul>
+<li><a href="#_1">由中序和先序遍历序列求后序遍历序列</a><ul>
+<li><a href="#_2">时间复杂度分析</a></li>
+<li><a href="#_3">空间复杂度分析</a></li>
+<li><a href="#_4">结论</a></li>
+</ul>
+</li>
+<li><a href="#_5">由中序和后序遍历序列求先序遍历序列</a></li>
+<li><a href="#_6">层序遍历序列</a></li>
+</ul>
+</div>
+        </ul>
+      </div>
+    </div>
+    <a href="#sidebar" class="am-btn am-btn-sm am-btn-success am-icon-bars am-show-sm-only my-button" data-am-offcanvas><span class="am-sr-only">侧栏导航</span></a>
+  </div>
+</div>
+<footer>
+  <div id="footer" class="am-vertical-align" style="height: 50px;">
+    <div class="site-power am-vertical-align-middle">©2012-2014 <a href="/">Yysfire</a>. Powered by <a href="http://getpelican.com/" title="Pelican Home Page" target="_blank">Pelican</a>. Theme: built with <a href="http://amazeui.org/" title="Amaze UI" target="_blank">Amaze UI</a> by <a href="http://yysfire.github.io" title="幽谷奇峰">Yysfire</a>
+    </div>
+  </div>
+</footer>    <script src="//apps.bdimg.com/libs/zepto/1.1.4/zepto.min.js"></script>
+    <script src="//cdn.amazeui.org/amazeui/1.0.1/js/amazeui.min.js"></script>
+    <script src="//apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+      function validateForm(query)
+      {
+        return (query.length > 0);
+      }
+    </script>
+
+
+  </body>
+</html>
